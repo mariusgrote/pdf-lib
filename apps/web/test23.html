@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" type="text/css" href="/apps/web/index.css" />
-    <title>Test 22</title>
+    <title>Test 23</title>
     <script type="text/javascript" src="/dist/pdf-lib.js"></script>
     <script type="text/javascript" src="/apps/web/utils.js"></script>
   </head>
@@ -134,13 +134,12 @@
     </svg></svg></svg></g>
       </g>
     </svg>`;
-    const svg2 = `<svg viewBox="0 0 100 50" width="100" height="100">
-  <rect x="0" y="0" width="100" height="100" fill="red"/>
-  <svg viewBox="-10 0 50 50">
-    <circle cx="25" cy="25" r="25" fill="#000000"/>
-  </svg>
-</svg>`
-
+    const svg2 = `<svg width="100" height="100" viewBox="0 0 100 100">
+      <rect width="100" height="100" x="0" y="0" fill="black"/>
+      <circle cx="50" cy="40" r="55" fill="red"/>
+      </svg>`
+      // <circle cx="80" cy="80" r="25" fill="red"/>
+      
       const drawLines = (page) => {
         Array(10)
         .fill(1)
