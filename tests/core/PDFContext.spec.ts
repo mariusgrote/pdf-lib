@@ -193,7 +193,7 @@ describe(`PDFContext`, () => {
       expect(lit).toEqual(dict);
 
       // Shallow conversion
-      lit = context.getLiteral(obj, {deep: false});
+      lit = context.getLiteral(obj, { deep: false });
       expect(lit.Boolean).toBe(PDFBool.True);
       expect(lit.Null).toBe(PDFNull);
       expect(lit.Number).toBeInstanceOf(PDFNumber);
@@ -201,15 +201,19 @@ describe(`PDFContext`, () => {
       expect(lit.Dictionary).toBeInstanceOf(PDFDict);
 
       // Extended conversion
-      lit = context.getLiteral(obj, {literalRef: true, literalString: true});
+      lit = context.getLiteral(obj, { literalRef: true, literalString: true });
       expect(lit.Ref).toBe(21);
       expect(lit.String).toBe('blub');
       expect(lit.HexString).toBe('ABC123');
       const stream = context.stream('foo', dict);
-      lit = context.getLiteral(stream, {literalStreamDict: true}) as typeof dict;
+      lit = context.getLiteral(stream, {
+        literalStreamDict: true,
+      }) as typeof dict;
       expect(lit).toEqual(dict);
       stream.updateDict();
-      lit = context.getLiteral(stream, {literalStreamDict: true}) as {Length: number};
+      lit = context.getLiteral(stream, { literalStreamDict: true }) as {
+        Length: number;
+      };
       expect(lit.Length).toBe(3);
     });
   });

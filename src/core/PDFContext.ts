@@ -39,12 +39,12 @@ type Literal =
   | null
   | undefined;
 
-interface getLiteralConfig {
+interface LiteralConfig {
   deep?: boolean;
   literalRef?: boolean;
   literalStreamDict?: boolean;
   literalString?: boolean;
-};
+}
 
 const byAscendingObjectNumber = (
   [a]: [PDFRef, PDFObject],
@@ -237,19 +237,27 @@ class PDFContext {
    * @param cfg.literalString Also convert PDFString and PDFHexString to a (literal) string value.
    * @returns Resolves with a document loaded from the input.
    */
-  getLiteral(obj: PDFArray, cfg?: getLiteralConfig): LiteralArray;
-  getLiteral(obj: PDFBool, cfg?: getLiteralConfig): boolean;
-  getLiteral(obj: PDFDict, cfg?: getLiteralConfig): LiteralObject;
-  getLiteral(obj: PDFHexString, cfg?: getLiteralConfig): PDFHexString | string;
-  getLiteral(obj: PDFName, cfg?: getLiteralConfig): string;
-  getLiteral(obj: typeof PDFNull, cfg?: getLiteralConfig): null;
-  getLiteral(obj: PDFNumber, cfg?: getLiteralConfig): number;
-  getLiteral(obj: PDFRef, cfg?: getLiteralConfig): PDFRef | number;
-  getLiteral(obj: PDFStream, cfg?: getLiteralConfig): PDFStream | LiteralObject;
-  getLiteral(obj: PDFString, cfg?: getLiteralConfig): PDFString | string;
-  getLiteral(obj: PDFObject, cfg?: getLiteralConfig): PDFObject;
-  getLiteral(obj: PDFObject, {deep = true, literalRef = false, literalStreamDict = false, literalString = false}: getLiteralConfig = {}): Literal | PDFObject {
-    const cfg = {deep, literalRef, literalStreamDict, literalString};
+  getLiteral(obj: PDFArray, cfg?: LiteralConfig): LiteralArray;
+  getLiteral(obj: PDFBool, cfg?: LiteralConfig): boolean;
+  getLiteral(obj: PDFDict, cfg?: LiteralConfig): LiteralObject;
+  getLiteral(obj: PDFHexString, cfg?: LiteralConfig): PDFHexString | string;
+  getLiteral(obj: PDFName, cfg?: LiteralConfig): string;
+  getLiteral(obj: typeof PDFNull, cfg?: LiteralConfig): null;
+  getLiteral(obj: PDFNumber, cfg?: LiteralConfig): number;
+  getLiteral(obj: PDFRef, cfg?: LiteralConfig): PDFRef | number;
+  getLiteral(obj: PDFStream, cfg?: LiteralConfig): PDFStream | LiteralObject;
+  getLiteral(obj: PDFString, cfg?: LiteralConfig): PDFString | string;
+  getLiteral(obj: PDFObject, cfg?: LiteralConfig): PDFObject;
+  getLiteral(
+    obj: PDFObject,
+    {
+      deep = true,
+      literalRef = false,
+      literalStreamDict = false,
+      literalString = false,
+    }: LiteralConfig = {},
+  ): Literal | PDFObject {
+    const cfg = { deep, literalRef, literalStreamDict, literalString };
     if (obj instanceof PDFArray) {
       const lit = obj.asArray();
       return deep ? lit.map((value) => this.getLiteral(value, cfg)) : lit;
@@ -273,7 +281,10 @@ class PDFContext {
       return obj.objectNumber;
     } else if (obj instanceof PDFStream && literalStreamDict) {
       return this.getLiteral(obj.dict, cfg);
-    } else if ((obj instanceof PDFString || obj instanceof PDFHexString) && literalString) {
+    } else if (
+      (obj instanceof PDFString || obj instanceof PDFHexString) &&
+      literalString
+    ) {
       return obj.asString();
     }
     return obj;

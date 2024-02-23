@@ -40,7 +40,7 @@
     "François Billioud (https://github.com/Sharcoux)"
   ],
   "scripts": {
-    "release": "yarn build && release-it",
+    "release": "yarn release:prep && release-it",
     "release:prep": "yarn clean && yarn lint && yarn typecheck && yarn test && yarn build",
     "get:version": "node --eval 'console.log(require(`./package.json`).version)'",
     "clean": "rimraf ts3.4 build cjs dist es scratchpad/build coverage tsBuildInfo.json apps/node-build apps/node/tsBuildInfo.json isolate*.log flamegraph.html out.pdf",
