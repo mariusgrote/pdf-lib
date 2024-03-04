@@ -758,14 +758,14 @@ export default class PDFDocument {
     await srcDoc.flush();
     const copier = PDFObjectCopier.for(srcDoc.context, this.context);
     const srcPages = srcDoc.getPages();
-    const copiedPages: PDFPage[] = new Array(indices.length);
-    for (let idx = 0, len = indices.length; idx < len; idx++) {
-      const srcPage = srcPages[indices[idx]];
-      const copiedPage = copier.copy(srcPage.node);
-      const ref = this.context.register(copiedPage);
-      copiedPages[idx] = PDFPage.of(copiedPage, ref, this);
-    }
-    return copiedPages;
+    // Copy each page in a separate thread
+    const copiedPages = indices
+      .map((i) => srcPages[i])
+      .map(async (page) => copier.copy(page.node))
+      .map((p) =>
+        p.then((copy) => PDFPage.of(copy, this.context.register(copy), this)),
+      );
+    return Promise.all(copiedPages);
   }
 
   /**
