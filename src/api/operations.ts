@@ -393,7 +393,7 @@ export const drawSvgPath = (
     options.graphicsState && setGraphicsState(options.graphicsState),
     ...(options.clipSpaces ? clipSpaces(options.clipSpaces) : []),
     options.matrix && concatTransformationMatrix(...options.matrix),
- 
+
     translate(options.x, options.y),
     rotateRadians(toRadians(options.rotate ?? degrees(0))),
 

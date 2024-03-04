@@ -311,7 +311,11 @@ const runnersToPage = (
       opacity: element.svgAttributes.fillOpacity,
       fillRule: element.svgAttributes.fillRule,
       // drawSvgPath already handle the page y coord correctly, so we can undo the svg parsing correction
-      matrix: combineTransformation(element.svgAttributes.matrix, 'scale', [1, -1]),
+      matrix: combineTransformation(
+        element.svgAttributes.matrix,
+        'scale',
+        [1, -1],
+      ),
       clipSpaces: element.svgAttributes.clipSpaces,
     });
   },
