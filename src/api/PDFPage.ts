@@ -1583,6 +1583,15 @@ export default class PDFPage {
    * // Draw svg
    * page.drawSvg(svg, { x: 25, y: 75 })
    * ```
+   *
+   * If the svg contains images, you must call embedSvg first:
+   * ```js
+   * const svg = '<svg><image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="/></svg>'
+   *
+   * // Draw svg
+   * const pdfSvg = page.embedSvg(svg)
+   * page.drawSvg(pdfSvg, { x: 25, y: 75 })
+   * ```
    * @param svg The SVG to be drawn.
    * @param options The options to be used when drawing the SVG.
    */

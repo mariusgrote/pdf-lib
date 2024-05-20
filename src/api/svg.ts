@@ -323,7 +323,7 @@ const runnersToPage = (
   image(element) {
     const { src } = element.svgAttributes;
     if (!(src && options.images?.[src])) return;
-    const img = options.images?.[src]!
+    const img = options.images?.[src]!;
 
     const { x, y, width, height } = getFittingRectangle(
       img.width,
@@ -500,7 +500,7 @@ const parseAttributes = (
   };
 
   const svgAttributes: SVGAttributes = {
-    src: attributes.src ||  attributes.href || attributes['xlink:href'],
+    src: attributes.src || attributes.href || attributes['xlink:href'],
     textAnchor: attributes['text-anchor'],
     dominantBaseline: attributes['dominant-baseline'],
     preserveAspectRatio: attributes.preserveAspectRatio,
@@ -898,9 +898,9 @@ const parse = (
 export const drawSvg = (
   page: PDFPage,
   svg: PDFSvg | string,
-  options: PDFPageDrawSVGElementOptions
+  options: PDFPageDrawSVGElementOptions,
 ) => {
-  const pdfSvg = typeof svg === 'string' ? new PDFSvg(svg) : svg
+  const pdfSvg = typeof svg === 'string' ? new PDFSvg(svg) : svg;
   if (!pdfSvg.svg) return;
   const size = page.getSize();
   const firstChild = parseHtml(pdfSvg.svg).firstChild as HTMLElement;
@@ -954,7 +954,7 @@ export const drawSvg = (
   );
 
   const runners = runnersToPage(page, { ...options, images: pdfSvg.images });
-  elements.forEach(elt => {
+  elements.forEach((elt) => {
     // uncomment these lines to draw the clipSpaces
     // elt.svgAttributes.clipSpaces.forEach(space => {
     //   page.drawLine({
@@ -985,6 +985,6 @@ export const drawSvg = (
     //     thickness: 1
     //   })
     // })
-    runners[elt.tagName]?.(elt)
+    runners[elt.tagName]?.(elt);
   });
-}
+};

@@ -76,6 +76,7 @@ Install with: `npm install @cantoo/pdf-lib`
   - [Set Viewer Preferences](#set-viewer-preferences)
   - [Read Viewer Preferences](#read-viewer-preferences)
   - [Draw SVG Paths](#draw-svg-paths)
+  - [Draw SVG](#draw-svg)
 - [Deno Usage](#deno-usage)
 - [Complete Examples](#complete-examples)
 - [Installation](#installation)
@@ -1010,6 +1011,37 @@ const pdfBytes = await pdfDoc.save()
 //   • Written to a file in Node
 //   • Downloaded from the browser
 //   • Rendered in an <iframe>
+```
+
+### Draw SVG
+
+```js
+import { PDFDocument, rgb } from 'pdf-lib'
+
+// SVG of a square inside a square
+const svg = `<svg width="100" height="100">
+  <rect y="0" x="0" width="100" height="100" fill="none" stroke="black"/>
+  <rect y="25" x="25" width="50" height="50" fill="black"/>
+</svg>`;
+const svg2 = '<svg><image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="/></svg>'
+
+// Create a new PDFDocument
+const pdfDoc = await PDFDocument.create()
+
+// Add a blank page to the document
+const page = pdfDoc.addPage()
+
+// drawSvg can accept the svg as a string, as long as there are no images in it
+page.moveTo(100, 10)
+page.drawSvg(svg)
+
+// If the svg has images, or if you don't know if it does, you should call embedSVG first
+page.moveTo(200, 10)
+const pdfSvg = await page.embedSvg(svg2)
+page.drawSvg(pdfSvg)
+
+// Serialize the PDFDocument to bytes (a Uint8Array)
+const pdfBytes = await pdfDoc.save()
 ```
 
 ## Deno Usage
