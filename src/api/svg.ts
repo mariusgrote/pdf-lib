@@ -349,6 +349,8 @@ const runnersToPage = (
       y: 0,
       width: element.svgAttributes.width,
       height: element.svgAttributes.height * -1,
+      rx: element.svgAttributes.rx,
+      ry: element.svgAttributes.ry,
       borderColor: element.svgAttributes.stroke,
       borderWidth: element.svgAttributes.strokeWidth,
       borderOpacity: element.svgAttributes.strokeOpacity,

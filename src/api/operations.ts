@@ -224,7 +224,8 @@ export const drawRectangle = ({
   rotate,
   xSkew,
   ySkew,
-  borderRadius,
+  rx = 0,
+  ry = 0,
   borderWidth,
   borderColor,
   borderLineCap,
@@ -242,7 +243,8 @@ export const drawRectangle = ({
   rotate: Rotation;
   xSkew: Rotation;
   ySkew: Rotation;
-  borderRadius?: number;
+  rx?: number;
+  ry?: number;
   borderWidth: number | PDFNumber;
   borderColor: Color | undefined;
   borderLineCap?: LineCapStyle;
@@ -254,20 +256,23 @@ export const drawRectangle = ({
 }) => {
   const w = typeof width === 'number' ? width : width.asNumber();
   const h = typeof height === 'number' ? height : height.asNumber();
-  const d = borderRadius
-    ? [
-        `M ${borderRadius},0`,
-        `L ${w - borderRadius},0`,
-        `C ${w - borderRadius * (1 - KAPPA)},0 ${w},${borderRadius * (1 - KAPPA)} ${w},${borderRadius}`,
-        `L ${w},${h - borderRadius}`,
-        `C ${w},${h - borderRadius * (1 - KAPPA)} ${w - borderRadius * (1 - KAPPA)},${h} ${w - borderRadius},${h}`,
-        `L ${borderRadius},${h}`,
-        `C ${borderRadius * (1 - KAPPA)},${h} 0,${h - borderRadius * (1 - KAPPA)} 0,${h - borderRadius}`,
-        `L 0,${borderRadius}`,
-        `C 0,${borderRadius * (1 - KAPPA)} ${borderRadius * (1 - KAPPA)},0 ${borderRadius},0`,
-        `Z`,
-      ].join(' ')
-    : [`M 0,0`, `L 0,${h}`, `L ${w},${h}`, `L ${w},0`, `Z`].join(' ');
+  rx = Math.max(0, Math.min(rx, w / 2));
+  ry = Math.max(0, Math.min(ry, h / 2));
+  const d =
+    rx || ry
+      ? [
+          `M ${rx},0`,
+          `L ${w - rx},0`,
+          `C ${w - rx * (1 - KAPPA)},0 ${w},${ry * (1 - KAPPA)} ${w},${ry}`,
+          `L ${w},${h - ry}`,
+          `C ${w},${h - ry * (1 - KAPPA)} ${w - rx * (1 - KAPPA)},${h} ${w - rx},${h}`,
+          `L ${rx},${h}`,
+          `C ${rx * (1 - KAPPA)},${h} 0,${h - ry * (1 - KAPPA)} 0,${h - ry}`,
+          `L 0,${ry}`,
+          `C 0,${ry * (1 - KAPPA)} ${rx * (1 - KAPPA)},0 ${rx},0`,
+          `Z`,
+        ].join(' ')
+      : [`M 0,0`, `L 0,${h}`, `L ${w},${h}`, `L ${w},0`, `Z`].join(' ');
 
   const drawRect = drawSvgPath(d, {
     x: 0,

@@ -101,6 +101,8 @@ export interface PDFPageDrawLineOptions extends SvgOptions {
 export interface PDFPageDrawRectangleOptions extends SvgOptions {
   x?: number;
   y?: number;
+  rx?: number;
+  ry?: number;
   width?: number;
   height?: number;
   rotate?: Rotation;
@@ -109,7 +111,6 @@ export interface PDFPageDrawRectangleOptions extends SvgOptions {
   borderWidth?: number;
   color?: Color;
   opacity?: number;
-  borderRadius?: number;
   borderColor?: Color;
   borderOpacity?: number;
   borderDashArray?: number[];

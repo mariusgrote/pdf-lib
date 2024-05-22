@@ -1355,6 +1355,8 @@ export default class PDFPage {
    * page.drawRectangle({
    *   x: 25,
    *   y: 75,
+   *   rx: 5, // This is the border radius
+   *   ry: 5,
    *   width: 250,
    *   height: 75,
    *   rotate: degrees(-15),
@@ -1378,7 +1380,8 @@ export default class PDFPage {
     assertOrUndefined(options.borderWidth, 'options.borderWidth', ['number']);
     assertOrUndefined(options.color, 'options.color', [[Object, 'Color']]);
     assertRangeOrUndefined(options.opacity, 'options.opacity', 0, 1);
-    assertOrUndefined(options.borderRadius, 'options.cornerRadius', ['number']);
+    assertOrUndefined(options.rx, 'options.rx', ['number']);
+    assertOrUndefined(options.ry, 'options.ry', ['number']);
     assertOrUndefined(options.borderColor, 'options.borderColor', [
       [Object, 'Color'],
     ]);
@@ -1423,7 +1426,8 @@ export default class PDFPage {
         ySkew: options.ySkew ?? degrees(0),
         borderWidth: options.borderWidth ?? 0,
         color: options.color ?? undefined,
-        borderRadius: options.borderRadius ?? 0,
+        rx: options.rx ?? 0,
+        ry: options.ry ?? 0,
         borderColor: options.borderColor ?? undefined,
         borderDashArray: options.borderDashArray ?? undefined,
         borderDashPhase: options.borderDashPhase ?? undefined,
