@@ -256,27 +256,40 @@ export const drawRectangle = ({
 }) => {
   const w = typeof width === 'number' ? width : width.asNumber();
   const h = typeof height === 'number' ? height : height.asNumber();
+
+  // Ensure rx and ry are within bounds
   rx = Math.max(0, Math.min(rx, w / 2));
   ry = Math.max(0, Math.min(ry, h / 2));
+
+  // Generate the SVG path
   const d =
-    rx || ry
+    rx > 0 || ry > 0
       ? [
           `M ${rx},0`,
-          `L ${w - rx},0`,
+          `H ${w - rx}`,
           `C ${w - rx * (1 - KAPPA)},0 ${w},${ry * (1 - KAPPA)} ${w},${ry}`,
-          `L ${w},${h - ry}`,
+          `V ${h - ry}`,
           `C ${w},${h - ry * (1 - KAPPA)} ${w - rx * (1 - KAPPA)},${h} ${w - rx},${h}`,
-          `L ${rx},${h}`,
+          `H ${rx}`,
           `C ${rx * (1 - KAPPA)},${h} 0,${h - ry * (1 - KAPPA)} 0,${h - ry}`,
-          `L 0,${ry}`,
+          `V ${ry}`,
           `C 0,${ry * (1 - KAPPA)} ${rx * (1 - KAPPA)},0 ${rx},0`,
           `Z`,
         ].join(' ')
-      : [`M 0,0`, `L 0,${h}`, `L ${w},${h}`, `L ${w},0`, `Z`].join(' ');
+      : `M 0,0 H ${w} V ${h} H 0 Z`;
 
-  const drawRect = drawSvgPath(d, {
-    x: 0,
-    y: 0,
+  // Transformation to apply rotation and skew
+  const fullMatrix: TransformationMatrix = matrix
+    ? [...matrix]
+    : [1, 0, 0, 1, 0, 0];
+  fullMatrix[0] += toRadians(xSkew);
+  fullMatrix[1] += toRadians(ySkew);
+  fullMatrix[2] += toRadians(rotate);
+
+  return drawSvgPath(d, {
+    x: typeof x === 'number' ? x : x.asNumber(),
+    y: typeof y === 'number' ? y : y.asNumber(),
+    rotate: degrees(0), // Already applied in matrix transform
     scale: 1,
     color,
     borderColor,
@@ -285,25 +298,9 @@ export const drawRectangle = ({
     borderDashPhase,
     borderLineCap,
     graphicsState,
+    matrix: fullMatrix,
+    clipSpaces: clipSpacesProp,
   });
-  return [
-    pushGraphicsState(),
-    graphicsState && setGraphicsState(graphicsState),
-    color && setFillingColor(color),
-    borderColor && setStrokingColor(borderColor),
-    setLineWidth(borderWidth),
-    borderLineCap && setLineCap(borderLineCap),
-    setDashPattern(borderDashArray ?? [], borderDashPhase ?? 0),
-    ...(clipSpacesProp ? clipSpaces(clipSpacesProp) : []),
-    matrix && concatTransformationMatrix(...matrix),
-    translate(x, y),
-    rotateRadians(toRadians(rotate)),
-    skewRadians(toRadians(xSkew), toRadians(ySkew)),
-    ...drawRect,
-    closePath(),
-
-    popGraphicsState(),
-  ].filter(Boolean) as PDFOperator[];
 };
 
 /** @deprecated */
