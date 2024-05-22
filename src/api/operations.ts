@@ -300,6 +300,7 @@ export const drawRectangle = ({
     rotateRadians(toRadians(rotate)),
     skewRadians(toRadians(xSkew), toRadians(ySkew)),
     ...drawRect,
+    closePath(),
 
     popGraphicsState(),
   ].filter(Boolean) as PDFOperator[];
