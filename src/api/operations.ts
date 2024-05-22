@@ -237,7 +237,7 @@ export const drawRectangle = (options: {
 }) => {
   const { width, height, xSkew, ySkew, rotate, matrix } = options;
   const w = typeof width === 'number' ? width : width.asNumber();
-  const h = typeof height === 'number' ? height : height.asNumber();
+  const h = -(typeof height === 'number' ? height : height.asNumber());
 
   // Ensure rx and ry are within bounds
   const rx = Math.max(0, Math.min(options.rx || 0, w / 2));
