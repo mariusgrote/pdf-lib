@@ -213,53 +213,92 @@ export const drawLine = (options: {
     popGraphicsState(),
   ].filter(Boolean) as PDFOperator[];
 
-export const drawRectangle = (options: {
+const KAPPA = 4.0 * ((Math.sqrt(2) - 1.0) / 3.0);
+
+export const drawRectangle = ({
+  x,
+  y,
+  width,
+  height,
+  color,
+  rotate,
+  xSkew,
+  ySkew,
+  borderRadius,
+  borderWidth,
+  borderColor,
+  borderLineCap,
+  borderDashArray,
+  borderDashPhase,
+  graphicsState,
+  matrix,
+  clipSpaces: clipSpacesProp,
+}: {
   x: number | PDFNumber;
   y: number | PDFNumber;
   width: number | PDFNumber;
   height: number | PDFNumber;
-  borderWidth: number | PDFNumber;
   color: Color | undefined;
-  borderColor: Color | undefined;
   rotate: Rotation;
   xSkew: Rotation;
   ySkew: Rotation;
+  borderRadius?: number;
+  borderWidth: number | PDFNumber;
+  borderColor: Color | undefined;
   borderLineCap?: LineCapStyle;
   borderDashArray?: (number | PDFNumber)[];
   borderDashPhase?: number | PDFNumber;
   graphicsState?: string | PDFName;
   matrix?: TransformationMatrix;
   clipSpaces?: Space[];
-}) =>
-  [
-    pushGraphicsState(),
-    options.graphicsState && setGraphicsState(options.graphicsState),
-    options.color && setFillingColor(options.color),
-    options.borderColor && setStrokingColor(options.borderColor),
-    setLineWidth(options.borderWidth),
-    options.borderLineCap && setLineCap(options.borderLineCap),
-    setDashPattern(options.borderDashArray ?? [], options.borderDashPhase ?? 0),
-    ...(options.clipSpaces ? clipSpaces(options.clipSpaces) : []),
-    options.matrix && concatTransformationMatrix(...options.matrix),
-    translate(options.x, options.y),
-    rotateRadians(toRadians(options.rotate)),
-    skewRadians(toRadians(options.xSkew), toRadians(options.ySkew)),
-    moveTo(0, 0),
-    lineTo(0, options.height),
-    lineTo(options.width, options.height),
-    lineTo(options.width, 0),
-    closePath(),
+}) => {
+  const w = typeof width === 'number' ? width : width.asNumber();
+  const h = typeof height === 'number' ? height : height.asNumber();
+  const d = borderRadius
+    ? [
+        `M ${borderRadius},0`,
+        `L ${w - borderRadius},0`,
+        `C ${w - borderRadius * (1 - KAPPA)},0 ${w},${borderRadius * (1 - KAPPA)} ${w},${borderRadius}`,
+        `L ${w},${h - borderRadius}`,
+        `C ${w},${h - borderRadius * (1 - KAPPA)} ${w - borderRadius * (1 - KAPPA)},${h} ${w - borderRadius},${h}`,
+        `L ${borderRadius},${h}`,
+        `C ${borderRadius * (1 - KAPPA)},${h} 0,${h - borderRadius * (1 - KAPPA)} 0,${h - borderRadius}`,
+        `L 0,${borderRadius}`,
+        `C 0,${borderRadius * (1 - KAPPA)} ${borderRadius * (1 - KAPPA)},0 ${borderRadius},0`,
+        `Z`,
+      ].join(' ')
+    : [`M 0,0`, `L 0,${h}`, `L ${w},${h}`, `L ${w},0`, `Z`].join(' ');
 
-    // prettier-ignore
-    options.color && options.borderWidth ? fillAndStroke()
-  : options.color                      ? fill()
-  : options.borderColor                ? stroke()
-  : closePath(),
+  const drawRect = drawSvgPath(d, {
+    x: 0,
+    y: 0,
+    scale: 1,
+    color,
+    borderColor,
+    borderWidth,
+    borderDashArray,
+    borderDashPhase,
+    borderLineCap,
+    graphicsState,
+  });
+  return [
+    pushGraphicsState(),
+    graphicsState && setGraphicsState(graphicsState),
+    color && setFillingColor(color),
+    borderColor && setStrokingColor(borderColor),
+    setLineWidth(borderWidth),
+    borderLineCap && setLineCap(borderLineCap),
+    setDashPattern(borderDashArray ?? [], borderDashPhase ?? 0),
+    ...(clipSpacesProp ? clipSpaces(clipSpacesProp) : []),
+    matrix && concatTransformationMatrix(...matrix),
+    translate(x, y),
+    rotateRadians(toRadians(rotate)),
+    skewRadians(toRadians(xSkew), toRadians(ySkew)),
+    ...drawRect,
 
     popGraphicsState(),
   ].filter(Boolean) as PDFOperator[];
-
-const KAPPA = 4.0 * ((Math.sqrt(2) - 1.0) / 3.0);
+};
 
 /** @deprecated */
 export const drawEllipsePath = (config: {

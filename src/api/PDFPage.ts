@@ -1377,7 +1377,8 @@ export default class PDFPage {
     assertOrUndefined(options.ySkew, 'options.ySkew', [[Object, 'Rotation']]);
     assertOrUndefined(options.borderWidth, 'options.borderWidth', ['number']);
     assertOrUndefined(options.color, 'options.color', [[Object, 'Color']]);
-    assertRangeOrUndefined(options.opacity, 'opacity.opacity', 0, 1);
+    assertRangeOrUndefined(options.opacity, 'options.opacity', 0, 1);
+    assertOrUndefined(options.borderRadius, 'options.cornerRadius', ['number']);
     assertOrUndefined(options.borderColor, 'options.borderColor', [
       [Object, 'Color'],
     ]);
@@ -1422,6 +1423,7 @@ export default class PDFPage {
         ySkew: options.ySkew ?? degrees(0),
         borderWidth: options.borderWidth ?? 0,
         color: options.color ?? undefined,
+        borderRadius: options.borderRadius ?? 0,
         borderColor: options.borderColor ?? undefined,
         borderDashArray: options.borderDashArray ?? undefined,
         borderDashPhase: options.borderDashPhase ?? undefined,

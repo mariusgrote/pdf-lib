@@ -109,6 +109,7 @@ export interface PDFPageDrawRectangleOptions extends SvgOptions {
   borderWidth?: number;
   color?: Color;
   opacity?: number;
+  borderRadius?: number;
   borderColor?: Color;
   borderOpacity?: number;
   borderDashArray?: number[];
