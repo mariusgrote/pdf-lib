@@ -37,6 +37,11 @@
       document.getElementById('iframe').src = blobUrl;
     };
 
+    const svg = `<svg width="200" height="150" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="150" fill="lightgrey" />
+      <rect x="10" y="10" width="180" height="130" rx="20" ry="30" fill="blue" stroke="black" stroke-width="3" />
+    </svg>`;
+
     async function test() {
       const { PDFDocument, rgb, degrees } = PDFLib;
 
@@ -100,6 +105,8 @@
         rx: 25, // Half of the smallest dimension
         ry: 25, // Half of the smallest dimension
       });
+
+      page.drawSvg(svg, { x: 200, y: 300, width: 200, height: 250 });
 
       const pdfBytes = await pdfDoc.save();
       renderInIframe(pdfBytes);

@@ -215,26 +215,7 @@ export const drawLine = (options: {
 
 const KAPPA = 4.0 * ((Math.sqrt(2) - 1.0) / 3.0);
 
-export const drawRectangle = ({
-  x,
-  y,
-  width,
-  height,
-  color,
-  rotate,
-  xSkew,
-  ySkew,
-  rx = 0,
-  ry = 0,
-  borderWidth,
-  borderColor,
-  borderLineCap,
-  borderDashArray,
-  borderDashPhase,
-  graphicsState,
-  matrix,
-  clipSpaces: clipSpacesProp,
-}: {
+export const drawRectangle = (options: {
   x: number | PDFNumber;
   y: number | PDFNumber;
   width: number | PDFNumber;
@@ -254,12 +235,13 @@ export const drawRectangle = ({
   matrix?: TransformationMatrix;
   clipSpaces?: Space[];
 }) => {
+  const { width, height, xSkew, ySkew, rotate, matrix } = options;
   const w = typeof width === 'number' ? width : width.asNumber();
   const h = typeof height === 'number' ? height : height.asNumber();
 
   // Ensure rx and ry are within bounds
-  rx = Math.max(0, Math.min(rx, w / 2));
-  ry = Math.max(0, Math.min(ry, h / 2));
+  const rx = Math.max(0, Math.min(options.rx || 0, w / 2));
+  const ry = Math.max(0, Math.min(options.ry || 0, h / 2));
 
   // Generate the SVG path
   const d =
@@ -279,27 +261,19 @@ export const drawRectangle = ({
       : `M 0,0 H ${w} V ${h} H 0 Z`;
 
   // Transformation to apply rotation and skew
-  const fullMatrix: TransformationMatrix = matrix
-    ? [...matrix]
-    : [1, 0, 0, 1, 0, 0];
-  fullMatrix[0] += toRadians(xSkew);
-  fullMatrix[1] += toRadians(ySkew);
-  fullMatrix[2] += toRadians(rotate);
+  let fullMatrix = matrix;
+  if (xSkew || ySkew || rotate) {
+    fullMatrix = matrix ? [...matrix] : [1, 0, 0, 1, 0, 0];
+    fullMatrix[0] += toRadians(xSkew);
+    fullMatrix[1] += toRadians(ySkew);
+    fullMatrix[2] += toRadians(rotate);
+  }
 
   return drawSvgPath(d, {
-    x: typeof x === 'number' ? x : x.asNumber(),
-    y: typeof y === 'number' ? y : y.asNumber(),
+    ...options,
     rotate: degrees(0), // Already applied in matrix transform
     scale: 1,
-    color,
-    borderColor,
-    borderWidth,
-    borderDashArray,
-    borderDashPhase,
-    borderLineCap,
-    graphicsState,
     matrix: fullMatrix,
-    clipSpaces: clipSpacesProp,
   });
 };
 
