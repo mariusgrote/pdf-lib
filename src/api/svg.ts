@@ -70,7 +70,21 @@ type SVGAttributes = {
   textAnchor?: string;
   preserveAspectRatio?: string;
   strokeWidth?: number;
-  dominantBaseline?: string;
+  dominantBaseline?:
+    | 'auto'
+    | 'text-bottom'
+    | 'alphabetic'
+    | 'ideographic'
+    | 'middle'
+    | 'central'
+    | 'mathematical'
+    | 'hanging'
+    | 'text-top'
+    | 'use-script'
+    | 'no-change'
+    | 'reset-size'
+    | 'text-after-edge'
+    | 'text-before-edge';
   points?: string;
 };
 
@@ -256,18 +270,42 @@ const runnersToPage = (
     );
 
     const textHeight = (font || page.getFont()[0]).heightAtSize(fontSize);
+    const overLineHeight = (font || page.getFont()[0]).heightAtSize(fontSize, {
+      descender: false,
+    });
     const offsetX =
       anchor === 'middle' ? textWidth / 2 : anchor === 'end' ? textWidth : 0;
 
-    const offsetY =
-      dominantBaseline === 'text-before-edge'
-        ? textHeight
-        : dominantBaseline === 'text-after-edge'
-          ? -textHeight
-          : dominantBaseline === 'middle'
-            ? textHeight / 2
-            : 0;
-
+    let offsetY = 0;
+    switch (dominantBaseline) {
+      case 'middle':
+      case 'central':
+        offsetY = overLineHeight - textHeight / 2;
+        break;
+      case 'mathematical':
+        offsetY = fontSize * 0.6; // Mathematical (approximation)
+        break;
+      case 'hanging':
+        offsetY = overLineHeight; // Hanging baseline is at the top
+        break;
+      case 'text-before-edge':
+        offsetY = fontSize; // Top of the text
+        break;
+      case 'ideographic':
+      case 'text-after-edge':
+        offsetY = overLineHeight - textHeight; // After edge (similar to text-bottom)
+        break;
+      case 'text-top':
+      case 'text-bottom':
+      case 'auto':
+      case 'use-script':
+      case 'no-change':
+      case 'reset-size':
+      case 'alphabetic':
+      default:
+        offsetY = 0; // Default to alphabetic if not specified
+        break;
+    }
     page.drawText(text, {
       x: -offsetX,
       y: -offsetY,
@@ -504,7 +542,9 @@ const parseAttributes = (
   const svgAttributes: SVGAttributes = {
     src: attributes.src || attributes.href || attributes['xlink:href'],
     textAnchor: attributes['text-anchor'],
-    dominantBaseline: attributes['dominant-baseline'],
+    dominantBaseline: attributes[
+      'dominant-baseline'
+    ] as SVGAttributes['dominantBaseline'],
     preserveAspectRatio: attributes.preserveAspectRatio,
   };
 
@@ -905,9 +945,12 @@ export const drawSvg = (
   const pdfSvg = typeof svg === 'string' ? new PDFSvg(svg) : svg;
   if (!pdfSvg.svg) return;
   const size = page.getSize();
-  const firstChild = parseHtml(pdfSvg.svg).firstChild as HTMLElement;
+  const svgNode = parseHtml(pdfSvg.svg).querySelector('svg');
+  if (!svgNode) {
+    return console.error('This is not an svg. Ignoring: ' + pdfSvg.svg);
+  }
 
-  const attributes = firstChild.attributes;
+  const attributes = svgNode.attributes;
   const style = parseStyles(attributes.style);
 
   const widthRaw = styleOrAttribute(attributes, style, 'width', '');
@@ -920,7 +963,7 @@ export const drawSvg = (
 
   // it's important to add the viewBox to allow svg resizing through the options
   if (!attributes.viewBox) {
-    firstChild.setAttribute(
+    svgNode.setAttribute(
       'viewBox',
       `0 0 ${widthRaw || width} ${heightRaw || height}`,
     );
@@ -931,7 +974,7 @@ export const drawSvg = (
     if (height !== undefined) {
       style.height = height + (isNaN(height) ? '' : 'px');
     }
-    firstChild.setAttribute(
+    svgNode.setAttribute(
       'style',
       Object.entries(style) // tslint:disable-line
         .map(([key, val]) => `${key}:${val};`)
@@ -948,12 +991,7 @@ export const drawSvg = (
     options.y || 0,
   ];
 
-  const elements = parse(
-    firstChild.outerHTML,
-    options,
-    size,
-    baseTransformation,
-  );
+  const elements = parse(svgNode.outerHTML, options, size, baseTransformation);
 
   const runners = runnersToPage(page, { ...options, images: pdfSvg.images });
   elements.forEach((elt) => {
