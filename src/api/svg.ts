@@ -316,6 +316,7 @@ const runnersToPage = (
       opacity: element.svgAttributes.fillOpacity,
       matrix: element.svgAttributes.matrix,
       clipSpaces: element.svgAttributes.clipSpaces,
+      blendMode: options.blendMode,
     });
   },
   line(element) {
@@ -334,6 +335,7 @@ const runnersToPage = (
       lineCap: element.svgAttributes.strokeLineCap,
       matrix: element.svgAttributes.matrix,
       clipSpaces: element.svgAttributes.clipSpaces,
+      blendMode: options.blendMode,
     });
   },
   path(element) {
@@ -356,6 +358,7 @@ const runnersToPage = (
         [1, -1],
       ),
       clipSpaces: element.svgAttributes.clipSpaces,
+      blendMode: options.blendMode,
     });
   },
   image(element) {
@@ -378,6 +381,7 @@ const runnersToPage = (
       opacity: element.svgAttributes.fillOpacity,
       matrix: element.svgAttributes.matrix,
       clipSpaces: element.svgAttributes.clipSpaces,
+      blendMode: options.blendMode,
     });
   },
   rect(element) {
@@ -397,6 +401,7 @@ const runnersToPage = (
       opacity: element.svgAttributes.fillOpacity,
       matrix: element.svgAttributes.matrix,
       clipSpaces: element.svgAttributes.clipSpaces,
+      blendMode: options.blendMode,
     });
   },
   ellipse(element) {
@@ -413,6 +418,7 @@ const runnersToPage = (
       opacity: element.svgAttributes.fillOpacity,
       matrix: element.svgAttributes.matrix,
       clipSpaces: element.svgAttributes.clipSpaces,
+      blendMode: options.blendMode,
     });
   },
   circle(element) {

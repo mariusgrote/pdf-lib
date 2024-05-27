@@ -176,4 +176,5 @@ export interface PDFPageDrawSVGElementOptions {
   height?: number;
   fontSize?: number;
   fonts?: { [fontName: string]: PDFFont };
+  blendMode?: BlendMode;
 }
