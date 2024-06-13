@@ -732,10 +732,10 @@ export default class PDFForm {
     let refOrDict = widget.getNormalAppearance();
 
     if (field instanceof PDFCheckBox || field instanceof PDFRadioGroup) {
-      if(refOrDict instanceof PDFRef){
-        refOrDict = this.doc.context.lookup(refOrDict,PDFDict);
+      if (refOrDict instanceof PDFRef) {
+        refOrDict = this.doc.context.lookup(refOrDict, PDFDict);
       }
-      if(refOrDict instanceof PDFDict){
+      if (refOrDict instanceof PDFDict) {
         const value = field.acroField.getValue();
         const ref = refOrDict.get(value) ?? refOrDict.get(PDFName.of('Off'));
 
