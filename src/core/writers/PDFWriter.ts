@@ -148,7 +148,10 @@ class PDFWriter {
 
   protected encrypt(ref: PDFRef, object: PDFObject, security: PDFSecurity) {
     if (object instanceof PDFStream) {
-      const encryptFn = security.getEncryptFn(ref.objectNumber, ref.generationNumber);
+      const encryptFn = security.getEncryptFn(
+        ref.objectNumber,
+        ref.generationNumber,
+      );
       const unencryptedContents = object.getContents();
       const encryptedContents = encryptFn(unencryptedContents);
       object.updateContents(encryptedContents);
