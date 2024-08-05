@@ -114,15 +114,15 @@ class PDFArray extends PDFObject {
   asRectangle(): { x: number; y: number; width: number; height: number } {
     if (this.size() !== 4) throw new PDFArrayIsNotRectangleError(this.size());
 
-    const lowerLeftX = this.lookup(0, PDFNumber).asNumber();
-    const lowerLeftY = this.lookup(1, PDFNumber).asNumber();
-    const upperRightX = this.lookup(2, PDFNumber).asNumber();
-    const upperRightY = this.lookup(3, PDFNumber).asNumber();
+    const x1 = this.lookup(0, PDFNumber).asNumber();
+    const y1 = this.lookup(1, PDFNumber).asNumber();
+    const x2 = this.lookup(2, PDFNumber).asNumber();
+    const y2 = this.lookup(3, PDFNumber).asNumber();
 
-    const x = lowerLeftX;
-    const y = lowerLeftY;
-    const width = upperRightX - lowerLeftX;
-    const height = upperRightY - lowerLeftY;
+    const x = Math.min(x1, x2);
+    const y = Math.min(y1, y2);
+    const width = Math.abs(x1 - x2);
+    const height = Math.abs(y1 - y2);
 
     return { x, y, width, height };
   }
