@@ -31,7 +31,7 @@ To update your code, you must call embedSvg first
 
 ```js
 const svg = '<svg><image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="/></svg>'
-const pdfSvg = await pdfPage.embedSvg(svg)
+const pdfSvg = await pdfDoc.embedSvg(svg)
 pdfPage.drawSvg(pdfSvg)
 ```
 
