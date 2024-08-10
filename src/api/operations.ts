@@ -37,11 +37,13 @@ import {
   TextRenderingMode,
   setTextRenderingMode,
 } from './operators';
-import { Rotation, degrees, toRadians } from './rotations';
+import { Rotation, degrees, toDegrees, toRadians } from './rotations';
 import { svgPathToOperators } from './svgPath';
 import { PDFHexString, PDFName, PDFNumber, PDFOperator } from '../core';
 import { asNumber } from './objects';
 import type { Space, TransformationMatrix } from '../types';
+import { transformationToMatrix, combineMatrix } from './svg';
+import { identityMatrix } from 'src/types/matrix';
 
 export interface DrawTextOptions {
   color: Color;
@@ -261,14 +263,26 @@ export const drawRectangle = (options: {
       : `M 0,0 H ${w} V ${h} H 0 Z`;
 
   // Transformation to apply rotation and skew
-  let fullMatrix = matrix;
-  if (xSkew || ySkew || rotate) {
-    fullMatrix = matrix ? [...matrix] : [1, 0, 0, 1, 0, 0];
-    fullMatrix[0] += toRadians(xSkew);
-    fullMatrix[1] += toRadians(ySkew);
-    fullMatrix[2] += toRadians(rotate);
-  }
+  let fullMatrix = matrix || identityMatrix;
 
+  if (rotate) {
+    fullMatrix = combineMatrix(
+      fullMatrix,
+      transformationToMatrix('rotate', [toDegrees(rotate)]),
+    );
+  }
+  if (xSkew) {
+    fullMatrix = combineMatrix(
+      fullMatrix,
+      transformationToMatrix('skewX', [toDegrees(xSkew)]),
+    );
+  }
+  if (ySkew) {
+    fullMatrix = combineMatrix(
+      fullMatrix,
+      transformationToMatrix('skewY', [toDegrees(ySkew)]),
+    );
+  }
   return drawSvgPath(d, {
     ...options,
     rotate: degrees(0), // Already applied in matrix transform

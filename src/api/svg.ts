@@ -101,7 +101,7 @@ interface SVGElementToDrawMap {
   [cmd: string]: (a: SVGElement) => void;
 }
 
-const combineMatrix = (
+export const combineMatrix = (
   [a, b, c, d, e, f]: TransformationMatrix,
   [a2, b2, c2, d2, e2, f2]: TransformationMatrix,
 ): TransformationMatrix => [
@@ -132,7 +132,7 @@ type TransformationName =
   | 'skewX'
   | 'skewY'
   | 'matrix';
-const transformationToMatrix = (
+export const transformationToMatrix = (
   name: TransformationName,
   args: number[],
 ): TransformationMatrix => {
