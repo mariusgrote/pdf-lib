@@ -240,8 +240,8 @@ export const drawRectangle = (options: {
   const { width, height, xSkew, ySkew, rotate, matrix } = options;
   const w = typeof width === 'number' ? width : width.asNumber();
   const h = -(typeof height === 'number' ? height : height.asNumber());
-  const x = typeof options.x === 'number' ? options.x : options.x.asNumber()
-  const y = typeof options.y === 'number' ? options.y : options.y.asNumber()
+  const x = typeof options.x === 'number' ? options.x : options.x.asNumber();
+  const y = typeof options.y === 'number' ? options.y : options.y.asNumber();
 
   // Ensure rx and ry are within bounds
   const rx = Math.max(0, Math.min(options.rx || 0, w / 2));
@@ -267,7 +267,10 @@ export const drawRectangle = (options: {
   // Transformation to apply rotation and skew
   // the drawRectangle applies the rotation around its anchor point (bottom-left), it means that the translation should be applied before the rotation
   // invert the y parameter because transformationToMatrix expects parameters from an svg space. The same is valid for rotate and ySkew
-  let fullMatrix = combineMatrix(matrix || identityMatrix, transformationToMatrix('translate', [x, -y]));
+  let fullMatrix = combineMatrix(
+    matrix || identityMatrix,
+    transformationToMatrix('translate', [x, -y]),
+  );
 
   if (rotate) {
     fullMatrix = combineMatrix(
