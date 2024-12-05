@@ -400,7 +400,11 @@ const runnersToPage = (
       borderLineCap: element.svgAttributes.strokeLineCap,
       color: element.svgAttributes.fill,
       opacity: element.svgAttributes.fillOpacity,
-      matrix: combineTransformation(element.svgAttributes.matrix, 'translateY', [element.svgAttributes.height]),
+      matrix: combineTransformation(
+        element.svgAttributes.matrix,
+        'translateY',
+        [element.svgAttributes.height],
+      ),
       clipSpaces: element.svgAttributes.clipSpaces,
       blendMode: element.svgAttributes.blendMode || options.blendMode,
     });

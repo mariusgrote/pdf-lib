@@ -242,7 +242,7 @@ export const drawRectangle = (options: {
   const h = typeof height === 'number' ? height : height.asNumber();
   const x = typeof options.x === 'number' ? options.x : options.x.asNumber();
   const y = typeof options.y === 'number' ? options.y : options.y.asNumber();
-  
+
   // Ensure rx and ry are within bounds
   const rx = Math.max(0, Math.min(options.rx || 0, w / 2));
   const ry = Math.max(0, Math.min(options.ry || 0, h / 2));
@@ -270,7 +270,7 @@ export const drawRectangle = (options: {
     matrix || identityMatrix,
     transformationToMatrix('translate', [x, -y]),
   );
-      
+
   // Transformation to apply rotation and skew
   if (rotate) {
     fullMatrix = combineMatrix(
@@ -291,7 +291,7 @@ export const drawRectangle = (options: {
     );
   }
 
-  // move the rectangle upward so that the (x, y) coord is bottom-left 
+  // move the rectangle upward so that the (x, y) coord is bottom-left
   fullMatrix = combineMatrix(
     fullMatrix,
     transformationToMatrix('translateY', [-h]),

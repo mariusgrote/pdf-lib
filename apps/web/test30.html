@@ -73,7 +73,7 @@
       }
 
       const drawGrid = (page) => {
-        const n = 100
+        const n = 100;
         Array(parseInt(page.getHeight() / n))
           .fill(1)
           .map((v, i) => {
@@ -92,7 +92,7 @@
           });
       };
 
-      drawGrid(page)
+      drawGrid(page);
 
       // Draw a filled rectangle with sharp corners
       drawRectangle(50, 500, 100, 50, {

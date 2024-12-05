@@ -169,9 +169,7 @@ describe(`PDFDocument`, () => {
       expect(pdfDoc.getLanguage()).toBeUndefined();
 
       pdfDoc.setLanguage('fr-FR');
-      expect(pdfDoc.getLanguage()).toBe(
-        'fr-FR',
-      );
+      expect(pdfDoc.getLanguage()).toBe('fr-FR');
 
       pdfDoc.setLanguage('en');
       expect(pdfDoc.getLanguage()).toBe('en');
