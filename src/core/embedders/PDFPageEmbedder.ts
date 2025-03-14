@@ -45,7 +45,12 @@ const fullPageBoundingBox = (page: PDFPageLeaf) => {
   const x1 = mediaBox.lookup(2, PDFNumber).asNumber();
   const y1 = mediaBox.lookup(3, PDFNumber).asNumber();
 
-  return { left: Math.min(x0,x1), bottom: Math.min(y0,y1), right: Math.max(x0,x1), top: Math.max(y0,y1) };
+  return {
+    left: Math.min(x0, x1),
+    bottom: Math.min(y0, y1),
+    right: Math.max(x0, x1),
+    top: Math.max(y0, y1),
+  };
 };
 
 // Returns the identity matrix, modified to position the content of the given
