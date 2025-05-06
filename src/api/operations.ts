@@ -30,7 +30,6 @@ import {
   endMarkedContent,
   clip,
   endPath,
-  appendBezierCurve,
   FillRule,
   fillEvenOdd,
   concatTransformationMatrix,
@@ -307,72 +306,6 @@ export const drawRectangle = (options: {
   });
 };
 
-/** @deprecated */
-export const drawEllipsePath = (config: {
-  x: number | PDFNumber;
-  y: number | PDFNumber;
-  xScale: number | PDFNumber;
-  yScale: number | PDFNumber;
-}): PDFOperator[] => {
-  let x = asNumber(config.x);
-  let y = asNumber(config.y);
-  const xScale = asNumber(config.xScale);
-  const yScale = asNumber(config.yScale);
-
-  x -= xScale;
-  y -= yScale;
-
-  const ox = xScale * KAPPA;
-  const oy = yScale * KAPPA;
-  const xe = x + xScale * 2;
-  const ye = y + yScale * 2;
-  const xm = x + xScale;
-  const ym = y + yScale;
-
-  return [
-    pushGraphicsState(),
-    moveTo(x, ym),
-    appendBezierCurve(x, ym - oy, xm - ox, y, xm, y),
-    appendBezierCurve(xm + ox, y, xe, ym - oy, xe, ym),
-    appendBezierCurve(xe, ym + oy, xm + ox, ye, xm, ye),
-    appendBezierCurve(xm - ox, ye, x, ym + oy, x, ym),
-    popGraphicsState(),
-  ];
-};
-
-const drawEllipseCurves = (config: {
-  x: number | PDFNumber;
-  y: number | PDFNumber;
-  xScale: number | PDFNumber;
-  yScale: number | PDFNumber;
-  rotate: Rotation;
-}): PDFOperator[] => {
-  const centerX = asNumber(config.x);
-  const centerY = asNumber(config.y);
-  const xScale = asNumber(config.xScale);
-  const yScale = asNumber(config.yScale);
-
-  const x = -xScale;
-  const y = -yScale;
-
-  const ox = xScale * KAPPA;
-  const oy = yScale * KAPPA;
-  const xe = x + xScale * 2;
-  const ye = y + yScale * 2;
-  const xm = x + xScale;
-  const ym = y + yScale;
-
-  return [
-    translate(centerX, centerY),
-    rotateRadians(toRadians(config.rotate)),
-    moveTo(x, ym),
-    appendBezierCurve(x, ym - oy, xm - ox, y, xm, y),
-    appendBezierCurve(xm + ox, y, xe, ym - oy, xe, ym),
-    appendBezierCurve(xe, ym + oy, xm + ox, ye, xm, ye),
-    appendBezierCurve(xm - ox, ye, x, ym + oy, x, ym),
-  ];
-};
-
 export const drawEllipse = (options: {
   x: number | PDFNumber;
   y: number | PDFNumber;
@@ -388,43 +321,46 @@ export const drawEllipse = (options: {
   borderLineCap?: LineCapStyle;
   matrix?: TransformationMatrix;
   clipSpaces?: Space[];
-}) =>
-  [
-    pushGraphicsState(),
-    options.graphicsState && setGraphicsState(options.graphicsState),
-    options.color && setFillingColor(options.color),
-    options.borderColor && setStrokingColor(options.borderColor),
-    ...(options.clipSpaces ? clipSpaces(options.clipSpaces) : []),
-    options.matrix && concatTransformationMatrix(...options.matrix),
-    setLineWidth(options.borderWidth),
-    options.borderLineCap && setLineCap(options.borderLineCap),
-    setDashPattern(options.borderDashArray ?? [], options.borderDashPhase ?? 0),
+}) => {
+  const xScale = asNumber(options.xScale);
+  const yScale = asNumber(options.yScale);
+  const x = asNumber(options.x);
+  const y = asNumber(options.y);
 
-    // The `drawEllipsePath` branch is only here for backwards compatibility.
-    // See https://github.com/Hopding/pdf-lib/pull/511#issuecomment-667685655.
-    ...(options.rotate === undefined
-      ? drawEllipsePath({
-          x: options.x,
-          y: options.y,
-          xScale: options.xScale,
-          yScale: options.yScale,
-        })
-      : drawEllipseCurves({
-          x: options.x,
-          y: options.y,
-          xScale: options.xScale,
-          yScale: options.yScale,
-          rotate: options.rotate ?? degrees(0),
-        })),
+  const KAPPA = 4.0 * ((Math.sqrt(2) - 1.0) / 3.0);
+  const ox = xScale * KAPPA;
+  const oy = yScale * KAPPA;
 
-    // prettier-ignore
-    options.color && options.borderWidth ? fillAndStroke()
-  : options.color                      ? fill()
-  : options.borderColor                ? stroke()
-  : closePath(),
+  // Path en sens mathématique (y vers le haut)
+  const d = [
+    `M 0,${yScale}`,
+    `C ${ox},${yScale} ${xScale},${oy} ${xScale},0`,
+    `C ${xScale},${-oy} ${ox},${-yScale} 0,${-yScale}`,
+    `C ${-ox},${-yScale} ${-xScale},${-oy} ${-xScale},0`,
+    `C ${-xScale},${oy} ${-ox},${yScale} 0,${yScale}`,
+    `Z`
+  ].join(' ');
 
-    popGraphicsState(),
-  ].filter(Boolean) as PDFOperator[];
+  let fullMatrix = combineMatrix(
+    options.matrix || identityMatrix,
+    transformationToMatrix('translate', [x, -y])
+  );
+  if (options.rotate) {
+    fullMatrix = combineMatrix(
+      fullMatrix,
+      transformationToMatrix('rotate', [-toDegrees(options.rotate)])
+    );
+  }
+
+  return drawSvgPath(d, {
+    ...options,
+    x: 0,
+    y: 0,
+    rotate: degrees(0),
+    scale: 1, // Laisse le flip vertical de drawSvgPath
+    matrix: fullMatrix,
+  });
+};
 
 export const drawSvgPath = (
   path: string,
