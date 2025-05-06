@@ -380,8 +380,14 @@ export const drawSvgPath = (
     matrix?: TransformationMatrix;
     clipSpaces?: Space[];
   },
-) =>
-  [
+) => {
+  const drawingOperator = getDrawingOperator(options);
+  if (!drawingOperator) {
+    // no-op when there is no fill and no border color/width.
+    return [];
+  }
+
+  return [
     pushGraphicsState(),
     options.graphicsState && setGraphicsState(options.graphicsState),
     ...(options.clipSpaces ? clipSpaces(options.clipSpaces) : []),
@@ -401,14 +407,11 @@ export const drawSvgPath = (
 
     ...svgPathToOperators(path),
 
-    // prettier-ignore
-    options.color && options.borderWidth ? fillAndStroke()
-  : options.color                      ? options.fillRule === FillRule.EvenOdd ? fillEvenOdd() : fill()
-  : options.borderColor                ? stroke()
-  : closePath(),
+    drawingOperator(),
 
     popGraphicsState(),
   ].filter(Boolean) as PDFOperator[];
+}
 
 export const drawCheckMark = (options: {
   x: number | PDFNumber;
@@ -830,3 +833,24 @@ export const drawOptionList = (options: {
     popGraphicsState(),
   ];
 };
+
+const getDrawingOperator = ({
+  color,
+  borderWidth,
+  borderColor,
+  fillRule
+}: {
+  color?: Color;
+  borderWidth?: number | PDFNumber;
+  borderColor?: Color;
+  fillRule?: FillRule;
+}) => {
+  if (color && borderColor && borderWidth) {
+    return fillAndStroke
+  } else if (color) {
+    return fillRule === FillRule.EvenOdd ? fillEvenOdd : fill
+  } else if (borderColor && borderWidth) {
+    return stroke
+  }
+  return undefined
+}
