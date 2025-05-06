@@ -670,7 +670,7 @@ const wordArrayToBuffer = (wordArray: WordArray): Uint8Array => {
   return Uint8Array.from(byteArray);
 };
 
-/* 
+/*
   7.6.3.3 Encryption Key Algorithm
   Algorithm 2
   Password Padding to pad or truncate

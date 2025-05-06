@@ -44,8 +44,8 @@ const hasAttachmentPdfBytes = fs.readFileSync(
   'assets/pdfs/examples/add_attachments.pdf',
 );
 
-describe(`PDFDocument`, () => {
-  describe(`load() method`, () => {
+describe('PDFDocument', () => {
+  describe('load() method', () => {
     const origConsoleWarn = console.warn;
 
     beforeAll(() => {
@@ -67,7 +67,7 @@ describe(`PDFDocument`, () => {
       console.warn = origConsoleWarn;
     });
 
-    it(`does not throw an error for unencrypted PDFs`, async () => {
+    it('does not throw an error for unencrypted PDFs', async () => {
       const pdfDoc = await PDFDocument.load(unencryptedPdfBytes, {
         parseSpeed: ParseSpeeds.Fastest,
       });
@@ -75,7 +75,7 @@ describe(`PDFDocument`, () => {
       expect(pdfDoc.isEncrypted).toBe(false);
     });
 
-    it(`throws an error for old encrypted PDFs (1)`, async () => {
+    it('throws an error for old encrypted PDFs (1)', async () => {
       await expect(
         PDFDocument.load(oldEncryptedPdfBytes1, {
           parseSpeed: ParseSpeeds.Fastest,
@@ -91,7 +91,7 @@ describe(`PDFDocument`, () => {
     //   ).rejects.toThrow(new EncryptedPDFError());
     // });
 
-    it(`throws an error for new encrypted PDFs`, async () => {
+    it('throws an error for new encrypted PDFs', async () => {
       await expect(
         PDFDocument.load(newEncryptedPdfBytes, {
           parseSpeed: ParseSpeeds.Fastest,
@@ -99,7 +99,7 @@ describe(`PDFDocument`, () => {
       ).rejects.toThrow(new EncryptedPDFError());
     });
 
-    it(`does not throw an error for old encrypted PDFs when ignoreEncryption=true (1)`, async () => {
+    it('does not throw an error for old encrypted PDFs when ignoreEncryption=true (1)', async () => {
       const pdfDoc = await PDFDocument.load(oldEncryptedPdfBytes1, {
         ignoreEncryption: true,
         parseSpeed: ParseSpeeds.Fastest,
@@ -117,7 +117,7 @@ describe(`PDFDocument`, () => {
     //   expect(pdfDoc.isEncrypted).toBe(true);
     // });
 
-    it(`does not throw an error for new encrypted PDFs when ignoreEncryption=true`, async () => {
+    it('does not throw an error for new encrypted PDFs when ignoreEncryption=true', async () => {
       const pdfDoc = await PDFDocument.load(newEncryptedPdfBytes, {
         ignoreEncryption: true,
         parseSpeed: ParseSpeeds.Fastest,
@@ -126,7 +126,7 @@ describe(`PDFDocument`, () => {
       expect(pdfDoc.isEncrypted).toBe(true);
     });
 
-    it(`does not throw an error for invalid PDFs when throwOnInvalidObject=false`, async () => {
+    it('does not throw an error for invalid PDFs when throwOnInvalidObject=false', async () => {
       await expect(
         PDFDocument.load(invalidObjectsPdfBytes, {
           ignoreEncryption: true,
@@ -136,7 +136,7 @@ describe(`PDFDocument`, () => {
       ).resolves.toBeInstanceOf(PDFDocument);
     });
 
-    it(`throws an error for invalid PDFs when throwOnInvalidObject=true`, async () => {
+    it('throws an error for invalid PDFs when throwOnInvalidObject=true', async () => {
       const expectedError = new Error(
         'Trying to parse invalid object: {"line":20,"column":13,"offset":126})',
       );
@@ -150,8 +150,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`embedFont() method`, () => {
-    it(`serializes the same value on every save`, async () => {
+  describe('embedFont() method', () => {
+    it('serializes the same value on every save', async () => {
       const customFont = fs.readFileSync('assets/fonts/ubuntu/Ubuntu-B.ttf');
       const pdfDoc1 = await PDFDocument.create({ updateMetadata: false });
       const pdfDoc2 = await PDFDocument.create({ updateMetadata: false });
@@ -169,8 +169,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`setLanguage() method`, () => {
-    it(`sets the language of the document`, async () => {
+  describe('setLanguage() method', () => {
+    it('sets the language of the document', async () => {
       const pdfDoc = await PDFDocument.create();
       expect(pdfDoc.getLanguage()).toBeUndefined();
 
@@ -185,50 +185,50 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`getPageCount() method`, () => {
+  describe('getPageCount() method', () => {
     let pdfDoc: PDFDocument;
     beforeAll(async () => {
       const parseSpeed = ParseSpeeds.Fastest;
       pdfDoc = await PDFDocument.load(unencryptedPdfBytes, { parseSpeed });
     });
 
-    it(`returns the initial page count of the document`, () => {
+    it('returns the initial page count of the document', () => {
       expect(pdfDoc.getPageCount()).toBe(2);
     });
 
-    it(`returns the updated page count after adding pages`, () => {
+    it('returns the updated page count after adding pages', () => {
       pdfDoc.addPage();
       pdfDoc.addPage();
       expect(pdfDoc.getPageCount()).toBe(4);
     });
 
-    it(`returns the updated page count after inserting pages`, () => {
+    it('returns the updated page count after inserting pages', () => {
       pdfDoc.insertPage(0);
       pdfDoc.insertPage(4);
       expect(pdfDoc.getPageCount()).toBe(6);
     });
 
-    it(`returns the updated page count after removing pages`, () => {
+    it('returns the updated page count after removing pages', () => {
       pdfDoc.removePage(5);
       pdfDoc.removePage(0);
       expect(pdfDoc.getPageCount()).toBe(4);
     });
 
-    it(`returns 0 for brand new documents`, async () => {
+    it('returns 0 for brand new documents', async () => {
       const newDoc = await PDFDocument.create();
       expect(newDoc.getPageCount()).toBe(0);
     });
   });
 
-  describe(`addPage() method`, () => {
-    it(`Can insert pages in brand new documents`, async () => {
+  describe('addPage() method', () => {
+    it('Can insert pages in brand new documents', async () => {
       const pdfDoc = await PDFDocument.create();
       expect(pdfDoc.addPage()).toBeInstanceOf(PDFPage);
     });
   });
 
-  describe(`metadata getter methods`, () => {
-    it(`they can retrieve the title, author, subject, producer, creator, keywords, creation date, and modification date from a new document`, async () => {
+  describe('metadata getter methods', () => {
+    it('they can retrieve the title, author, subject, producer, creator, keywords, creation date, and modification date from a new document', async () => {
       const pdfDoc = await PDFDocument.create();
 
       // Everything is empty or has its initial value.
@@ -274,7 +274,7 @@ describe(`PDFDocument`, () => {
       expect(pdfDoc.getModificationDate()).toStrictEqual(modificationDate);
     });
 
-    it(`they can retrieve the title, author, subject, producer, creator, and keywords from an existing document`, async () => {
+    it('they can retrieve the title, author, subject, producer, creator, and keywords from an existing document', async () => {
       const pdfDoc = await PDFDocument.load(justMetadataPdfbytes);
 
       expect(pdfDoc.getTitle()).toBe(
@@ -294,7 +294,7 @@ describe(`PDFDocument`, () => {
       );
     });
 
-    it(`they can retrieve the creation date and modification date from an existing document`, async () => {
+    it('they can retrieve the creation date and modification date from an existing document', async () => {
       const pdfDoc = await PDFDocument.load(normalPdfBytes, {
         updateMetadata: false,
       });
@@ -308,8 +308,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`ViewerPreferences`, () => {
-    it(`defaults to an undefined ViewerPreferences dict`, async () => {
+  describe('ViewerPreferences', () => {
+    it('defaults to an undefined ViewerPreferences dict', async () => {
       const pdfDoc = await PDFDocument.create();
 
       expect(
@@ -317,7 +317,7 @@ describe(`PDFDocument`, () => {
       ).toBeUndefined();
     });
 
-    it(`can get/set HideToolbar, HideMenubar, HideWindowUI, FitWindow, CenterWindow, DisplayDocTitle, NonFullScreenPageMode, Direction, PrintScaling, Duplex, PickTrayByPDFSize, PrintPageRange, NumCopies from a new document`, async () => {
+    it('can get/set HideToolbar, HideMenubar, HideWindowUI, FitWindow, CenterWindow, DisplayDocTitle, NonFullScreenPageMode, Direction, PrintScaling, Duplex, PickTrayByPDFSize, PrintPageRange, NumCopies from a new document', async () => {
       const pdfDoc = await PDFDocument.create();
       const viewerPrefs = pdfDoc.catalog.getOrCreateViewerPreferences();
 
@@ -380,7 +380,7 @@ describe(`PDFDocument`, () => {
       expect(viewerPrefs.getPrintPageRange()).toEqual([pageRange]);
     });
 
-    it(`they can be retrieved from an existing document`, async () => {
+    it('they can be retrieved from an existing document', async () => {
       const pdfDoc = await PDFDocument.load(withViewerPrefsPdfBytes);
       const viewerPrefs = pdfDoc.catalog.getViewerPreferences()!;
 
@@ -415,8 +415,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`setTitle() method with options`, () => {
-    it(`does not set the ViewerPreferences dict if the option is not set`, async () => {
+  describe('setTitle() method with options', () => {
+    it('does not set the ViewerPreferences dict if the option is not set', async () => {
       const pdfDoc = await PDFDocument.create();
 
       pdfDoc.setTitle('Testing setTitle Title');
@@ -428,7 +428,7 @@ describe(`PDFDocument`, () => {
       expect(pdfDoc.getTitle()).toBe('Testing setTitle Title');
     });
 
-    it(`creates the ViewerPreferences dict when the option is set`, async () => {
+    it('creates the ViewerPreferences dict when the option is set', async () => {
       const pdfDoc = await PDFDocument.create();
 
       pdfDoc.setTitle('ViewerPrefs Test Creation', {
@@ -441,8 +441,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`addJavaScript() method`, () => {
-    it(`adds the script to the catalog`, async () => {
+  describe('addJavaScript() method', () => {
+    it('adds the script to the catalog', async () => {
       const pdfDoc = await PDFDocument.create();
       pdfDoc.addJavaScript(
         'main',
@@ -459,7 +459,7 @@ describe(`PDFDocument`, () => {
       expect(JSNames.lookup(0, PDFHexString).decodeText()).toEqual('main');
     });
 
-    it(`does not overwrite scripts`, async () => {
+    it('does not overwrite scripts', async () => {
       const pdfDoc = await PDFDocument.create();
       pdfDoc.addJavaScript(
         'first',
@@ -479,8 +479,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`embedPng() method`, () => {
-    it(`does not prevent the PDFDocument from being modified after embedding an image`, async () => {
+  describe('embedPng() method', () => {
+    it('does not prevent the PDFDocument from being modified after embedding an image', async () => {
       const pdfDoc = await PDFDocument.create();
       const pdfPage = pdfDoc.addPage();
 
@@ -499,8 +499,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`save() method`, () => {
-    it(`can called multiple times on the same PDFDocument with different changes`, async () => {
+  describe('save() method', () => {
+    it('can called multiple times on the same PDFDocument with different changes', async () => {
       const pdfDoc = await PDFDocument.create();
       const embeddedImage = await pdfDoc.embedPng(examplePngImage);
 
@@ -534,7 +534,7 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`copy() method`, () => {
+  describe('copy() method', () => {
     let pdfDoc: PDFDocument;
     let srcDoc: PDFDocument;
     beforeAll(async () => {
@@ -562,11 +562,11 @@ describe(`PDFDocument`, () => {
       pdfDoc = await srcDoc.copy();
     });
 
-    it(`Returns a pdf with the same number of pages`, async () => {
+    it('Returns a pdf with the same number of pages', async () => {
       expect(pdfDoc.getPageCount()).toBe(srcDoc.getPageCount());
     });
 
-    it(`Can copy author, creationDate, creator, producer, subject, title, defaultWordBreaks`, async () => {
+    it('Can copy author, creationDate, creator, producer, subject, title, defaultWordBreaks', async () => {
       expect(pdfDoc.getAuthor()).toBe(srcDoc.getAuthor());
       expect(pdfDoc.getCreationDate()).toStrictEqual(srcDoc.getCreationDate());
       expect(pdfDoc.getCreator()).toBe(srcDoc.getCreator());
@@ -580,8 +580,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`attach() method`, () => {
-    it(`Saves to the same value after attaching a file`, async () => {
+  describe('attach() method', () => {
+    it('Saves to the same value after attaching a file', async () => {
       const pdfDoc1 = await PDFDocument.create({ updateMetadata: false });
       const pdfDoc2 = await PDFDocument.create({ updateMetadata: false });
 
@@ -627,8 +627,8 @@ describe(`PDFDocument`, () => {
     });
   });
 
-  describe(`getAttachments() method`, () => {
-    it(`Can read attachments from an existing pdf file`, async () => {
+  describe('getAttachments() method', () => {
+    it('Can read attachments from an existing pdf file', async () => {
       const pdfDoc = await PDFDocument.load(hasAttachmentPdfBytes);
       const attachments = pdfDoc.getAttachments();
       expect(attachments.length).toEqual(2);
@@ -660,7 +660,7 @@ describe(`PDFDocument`, () => {
       expect(pdfAttachmentBytes).toEqual(Buffer.from(pdfAttachment.data));
     });
 
-    it(`Can get saved and unsaved attachments`, async () => {
+    it('Can get saved and unsaved attachments', async () => {
       const pdfDoc = await PDFDocument.load(hasAttachmentPdfBytes);
       const haiku = `Cradled in silence,
       sunlight warms the fragile shell —

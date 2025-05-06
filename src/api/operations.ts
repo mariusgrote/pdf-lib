@@ -259,7 +259,7 @@ export const drawRectangle = (options: {
           `C ${rx * (1 - KAPPA)},${h} 0,${h - ry * (1 - KAPPA)} 0,${h - ry}`,
           `V ${ry}`,
           `C 0,${ry * (1 - KAPPA)} ${rx * (1 - KAPPA)},0 ${rx},0`,
-          `Z`,
+          'Z',
         ].join(' ')
       : `M 0,0 H ${w} V ${h} H 0 Z`;
 
@@ -338,17 +338,17 @@ export const drawEllipse = (options: {
     `C ${xScale},${-oy} ${ox},${-yScale} 0,${-yScale}`,
     `C ${-ox},${-yScale} ${-xScale},${-oy} ${-xScale},0`,
     `C ${-xScale},${oy} ${-ox},${yScale} 0,${yScale}`,
-    `Z`
+    'Z',
   ].join(' ');
 
   let fullMatrix = combineMatrix(
     options.matrix || identityMatrix,
-    transformationToMatrix('translate', [x, -y])
+    transformationToMatrix('translate', [x, -y]),
   );
   if (options.rotate) {
     fullMatrix = combineMatrix(
       fullMatrix,
-      transformationToMatrix('rotate', [-toDegrees(options.rotate)])
+      transformationToMatrix('rotate', [-toDegrees(options.rotate)]),
     );
   }
 
@@ -411,7 +411,7 @@ export const drawSvgPath = (
 
     popGraphicsState(),
   ].filter(Boolean) as PDFOperator[];
-}
+};
 
 export const drawCheckMark = (options: {
   x: number | PDFNumber;
@@ -838,7 +838,7 @@ const getDrawingOperator = ({
   color,
   borderWidth,
   borderColor,
-  fillRule
+  fillRule,
 }: {
   color?: Color;
   borderWidth?: number | PDFNumber;
@@ -846,11 +846,11 @@ const getDrawingOperator = ({
   fillRule?: FillRule;
 }) => {
   if (color && borderColor && borderWidth) {
-    return fillAndStroke
+    return fillAndStroke;
   } else if (color) {
-    return fillRule === FillRule.EvenOdd ? fillEvenOdd : fill
+    return fillRule === FillRule.EvenOdd ? fillEvenOdd : fill;
   } else if (borderColor && borderWidth) {
-    return stroke
+    return stroke;
   }
-  return undefined
-}
+  return undefined;
+};

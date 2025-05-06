@@ -449,7 +449,7 @@ const parseStyles = (style: string): SVGStyle => {
   const cssRegex = /([^:\s]+)*\s*:\s*([^;]+)/g;
   const css: SVGStyle = {};
   let match = cssRegex.exec(style);
-  while (match != null) {
+  while (match !== null) {
     css[match[1]] = match[2];
     match = cssRegex.exec(style);
   }
@@ -636,9 +636,6 @@ const parseAttributes = (
     svgAttributes.d = attributes.d;
   }
 
-  if (fontSizeRaw && newInherited.fontSize) {
-    newInherited.fontSize = newInherited.fontSize;
-  }
   if (newInherited.fontFamily) {
     // Handle complex fontFamily like `"Linux Libertine O", serif`
     const inner = newInherited.fontFamily.match(/^"(.*?)"|^'(.*?)'/);

@@ -1555,7 +1555,7 @@ export default class PDFDocument {
   }
 
   private updateInfoDict(): void {
-    const pdfLib = `pdf-lib (https://github.com/Hopding/pdf-lib)`;
+    const pdfLib = 'pdf-lib (https://github.com/Hopding/pdf-lib)';
     const now = new Date();
 
     const info = this.getInfoDict();
