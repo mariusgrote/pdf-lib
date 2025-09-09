@@ -79,7 +79,7 @@ import { CipherTransformFactory } from '../core/crypto';
 import PDFSvg from './PDFSvg';
 import PDFSecurity, { SecurityOptions } from '../core/security/PDFSecurity';
 
-export type SavedPDFAttachment = {
+export type BasePDFAttachment = {
   name: string;
   data: Uint8Array;
   mimeType: string | undefined;
@@ -87,18 +87,14 @@ export type SavedPDFAttachment = {
   description: string | undefined;
   creationDate: Date | undefined;
   modificationDate: Date | undefined;
+};
+
+export type SavedPDFAttachment = BasePDFAttachment & {
   embeddedFileDict: PDFDict;
   specRef: PDFRef;
 };
 
-export type UnsavedPDFAttachment = {
-  name: string;
-  data: Uint8Array;
-  mimeType: string | undefined;
-  afRelationship: AFRelationship | undefined;
-  description: string | undefined;
-  creationDate: Date | undefined;
-  modificationDate: Date | undefined;
+export type UnsavedPDFAttachment = BasePDFAttachment & {
   pdfEmbeddedFile: PDFEmbeddedFile;
 };
 
