@@ -4320,9 +4320,9 @@ node-fetch@3.3.2, node-fetch@^3.3.2:
     formdata-polyfill "^4.0.10"
 
 node-html-better-parser@>=1.4.0:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/node-html-better-parser/-/node-html-better-parser-1.5.4.tgz#9d3ead47047770bb5808c37a4fe9848bc94282b8"
-  integrity sha512-0aLhC0NPQ2rfoPCl7mApcWz1+pbL9OOjv1RIF5FgcDGeyUpWixFlt3SVOK/A1opMNMM0TuoyKe5yVpPrBaRhQw==
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/node-html-better-parser/-/node-html-better-parser-1.5.6.tgz#7c65e9b4a40f78132639c0da670297865fa0799c"
+  integrity sha512-ix1vxaAvR2bVwatr+r/sEz6YYZS4cFzp9gAXN371mZoLnAnApuChROPtC0p0EtUoMOmg6kOh4cipx50sPzZP0w==
   dependencies:
     html-entities "^2.3.2"
 
