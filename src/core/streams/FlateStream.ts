@@ -273,6 +273,7 @@ class FlateStream extends DecodeStream {
     let limit = buffer ? buffer.length : 0;
     let pos = this.bufferLength;
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       let code1 = this.getCode(litCodeTable);
       if (code1 < 256) {
