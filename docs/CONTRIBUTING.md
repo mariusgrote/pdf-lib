@@ -74,7 +74,7 @@ You can develop `pdf-lib` on Windows, Mac, or Linux machines. While most of the 
 In order to work on `pdf-lib`, please ensure you have installed the following:
 
 - **Node.js** provides the runtime needed to run this project. ([Installation instructions](https://nodejs.org/en/download/) - need `v9.0.0` or greater).
-- **Yarn** is the package manager used for this project. ([Installation instructions](https://yarnpkg.com/en/docs/install) - need `v1.12.0` or greater).
+- **pnpm** is the package manager used for this project ([installation instructions](https://pnpm.io/installation), version 12 or later). CI uses pnpm 12.4.1. New dependency versions are only resolved once they are seven days old (`minimumReleaseAge` in `pnpm-workspace.yaml`).
 - **Git** is the SCM used for this project. ([Installation instructions](https://git-scm.com/downloads) - need `2.17.2` or greater)
 
 Next you'll need to clone the project:
@@ -87,7 +87,7 @@ cd pdf-lib
 After cloning the project, you'll need to install the dependencies. All dependencies are managed within the `package.json` file. This means all you have to do is run:
 
 ```
-yarn install
+pnpm install
 ```
 
 If you don't see any errors or warnings, then everything should have worked correctly. The next thing you'll want to do is [run the unit tests](#running-the-unit-tests) to verify that everything is is good shape.
@@ -99,13 +99,12 @@ We use the [Jest](https://jestjs.io/) framework to write unit tests for `pdf-lib
 To run the unit tests, execute the following:
 
 ```
-yarn test
+pnpm test
 ```
 
 This should output something like:
 
 ```
-yarn run v1.16.0
 $ jest --config jest.json --runInBand
  PASS  tests/api/PDFDocument.spec.ts (13.238s)
  PASS  tests/core/parser/PDFObjectParser.spec.ts
@@ -134,27 +133,27 @@ There are integration tests for Node, Deno, browser, and React Native environmen
 
 - To run the tests for Node:
   ```
-  yarn apps:node
+  pnpm apps:node
   # Follow the prompts in your terminal
   ```
 - To run the tests for Deno:
   ```
-  yarn apps:deno
+  pnpm apps:deno
   # Follow the prompts in your terminal
   ```
 - To run the tests for the browser:
   ```
-  yarn apps:web
+  pnpm apps:web
   # Open http://localhost:8080/apps/web/test1.html in your browser
   ```
 - To run the tests for React Native (iOS):
   ```
-  yarn apps:rn:ios
+  pnpm apps:rn:ios
   # Tap through the tests in your simulator
   ```
 - To run the tests for React Native (Android):
   ```
-  yarn apps:rn:android
+  pnpm apps:rn:android
   adb reverse tcp:8080 tcp:8080
   # Tap through the tests in your simulator
   ```
@@ -165,13 +164,13 @@ The scratchpad is a handy tool for testing your code changes. It serves as an en
 
 1. Start the TypeScript compiler:
    ```
-   yarn scratchpad:start
+   pnpm scratchpad:start
    ```
    Note that you must leave this server running. It will detect code changes
    as you make them and automatically recompile the code.
 2. Run the [`scratchpad/index.ts`](./scratchpad/index.ts) file:
    ```
-   yarn scratchpad:run
+   pnpm scratchpad:run
    ```
    This will compile and execute the code in your scratchpad file. If you
    (1) create a PDF in the scratchpad, (2) save it to the file system, and (3) pass its file path to [`openPdf`](./scratchpad/open.ts#L11) function, then running this command will automatically open the file in your viewer of choice.
@@ -182,7 +181,7 @@ You can use the VSCode debugger to run your scratchpad file. This can be a very 
 
 1. Start the TypeScript compiler:
    ```
-   yarn scratchpad:start
+   pnpm scratchpad:start
    ```
    Note that you must leave this server running. It will detect code changes
    as you make them and automatically recompile the code.
@@ -192,7 +191,7 @@ You can use the VSCode debugger to run your scratchpad file. This can be a very 
 
 ## Generating a Flamegraph
 
-Flamegraphs are incredibly useful visual tools for troubleshooting performance issues. You can generate a flamegraph using the [scratchpad file](#using-the-scratchpad) as an entrypoint by running `yarn scratchpad:flame` (note that you must have the TypeScript compiler running, as explained above). This will run the scratchpad file, generate a flamegraph of its execution, and automatically open it in your browser.
+Flamegraphs are incredibly useful visual tools for troubleshooting performance issues. You can generate a flamegraph using the [scratchpad file](#using-the-scratchpad) as an entrypoint by running `pnpm scratchpad:flame` (note that you must have the TypeScript compiler running, as explained above). This will run the scratchpad file, generate a flamegraph of its execution, and automatically open it in your browser.
 
 ## Compiling the Project
 
@@ -208,14 +207,13 @@ Compiling the project will produce 4 artifacts:
 To compile the project, execute the following:
 
 ```
-yarn build
+pnpm build
 ```
 
 This should output something like the following:
 
 ```
-yarn run v1.16.0
-$ yarn build:cjs && yarn build:es && yarn build:umd && yarn build:umd:min
+$ pnpm build:cjs && pnpm build:es && pnpm build:umd && pnpm build:umd:min
 $ ttsc --module commonjs --outDir cjs
 $ ttsc --module ES2015 --outDir es
 $ rollup --config rollup.config.js --file dist/pdf-lib.js
@@ -243,14 +241,13 @@ It is recommended that you setup your editor to automatically run these linters 
 To run the linter, execute the following:
 
 ```
-yarn lint
+pnpm lint
 ```
 
 This should output something like the following:
 
 ```
-yarn run v1.16.0
-$ yarn lint:prettier && yarn lint:tslint:src && yarn lint:tslint:tests
+$ pnpm lint:prettier && pnpm lint:tslint:src && pnpm lint:tslint:tests
 $ prettier --write './{src,tests}/**/*.{ts,js,json}' --loglevel error
 $ tslint --project tsconfig.json --fix
 $ tslint --project tests/tsconfig.json --fix
@@ -266,13 +263,12 @@ The linter is very strict about the format and style of your code. Anytime it fi
 To run the type checker, execute the following:
 
 ```
-yarn typecheck
+pnpm typecheck
 ```
 
 This should output something like the following:
 
 ```
-yarn run v1.16.0
 $ tsc --noEmit
 ✨  Done in 1.38s.
 ```

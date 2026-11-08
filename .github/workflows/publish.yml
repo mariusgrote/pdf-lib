@@ -24,34 +24,38 @@ jobs:
     name: Publish to npm
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+      - name: Check out repository
+        uses: actions/checkout@v7
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
         with:
-          node-version: '24'
+          version: 12.4.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
           registry-url: 'https://registry.npmjs.org'
           # Never cache package manager state for release builds.
           package-manager-cache: false
 
+      # Trusted Publishing (OIDC) is done by the npm CLI, so publishing uses
+      # npm. Everything else uses pnpm.
       - name: Use npm with OIDC support
         run: npm install -g npm@latest
 
-      - name: Enable Corepack (Yarn classic)
-        run: corepack enable
-
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Typecheck
-        run: yarn typecheck
+        run: pnpm typecheck
 
       - name: Test
-        run: yarn test
+        run: pnpm test
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Publish @cantoo/pdf-lib
         # Do NOT set NODE_AUTH_TOKEN here — that would bypass OIDC.

@@ -28,7 +28,7 @@ For **each** of `@cantoo/pdf-lib`, `@cantoo/upng`, and `@cantoo/standard-fonts`:
 1. `git checkout master && git pull`
 2. Update `CHANGELOG.md` (move `[Unreleased]` notes under the new version)
 3. Optional local checks / integration apps if the change is risky
-4. Run `yarn release` — this runs `release:prep`, then `release-it` bumps
+4. Run `pnpm release` — this runs `release:prep`, then `release-it` bumps
    `package.json`, commits `Release X.Y.Z`, creates tag `vX.Y.Z`, and opens a
    GitHub Release. It does **not** publish to npm (see `.release-it.json`).
 5. Push the commit and tag:

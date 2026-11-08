@@ -5,7 +5,7 @@
 ```bash
 npm install @cantoo/pdf-lib
 # or
-yarn add @cantoo/pdf-lib
+pnpm add @cantoo/pdf-lib
 ```
 
 We maintain this project for our own product needs and cannot guarantee support for every issue outside that roadmap — but contributions that fit the library are welcome.
@@ -1765,8 +1765,8 @@ To install the latest stable Cantoo fork:
 # With npm
 npm install --save @cantoo/pdf-lib
 
-# With yarn
-yarn add @cantoo/pdf-lib
+# With pnpm
+pnpm add @cantoo/pdf-lib
 ```
 
 (`pdf-lib` without the scope is still the original Hopding package on npm.)
@@ -1823,8 +1823,8 @@ Prefer Cantoo's maintained [`@cantoo/fontkit`](https://www.npmjs.com/package/@ca
 # With npm
 npm install --save @cantoo/fontkit
 
-# With yarn
-yarn add @cantoo/fontkit
+# With pnpm
+pnpm add @cantoo/fontkit
 ```
 
 Register the `fontkit` instance before embedding custom fonts. With `@cantoo/fontkit` ≥2.0.9 you can use a default import (recommended). A namespace import also works. Upstream `fontkit` still has no default export under Node ESM, so use `import * as fontkit from 'fontkit'` if you depend on that package.
