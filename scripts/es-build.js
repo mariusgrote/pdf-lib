@@ -22,27 +22,33 @@ const files = walk('./es'); // Adjust the path if needed
 files.forEach((file) => {
   if (file.endsWith('.js')) {
     let content = fs.readFileSync(file, 'utf-8');
-    content = content.replace(/from '(.+?)'/g, (match, p1) => {
-      // If it's an absolute path, a module or URL, or it already has an extension, don't change it
-      if (
-        !p1.startsWith('.') ||
-        p1.endsWith('.js') ||
-        p1.endsWith('.json') ||
-        p1.endsWith('.mjs') ||
-        p1.endsWith('.cjs')
-      ) {
-        return match;
-      }
-      // If it's referencing a directory (implying index.js inside that directory)
-      if (
-        fs.existsSync(path.join(path.dirname(file), p1)) &&
-        fs.statSync(path.join(path.dirname(file), p1)).isDirectory()
-      ) {
-        return `from '${p1}/index.js'`;
-      }
-      // Otherwise, append .js
-      return `from '${p1}.js'`;
-    });
+    content = content.replace(
+      /from '(.+?)'( with \{[^}]*\})?/g,
+      (match, p1) => {
+        // Node requires an import attribute for JSON modules.
+        if (p1.startsWith('.') && p1.endsWith('.json')) {
+          return `from '${p1}' with { type: 'json' }`;
+        }
+        // If it's an absolute path, a module or URL, or it already has an extension, don't change it
+        if (
+          !p1.startsWith('.') ||
+          p1.endsWith('.js') ||
+          p1.endsWith('.mjs') ||
+          p1.endsWith('.cjs')
+        ) {
+          return match;
+        }
+        // If it's referencing a directory (implying index.js inside that directory)
+        if (
+          fs.existsSync(path.join(path.dirname(file), p1)) &&
+          fs.statSync(path.join(path.dirname(file), p1)).isDirectory()
+        ) {
+          return `from '${p1}/index.js'`;
+        }
+        // Otherwise, append .js
+        return `from '${p1}.js'`;
+      },
+    );
     fs.writeFileSync(file, content);
   }
 });

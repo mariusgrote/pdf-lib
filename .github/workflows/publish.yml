@@ -57,6 +57,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Load the built package in Node
+        run: pnpm test:smoke
+
       - name: Publish @cantoo/pdf-lib
         # Do NOT set NODE_AUTH_TOKEN here — that would bypass OIDC.
         # Provenance attestations are generated automatically with Trusted Publishing.
