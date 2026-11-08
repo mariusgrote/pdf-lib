@@ -1,3 +1,5 @@
+> **Note:** This guide was written by [@Hopding](https://github.com/Hopding) for the original `pdf-lib` and is kept for reference. See [CONTRIBUTING](CONTRIBUTING.md) for this fork.
+
 # Maintainership
 
 Hello friend! I'm [@hopding](https://github.com/Hopding/), the principal maintainer of `pdf-lib` 👋. I [started the project](https://github.com/Hopding/pdf-lib/commit/fd7459e5ecee898c4f6bbccae021af2d837d64be) in September 2017 and have been building and maintaining it ever since 🙂.
