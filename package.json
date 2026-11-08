@@ -1,5 +1,5 @@
 {
-  "name": "@cantoo/pdf-lib",
+  "name": "@mariusgrote/pdf-lib",
   "version": "2.11.0",
   "description": "Create and modify PDF files with JavaScript",
   "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
@@ -55,7 +55,8 @@
     "Donald Ness (https://github.com/programmarchy)",
     "Remus DRAICA (https://github.com/remdra)",
     "David Abdala (https://github.com/adnsistemas)",
-    "Eran Ohayon (https://github.com/erano067)"
+    "Eran Ohayon (https://github.com/erano067)",
+    "Marius Grote (https://github.com/mariusgrote)"
   ],
   "scripts": {
     "release": "pnpm release:prep && release-it",
@@ -157,10 +158,10 @@
   },
   "license": "MIT",
   "private": false,
-  "homepage": "https://pdf-lib.js.org",
-  "repository": "git+https://github.com/cantoo-scribe/pdf-lib.git",
+  "homepage": "https://github.com/mariusgrote/pdf-lib#readme",
+  "repository": "git+https://github.com/mariusgrote/pdf-lib.git",
   "bugs": {
-    "url": "https://github.com/cantoo-scribe/pdf-lib/issues"
+    "url": "https://github.com/mariusgrote/pdf-lib/issues"
   },
   "keywords": [
     "pdf-lib",

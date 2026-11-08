@@ -1,16 +1,25 @@
-## Forked by [Cantoo](https://cantoo.fr)
+## `@mariusgrote/pdf-lib`
 
-[`@cantoo/pdf-lib`](https://www.npmjs.com/package/@cantoo/pdf-lib) is an actively maintained fork of [`Hopding/pdf-lib`](https://github.com/Hopding/pdf-lib). We keep the original API and docs, and ship the features below that upstream does not (or no longer) provide. Install with:
+A fork of [`pdf-lib`](https://github.com/Hopding/pdf-lib), based on [Cantoo's fork](https://github.com/cantoo-scribe/pdf-lib) (`@cantoo/pdf-lib`) 2.11.0. It keeps the original API and docs.
 
 ```bash
-npm install @cantoo/pdf-lib
+npm install @mariusgrote/pdf-lib
 # or
-pnpm add @cantoo/pdf-lib
+pnpm add @mariusgrote/pdf-lib
 ```
 
-We maintain this project for our own product needs and cannot guarantee support for every issue outside that roadmap — but contributions that fit the library are welcome.
+**Credit.** `pdf-lib` was created by [Andrew Dillon (@Hopding)](https://github.com/Hopding). Most of the improvements listed below were made by [Cantoo](https://cantoo.fr) and the contributors to their fork. This fork builds on their work under the same MIT license.
 
-### Benefits vs original `pdf-lib`
+**How this fork differs from `@cantoo/pdf-lib`**
+
+- The published `package.json` has no install-time scripts (no `prepare`).
+- The ESM build imports its JSON font data with `with { type: 'json' }`, so it loads in Node.
+- The publish workflow loads the built package in Node (ESM and CommonJS) before publishing.
+- Uses pnpm instead of Yarn.
+
+See [CHANGELOG](CHANGELOG.md), [CONTRIBUTING](docs/CONTRIBUTING.md) and [SECURITY](SECURITY.md).
+
+### Benefits vs original `pdf-lib` (mostly from Cantoo's fork)
 
 **Drawing & content**
 
@@ -51,7 +60,7 @@ We maintain this project for our own product needs and cannot guarantee support 
 
 **Packaging & deps**
 
-- Vendored **[`@cantoo/upng`](./src/packages/upng)** and **[`@cantoo/standard-fonts`](./src/packages/standard-fonts)** (also as `@cantoo/pdf-lib/upng` and `@cantoo/pdf-lib/standard-fonts`)
+- Vendored **[`upng`](./src/packages/upng)** and **[`standard-fonts`](./src/packages/standard-fonts)** (as `@mariusgrote/pdf-lib/upng` and `@mariusgrote/pdf-lib/standard-fonts`)
 - Compression via **[`fflate`](https://www.npmjs.com/package/fflate)** instead of `pako` (modular TS UPNG with Photopea `quantize` / `framize` / lossy `cnum`)
 - Lighter color parsing with **`culori`**; `html-entities` as a peer (pulled in by the HTML/SVG parser)
 
@@ -1296,7 +1305,7 @@ standard fonts are not PDF/A compliant). Validate the result with a tool such as
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from '@cantoo/pdf-lib'
+import { PDFDocument } from '@mariusgrote/pdf-lib'
 import fontkit from '@cantoo/fontkit'
 
 const fontBytes = ... // e.g. fs.readFileSync('Roboto-Regular.ttf')
@@ -1338,7 +1347,7 @@ complete `factur-x.xml` from your invoicing stack.
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument, embedFacturX } from '@cantoo/pdf-lib'
+import { PDFDocument, embedFacturX } from '@mariusgrote/pdf-lib'
 import fontkit from '@cantoo/fontkit'
 
 const fontBytes = ...
@@ -1759,29 +1768,27 @@ There are currently four apps:
 
 ### NPM Module
 
-To install the latest stable Cantoo fork:
+To install the latest stable release:
 
 ```bash
 # With npm
-npm install --save @cantoo/pdf-lib
+npm install --save @mariusgrote/pdf-lib
 
 # With pnpm
-pnpm add @cantoo/pdf-lib
+pnpm add @mariusgrote/pdf-lib
 ```
 
-(`pdf-lib` without the scope is still the original Hopding package on npm.)
+(`pdf-lib` without the scope is still the original Hopding package on npm, and `@cantoo/pdf-lib` is Cantoo's fork.)
 
 ### Vendored PNG & standard fonts
 
-`@cantoo/pdf-lib` vendors [`@cantoo/upng`](./src/packages/upng) and [`@cantoo/standard-fonts`](./src/packages/standard-fonts) under `src/packages/` (same pattern as [`@cantoo/fontkit`](https://github.com/cantoo-scribe/fontkit)). Compression uses [`fflate`](https://www.npmjs.com/package/fflate) (no `pako`).
+`@mariusgrote/pdf-lib` vendors [`upng`](./src/packages/upng) and [`standard-fonts`](./src/packages/standard-fonts) under `src/packages/` (inherited from Cantoo's fork). Compression uses [`fflate`](https://www.npmjs.com/package/fflate) (no `pako`).
 
-Install the subpackages alone if needed:
+Both are available through subpath exports:
 
-```bash
-npm install @cantoo/upng @cantoo/standard-fonts
-# or via pdf-lib subpath exports:
-# import UPNG from '@cantoo/pdf-lib/upng'
-# import { FontNames } from '@cantoo/pdf-lib/standard-fonts'
+```js
+import UPNG from '@mariusgrote/pdf-lib/upng';
+import { FontNames } from '@mariusgrote/pdf-lib/standard-fonts';
 ```
 
 ### UMD Module

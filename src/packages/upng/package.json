@@ -1,7 +1,7 @@
 {
-  "name": "@cantoo/upng",
+  "name": "@mariusgrote/upng",
   "version": "1.0.0",
-  "description": "Small, fast and advanced PNG / APNG encoder and decoder (vendored for @cantoo/pdf-lib)",
+  "description": "Small, fast and advanced PNG / APNG encoder and decoder (vendored for @mariusgrote/pdf-lib)",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cantoo-scribe/pdf-lib.git",
+    "url": "git+https://github.com/mariusgrote/pdf-lib.git",
     "directory": "src/packages/upng"
   },
   "author": "photopea (https://github.com/photopea)",

@@ -1,6 +1,6 @@
-# Publishes @cantoo/pdf-lib via npm Trusted Publishing (OIDC).
+# Publishes @mariusgrote/pdf-lib via npm Trusted Publishing (OIDC).
 # No NPM_TOKEN required — configure the Trusted Publisher on npmjs.com to:
-#   Organization/user: cantoo-scribe
+#   Organization/user: mariusgrote
 #   Repository:        pdf-lib
 #   Workflow filename: publish.yml
 #   Allowed actions:   include "npm publish" (direct publish)
@@ -60,15 +60,7 @@ jobs:
       - name: Load the built package in Node
         run: pnpm test:smoke
 
-      - name: Publish @cantoo/pdf-lib
+      - name: Publish @mariusgrote/pdf-lib
         # Do NOT set NODE_AUTH_TOKEN here — that would bypass OIDC.
         # Provenance attestations are generated automatically with Trusted Publishing.
-        run: npm publish --access public
-
-      - name: Publish @cantoo/upng
-        working-directory: src/packages/upng
-        run: npm publish --access public
-
-      - name: Publish @cantoo/standard-fonts
-        working-directory: src/packages/standard-fonts
         run: npm publish --access public

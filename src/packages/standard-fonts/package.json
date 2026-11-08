@@ -1,7 +1,7 @@
 {
-  "name": "@cantoo/standard-fonts",
+  "name": "@mariusgrote/standard-fonts",
   "version": "1.0.0",
-  "description": "Metrics and encodings for the standard 14 PDF fonts (vendored for @cantoo/pdf-lib)",
+  "description": "Metrics and encodings for the standard 14 PDF fonts (vendored for @mariusgrote/pdf-lib)",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cantoo-scribe/pdf-lib.git",
+    "url": "git+https://github.com/mariusgrote/pdf-lib.git",
     "directory": "src/packages/standard-fonts"
   },
   "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
