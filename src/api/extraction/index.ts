@@ -1,4 +1,4 @@
-export * from './types';
+export type * from './types';
 export { parseContentStream } from './ContentStreamParser';
 export { parseToUnicode } from './ToUnicode';
 export { extractImageBytes } from './imageBytes';

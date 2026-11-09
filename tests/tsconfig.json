@@ -4,9 +4,6 @@
   "exclude": [],
   "compilerOptions": {
     "rootDir": "..",
-    "rootDirs": ["../src", "../tests"],
-    "incremental": false,
-    "tsBuildInfoFile": null,
     "types": ["node", "vitest/globals"]
   }
 }

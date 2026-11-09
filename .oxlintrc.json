@@ -17,17 +17,11 @@
   "ignorePatterns": [
     "node_modules/**",
     "dist/**",
-    "cjs/**",
-    "es/**",
     "coverage/**",
-    "build/**",
     "apps/node-build/**",
-    "src/packages/*/dist/**",
     "src/packages/standard-fonts/scripts/**",
     "**/*.min.js",
-    "**/*.js.map",
-    "**/*.d.ts.map",
-    "tsBuildInfo.json"
+    "**/*.js.map"
   ],
   "rules": {
     "constructor-super": "error",
@@ -118,7 +112,8 @@
     "typescript/only-throw-error": "error",
     "typescript/prefer-promise-reject-errors": "error",
     "typescript/restrict-plus-operands": "error",
-    "typescript/unbound-method": "error"
+    "typescript/unbound-method": "error",
+    "typescript/consistent-type-exports": "error"
   },
   "overrides": [
     {

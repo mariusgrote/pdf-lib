@@ -1,4 +1,4 @@
-import UPNG from '../packages/upng';
+import UPNG from '../packages/upng/index';
 
 const getImageType = (ctype: number) => {
   if (ctype === 0) return PngType.Greyscale;

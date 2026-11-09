@@ -1,9 +1,9 @@
 import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 
-import { compressJson } from '../compressJson';
-import { parseWin1252 } from './parseWin1252';
-import { parseZapfDingbatsOrSymbol } from './parseZapfDingbatsOrSymbol';
+import { compressJson } from '../compressJson.ts';
+import { parseWin1252 } from './parseWin1252.ts';
+import { parseZapfDingbatsOrSymbol } from './parseZapfDingbatsOrSymbol.ts';
 
 /** Run from the pdf-lib repo root. */
 const packageRoot = join(process.cwd(), 'src/packages/standard-fonts');

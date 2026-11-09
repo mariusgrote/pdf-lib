@@ -1,4 +1,4 @@
-import { extractLinesFromSection } from './utils';
+import { extractLinesFromSection } from './utils.ts';
 
 export type IKernPair = [string, string, number];
 

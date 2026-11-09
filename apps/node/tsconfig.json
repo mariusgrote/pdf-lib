@@ -5,8 +5,6 @@
     "module": "commonjs",
     "composite": false,
     "rootDir": "../..",
-    "incremental": true,
-    "tsBuildInfoFile": "./tsBuildInfo.json",
     "outDir": "../node-build",
 
     /* Strict Type-Checking Options */

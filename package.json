@@ -3,23 +3,28 @@
   "version": "2.11.0",
   "description": "Create and modify PDF files with JavaScript",
   "author": "Marius Grote (https://github.com/mariusgrote)",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "engines": {
+    "node": ">=22.12"
+  },
   "exports": {
     ".": {
       "@mariusgrote/source": "./src/index.ts",
-      "types": "./cjs/index.d.ts",
-      "require": "./cjs/index.js",
-      "import": "./es/index.js"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./upng": {
-      "types": "./dist/upng/index.d.ts",
-      "import": "./dist/upng/index.mjs",
-      "require": "./dist/upng/index.cjs"
+      "@mariusgrote/source": "./src/packages/upng/index.ts",
+      "types": "./dist/upng.d.mts",
+      "default": "./dist/upng.mjs"
     },
     "./standard-fonts": {
-      "types": "./dist/standard-fonts/index.d.ts",
-      "import": "./dist/standard-fonts/index.mjs",
-      "require": "./dist/standard-fonts/index.cjs"
-    }
+      "@mariusgrote/source": "./src/packages/standard-fonts/index.ts",
+      "types": "./dist/standard-fonts.d.mts",
+      "default": "./dist/standard-fonts.mjs"
+    },
+    "./package.json": "./package.json"
   },
   "contributors": [
     "Andrew Dillon <andrew.dillon.j@gmail.com>",
@@ -59,9 +64,9 @@
     "Eran Ohayon (https://github.com/erano067)"
   ],
   "scripts": {
-    "release:check": "pnpm fmt:check && pnpm lint && pnpm clean && pnpm test && pnpm build && pnpm test:smoke",
+    "release:check": "pnpm fmt:check && pnpm lint && pnpm clean && pnpm test && pnpm build && pnpm apps:build && pnpm test:smoke",
     "get:version": "node --eval 'console.log(require(`./package.json`).version)'",
-    "clean": "rimraf build cjs dist es coverage tsBuildInfo.json apps/node-build apps/node/tsBuildInfo.json out.pdf src/packages/upng/dist src/packages/standard-fonts/dist",
+    "clean": "rimraf coverage dist apps/node-build out.pdf",
     "test": "vitest run",
     "testw": "vitest",
     "testc": "vitest run --coverage && open coverage/index.html",
@@ -69,62 +74,35 @@
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "build:packages": "node ./scripts/build-packages.mjs",
-    "build:mirror": "node ./scripts/mirror-packages-dist.mjs",
-    "standard-fonts:afm": "node ./scripts/run-ts.mjs src/packages/standard-fonts/scripts/fonts/parse.ts",
-    "standard-fonts:encodings": "node ./scripts/run-ts.mjs src/packages/standard-fonts/scripts/encodings/parse.ts",
+    "standard-fonts:afm": "node src/packages/standard-fonts/scripts/fonts/parse.ts",
+    "standard-fonts:encodings": "node src/packages/standard-fonts/scripts/encodings/parse.ts",
     "standard-fonts:metrics": "pnpm standard-fonts:afm && pnpm standard-fonts:encodings",
-    "build": "pnpm build:packages && pnpm build:cjs && pnpm build:es && pnpm build:esm && pnpm build:esm:min && pnpm build:umd && pnpm build:umd:min && pnpm build:mirror",
-    "build:cjs": "tsc --module commonjs --outDir cjs",
-    "build:es": "tsc --module ES2015 --outDir es && node ./scripts/es-build.js",
-    "build:esm": "rollup --config rollup.config.mjs --file dist/pdf-lib.esm.js --environment MODULE_TYPE:es",
-    "build:esm:min": "rollup --config rollup.config.mjs --file dist/pdf-lib.esm.min.js --environment MINIFY,MODULE_TYPE:es",
-    "build:umd": "rollup --config rollup.config.mjs --file dist/pdf-lib.js --environment MODULE_TYPE:umd",
-    "build:umd:min": "rollup --config rollup.config.mjs --file dist/pdf-lib.min.js --environment MINIFY,MODULE_TYPE:umd",
-    "build:test": "pnpm build:packages && pnpm build:es && pnpm build:umd",
+    "build": "tsdown",
     "apps:build": "tsc --build apps/node/tsconfig.build.json",
     "apps:node": "pnpm apps:build && node apps/node-build/index.js",
     "apps:web": "http-server -c-1 -o apps/web/test1.html",
     "apps:web:mac": "bash -c 'sleep 1 && open http://localhost:8080/apps/web/test1.html' & pnpm apps:web",
     "test:smoke": "node ./scripts/smoke-test.mjs"
   },
-  "main": "cjs/index.js",
-  "module": "es/index.js",
-  "types": "cjs/index.d.ts",
-  "files": [
-    "cjs/",
-    "dist/",
-    "es/",
-    "src/",
-    "LICENSE.md",
-    "package.json",
-    "README.md"
-  ],
   "dependencies": {
     "culori": ">=4",
     "fflate": "^0.8.2",
-    "node-html-better-parser": ">=1.5.9",
-    "tslib": ">=2"
+    "node-html-better-parser": ">=1.5.9"
   },
   "peerDependencies": {
     "html-entities": ">=2.3.2"
   },
   "devDependencies": {
     "@cantoo/fontkit": "^2.0.12",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
     "@types/culori": "^4.0.1",
     "@types/node": "22.20.5",
     "@vitest/coverage-v8": "5.0.5",
-    "esbuild": "^0.25.0",
     "http-server": "^14.1.1",
     "oxfmt": "^0.75.0",
     "oxlint": "^1.90.0",
     "oxlint-tsgolint": "^7.0.2005",
     "rimraf": "^5.0.5",
-    "rollup": "^4.9.6",
+    "tsdown": "^0.23.4",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"
   },
@@ -148,5 +126,11 @@
     "typescript",
     "javascript",
     "library"
+  ],
+  "files": [
+    "dist/",
+    "src/",
+    "LICENSE.md",
+    "README.md"
   ]
 }
