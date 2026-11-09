@@ -1,5 +1,5 @@
 import { encode } from 'html-entities';
-import { ParsedConformance } from './PDFAConformance';
+import type { ParsedConformance } from './PDFAConformance';
 
 const OWNED_XMP_NAMESPACE_URIS: ReadonlySet<string> = new Set([
   'http://purl.org/dc/elements/1.1/',

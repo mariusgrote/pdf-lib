@@ -1,5 +1,5 @@
 import fontkit from '@cantoo/fontkit';
-import { Assets } from '..';
+import type { Assets } from '..';
 import { degrees, ParseSpeeds, PDFDocument, rgb } from '@mariusgrote/pdf-lib';
 
 export default async (assets: Assets) => {

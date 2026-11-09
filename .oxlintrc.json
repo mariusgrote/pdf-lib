@@ -151,7 +151,8 @@
         "assertFunctionNames": ["expect", "expectParse", "expectParseStr"]
       }
     ],
-    "vitest/no-commented-out-tests": "error"
+    "vitest/no-commented-out-tests": "error",
+    "typescript/consistent-type-imports": "error"
   },
   "overrides": [
     {

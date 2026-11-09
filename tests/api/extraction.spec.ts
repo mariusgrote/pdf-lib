@@ -1,6 +1,6 @@
 import { parseContentStream } from '../../src/api/extraction/ContentStreamParser';
 import { parseToUnicode } from '../../src/api/extraction/ToUnicode';
-import { ContentStreamOperation } from '../../src/api/extraction/types';
+import type { ContentStreamOperation } from '../../src/api/extraction/types';
 
 describe('parseContentStream', () => {
   it('parses names, numbers, hex strings, and operators', () => {

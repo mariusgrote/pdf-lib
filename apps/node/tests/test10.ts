@@ -1,5 +1,6 @@
-import { Assets } from '..';
-import { PDFDocument, StandardFonts, PDFFont } from '@mariusgrote/pdf-lib';
+import type { Assets } from '..';
+import type { PDFFont } from '@mariusgrote/pdf-lib';
+import { PDFDocument, StandardFonts } from '@mariusgrote/pdf-lib';
 
 // prettier-ignore
 const winAnsiCodePoints = [

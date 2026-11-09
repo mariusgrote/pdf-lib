@@ -1,9 +1,9 @@
 import fontkit from '@cantoo/fontkit';
-import { Assets } from '..';
+import type { Assets } from '..';
+import type { PDFFont } from '@mariusgrote/pdf-lib';
 import {
   last,
   PDFDocument,
-  PDFFont,
   StandardFonts,
   charAtIndex,
 } from '@mariusgrote/pdf-lib';

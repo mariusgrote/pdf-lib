@@ -1,6 +1,6 @@
 import PDFDocument from '../PDFDocument';
-import PDFPage from '../PDFPage';
-import PDFField from './PDFField';
+import type PDFPage from '../PDFPage';
+import type PDFField from './PDFField';
 import PDFButton from './PDFButton';
 import PDFCheckBox from './PDFCheckBox';
 import PDFDropdown from './PDFDropdown';
@@ -23,9 +23,9 @@ import {
   pushGraphicsState,
   translate,
 } from '../operators';
+import type { PDFAcroField } from '../../core';
 import {
   PDFAcroForm,
-  PDFAcroField,
   PDFAcroCheckBox,
   PDFAcroComboBox,
   PDFAcroListBox,

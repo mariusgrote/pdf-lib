@@ -1,8 +1,8 @@
-import { Assets } from '..';
+import type { Assets } from '..';
+import type { PDFPage } from '@mariusgrote/pdf-lib';
 import {
   ParseSpeeds,
   PDFDocument,
-  PDFPage,
   radians,
   StandardFonts,
   rgb,

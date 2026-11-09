@@ -4,10 +4,11 @@ import PDFHeader from '../../../src/core/document/PDFHeader';
 import PDFDict from '../../../src/core/objects/PDFDict';
 import PDFName from '../../../src/core/objects/PDFName';
 import PDFNumber from '../../../src/core/objects/PDFNumber';
-import PDFSecurity, {
+import type {
   EncryptionAlgorithm,
   SecurityOptions,
 } from '../../../src/core/security/PDFSecurity';
+import PDFSecurity from '../../../src/core/security/PDFSecurity';
 
 /*
   The expected values below were captured from the crypto-js backed

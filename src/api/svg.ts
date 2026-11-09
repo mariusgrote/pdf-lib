@@ -1,19 +1,18 @@
-import {
-  parse as parseHtml,
-  HTMLElement,
-  Attributes,
-  Node,
-  NodeType,
-} from 'node-html-better-parser';
-import { Color, colorString } from './colors';
-import { Degrees, degreesToRadians } from './rotations';
-import PDFFont from './PDFFont';
-import PDFPage from './PDFPage';
+import type { HTMLElement, Attributes, Node } from 'node-html-better-parser';
+import { parse as parseHtml, NodeType } from 'node-html-better-parser';
+import type { Color } from './colors';
+import { colorString } from './colors';
+import type { Degrees } from './rotations';
+import { degreesToRadians } from './rotations';
+import type PDFFont from './PDFFont';
+import type PDFPage from './PDFPage';
 import PDFSvg from './PDFSvg';
-import { BlendMode, PDFPageDrawSVGElementOptions } from './PDFPageOptions';
+import type { PDFPageDrawSVGElementOptions } from './PDFPageOptions';
+import { BlendMode } from './PDFPageOptions';
 import { LineCapStyle, LineJoinStyle, FillRule } from './operators';
-import { TransformationMatrix, identityMatrix } from '../types/matrix';
-import { Coordinates, Space } from '../types';
+import type { TransformationMatrix } from '../types/matrix';
+import { identityMatrix } from '../types/matrix';
+import type { Coordinates, Space } from '../types';
 
 interface Position {
   x: number;

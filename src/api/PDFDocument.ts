@@ -1,9 +1,6 @@
-import {
-  parse as parseHtml,
-  HTMLElement,
-  NodeType,
-} from 'node-html-better-parser';
-import Embeddable from './Embeddable';
+import type { HTMLElement } from 'node-html-better-parser';
+import { parse as parseHtml, NodeType } from 'node-html-better-parser';
+import type Embeddable from './Embeddable';
 import {
   EncryptedPDFError,
   FontkitNotRegisteredError,
@@ -16,12 +13,12 @@ import PDFImage from './PDFImage';
 import PDFPage from './PDFPage';
 import PDFForm from './form/PDFForm';
 import { PageSizes } from './sizes';
-import { StandardFonts } from './StandardFonts';
+import type { StandardFonts } from './StandardFonts';
+import type { PageBoundingBox, PDFRawStream } from '../core';
 import {
   CustomFontEmbedder,
   CustomFontSubsetEmbedder,
   JpegEmbedder,
-  PageBoundingBox,
   PageEmbeddingMismatchedContextError,
   PDFArray,
   PDFCatalog,
@@ -30,7 +27,6 @@ import {
   PDFHeader,
   decodePDFRawStream,
   PDFStream,
-  PDFRawStream,
   PDFHexString,
   PDFName,
   PDFObjectCopier,
@@ -45,8 +41,7 @@ import {
   StandardFontEmbedder,
   UnexpectedObjectTypeError,
 } from '../core';
-import {
-  ParseSpeeds,
+import type {
   AttachmentOptions,
   SaveOptions,
   Base64SaveOptions,
@@ -56,16 +51,17 @@ import {
   SetTitleOptions,
   IncrementalSaveOptions,
 } from './PDFDocumentOptions';
-import PDFObject from '../core/objects/PDFObject';
+import { ParseSpeeds } from './PDFDocumentOptions';
+import type PDFObject from '../core/objects/PDFObject';
 import PDFRef from '../core/objects/PDFRef';
-import { Fontkit } from '../types/fontkit';
-import { TransformationMatrix } from '../types/matrix';
+import type { Fontkit } from '../types/fontkit';
+import type { TransformationMatrix } from '../types/matrix';
+import type { BinaryData } from '../utils';
 import {
   assertIs,
   assertIsOneOfOrUndefined,
   assertOrUndefined,
   assertRange,
-  BinaryData,
   Cache,
   canBeConvertedToUint8Array,
   encodeToBase64,
@@ -82,20 +78,19 @@ import JavaScriptEmbedder from '../core/embedders/JavaScriptEmbedder';
 import PDFJavaScriptAction from './PDFJavaScriptAction';
 import { CipherTransformFactory } from '../core/crypto';
 import PDFSvg from './PDFSvg';
+import type { SecurityOptions } from '../core/security/PDFSecurity';
 import PDFSecurity, {
-  SecurityOptions,
   generateRandomFileId,
 } from '../core/security/PDFSecurity';
 import { IncrementalDocumentSnapshot } from './snapshot';
 import type { DocumentSnapshot } from './snapshot';
+import type { ConvertToPDFAOptions, ParsedConformance } from './pdfa';
 import {
-  ConvertToPDFAOptions,
   buildPDFAMetadata,
   extractForeignXmpDescriptions,
   mergeXmpExtensionFragments,
   getDefaultSRGBProfile,
   parseConformance,
-  ParsedConformance,
 } from './pdfa';
 import {
   readCatalogMetadataXml,

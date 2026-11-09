@@ -1,7 +1,8 @@
-import PDFDocument from '../PDFDocument';
+import type PDFDocument from '../PDFDocument';
 import PDFField from './PDFField';
 
-import { PDFRef, PDFAcroSignature } from '../../core';
+import type { PDFRef } from '../../core';
+import { PDFAcroSignature } from '../../core';
 import { assertIs } from '../../utils';
 
 /**

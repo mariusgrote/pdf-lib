@@ -6,7 +6,7 @@ import Plot from './elements/Plot';
 import Point from './elements/Point';
 import Rectangle from './elements/Rectangle';
 import Segment from './elements/Segment';
-import { Coordinates, GraphicElement } from '../types';
+import type { Coordinates, GraphicElement } from '../types';
 import {
   distance,
   isColinear,

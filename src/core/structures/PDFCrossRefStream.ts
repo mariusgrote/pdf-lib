@@ -1,7 +1,7 @@
-import PDFDict from '../objects/PDFDict';
+import type PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
 import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import PDFFlateStream from './PDFFlateStream';
 import { bytesFor, Cache, reverseArray, sizeInBytes, sum } from '../../utils';
 

@@ -1,4 +1,4 @@
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import {
   AES128Cipher,
   AES256Cipher,

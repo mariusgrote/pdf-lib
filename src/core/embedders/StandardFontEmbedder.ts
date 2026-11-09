@@ -1,13 +1,9 @@
-import {
-  Encodings,
-  Font,
-  FontNames,
-  EncodingType,
-} from '../../packages/standard-fonts';
+import type { EncodingType } from '../../packages/standard-fonts';
+import { Encodings, Font, FontNames } from '../../packages/standard-fonts';
 
 import PDFHexString from '../objects/PDFHexString';
-import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
+import type PDFRef from '../objects/PDFRef';
+import type PDFContext from '../PDFContext';
 import { toCodePoint, toHexString } from '../../utils';
 
 export interface Glyph {

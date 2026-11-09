@@ -1,9 +1,10 @@
 import PDFArray from '../objects/PDFArray';
-import PDFDict, { DictMap } from '../objects/PDFDict';
+import type { DictMap } from '../objects/PDFDict';
+import PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
 import PDFNumber from '../objects/PDFNumber';
-import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
+import type PDFRef from '../objects/PDFRef';
+import type PDFContext from '../PDFContext';
 import PDFPageLeaf from './PDFPageLeaf';
 import { InvalidTargetIndexError, CorruptPageTreeError } from '../errors';
 

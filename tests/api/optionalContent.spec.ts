@@ -1,10 +1,5 @@
-import {
-  PDFDocument,
-  PDFHexString,
-  PDFName,
-  PDFRef,
-  PDFString,
-} from '../../src/index';
+import type { PDFRef } from '../../src/index';
+import { PDFDocument, PDFHexString, PDFName, PDFString } from '../../src/index';
 
 const installOptionalContent = (
   pdfDoc: PDFDocument,

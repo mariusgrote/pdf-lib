@@ -1,5 +1,5 @@
 import DecodeStream from './DecodeStream';
-import { StreamType } from './Stream';
+import type { StreamType } from './Stream';
 
 const chunkSize = 512;
 

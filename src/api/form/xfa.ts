@@ -1,11 +1,8 @@
-import {
-  parse as parseHtml,
-  HTMLElement,
-  NodeType,
-} from 'node-html-better-parser';
+import type { HTMLElement } from 'node-html-better-parser';
+import { parse as parseHtml, NodeType } from 'node-html-better-parser';
+import type { PDFDict } from '../../core';
 import {
   PDFArray,
-  PDFDict,
   PDFHexString,
   PDFRawStream,
   PDFRef,

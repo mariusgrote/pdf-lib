@@ -3,7 +3,7 @@ import { IsDigit, IsNumeric } from '../../core/syntax/Numeric';
 import { IsWhitespace } from '../../core/syntax/Whitespace';
 import { IsDelimiter } from '../../core/syntax/Delimiters';
 import { charFromCode } from '../../utils';
-import {
+import type {
   ContentStreamOperand,
   ContentStreamOperation,
   HexStringOperand,

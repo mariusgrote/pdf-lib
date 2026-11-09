@@ -18,7 +18,7 @@ import {
   StandardFonts,
   AFRelationship,
 } from '../../src/index';
-import { PDFAttachment } from '../../src/api/PDFDocument';
+import type { PDFAttachment } from '../../src/api/PDFDocument';
 import { PDFHeader } from '../../src/core';
 
 const examplePngImageBase64 =

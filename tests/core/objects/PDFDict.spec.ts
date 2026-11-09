@@ -1,3 +1,4 @@
+import type { PDFObject } from '../../../src/core';
 import {
   PDFArray,
   PDFBool,
@@ -9,7 +10,6 @@ import {
   PDFNumber,
   PDFRef,
   PDFString,
-  PDFObject,
 } from '../../../src/core';
 import { toCharCode, typedArrayFor } from '../../../src/utils';
 

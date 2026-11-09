@@ -10,7 +10,7 @@ import {
 import PDFDict from '../objects/PDFDict';
 import PDFInvalidObject from '../objects/PDFInvalidObject';
 import PDFName from '../objects/PDFName';
-import PDFObject from '../objects/PDFObject';
+import type PDFObject from '../objects/PDFObject';
 import PDFRawStream from '../objects/PDFRawStream';
 import PDFRef from '../objects/PDFRef';
 import ByteStream from './ByteStream';
@@ -22,7 +22,7 @@ import CharCodes from '../syntax/CharCodes';
 import { Keywords } from '../syntax/Keywords';
 import { IsDigit } from '../syntax/Numeric';
 import { waitForTick } from '../../utils';
-import { CipherTransformFactory } from '../crypto';
+import type { CipherTransformFactory } from '../crypto';
 import PDFNumber from '../objects/PDFNumber';
 
 class PDFParser extends PDFObjectParser {

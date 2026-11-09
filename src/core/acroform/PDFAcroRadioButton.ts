@@ -1,8 +1,8 @@
-import PDFRef from '../objects/PDFRef';
-import PDFDict from '../objects/PDFDict';
+import type PDFRef from '../objects/PDFRef';
+import type PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
 import PDFAcroButton from './PDFAcroButton';
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import { AcroButtonFlags } from './flags';
 import { InvalidAcroFieldValueError } from '../errors';
 

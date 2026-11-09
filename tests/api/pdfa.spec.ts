@@ -1,6 +1,7 @@
 import fontkit from '@cantoo/fontkit';
 import fs from 'fs';
 import { unzlibSync } from 'fflate';
+import type { PDFHexString, PDFRawStream } from '../../src/index';
 import {
   buildPDFAMetadata,
   extractForeignXmpDescriptions,
@@ -11,10 +12,8 @@ import {
   PDFArray,
   PDFDict,
   PDFDocument,
-  PDFHexString,
   PDFName,
   PDFNumber,
-  PDFRawStream,
   PDFRef,
   PDFString,
   rgb,

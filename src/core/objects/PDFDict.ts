@@ -1,14 +1,15 @@
-import PDFArray from './PDFArray';
-import PDFBool from './PDFBool';
-import PDFHexString from './PDFHexString';
+import type PDFArray from './PDFArray';
+import type PDFBool from './PDFBool';
+import type PDFHexString from './PDFHexString';
 import PDFName from './PDFName';
 import PDFNull from './PDFNull';
-import PDFNumber from './PDFNumber';
+import type PDFNumber from './PDFNumber';
 import PDFObject from './PDFObject';
-import PDFRef from './PDFRef';
-import PDFStream from './PDFStream';
-import PDFString from './PDFString';
-import PDFContext, { type UntypedLookup } from '../PDFContext';
+import type PDFRef from './PDFRef';
+import type PDFStream from './PDFStream';
+import type PDFString from './PDFString';
+import type PDFContext from '../PDFContext';
+import { type UntypedLookup } from '../PDFContext';
 import CharCodes from '../syntax/CharCodes';
 
 export type DictMap = Map<PDFName, PDFObject>;

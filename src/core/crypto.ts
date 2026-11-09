@@ -16,13 +16,13 @@
 
 import { arrayAsString, isArrayEqual } from '../utils/arrays';
 import { stringAsByteArray, toHexString } from '../utils/strings';
-import PDFBool from './objects/PDFBool';
+import type PDFBool from './objects/PDFBool';
 import PDFDict from './objects/PDFDict';
 import PDFName from './objects/PDFName';
-import PDFNumber from './objects/PDFNumber';
-import PDFString from './objects/PDFString';
+import type PDFNumber from './objects/PDFNumber';
+import type PDFString from './objects/PDFString';
 import DecryptStream from './streams/DecryptStream';
-import { StreamType } from './streams/Stream';
+import type { StreamType } from './streams/Stream';
 
 /** ISO 32000-2 §7.6.4.3.3: UTF-8, truncated to 127 bytes. Shared by encrypt and decrypt. */
 export const encodeRevision6Password = (password = ''): Uint8Array => {

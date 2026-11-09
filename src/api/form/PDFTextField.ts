@@ -1,13 +1,11 @@
-import PDFDocument from '../PDFDocument';
+import type PDFDocument from '../PDFDocument';
 import PDFPage from '../PDFPage';
 import PDFFont from '../PDFFont';
-import PDFImage from '../PDFImage';
-import PDFField, {
-  FieldAppearanceOptions,
-  assertFieldAppearanceOptions,
-} from './PDFField';
+import type PDFImage from '../PDFImage';
+import type { FieldAppearanceOptions } from './PDFField';
+import PDFField, { assertFieldAppearanceOptions } from './PDFField';
+import type { AppearanceProviderFor } from './appearances';
 import {
-  AppearanceProviderFor,
   normalizeAppearance,
   defaultTextFieldAppearanceProvider,
 } from './appearances';
@@ -21,13 +19,12 @@ import {
 import { ImageAlignment } from '../image/alignment';
 import { TextAlignment } from '../text/alignment';
 
+import type { PDFRef, PDFWidgetAnnotation } from '../../core';
 import {
   PDFHexString,
-  PDFRef,
   PDFStream,
   PDFAcroText,
   AcroTextFlags,
-  PDFWidgetAnnotation,
 } from '../../core';
 import {
   assertIs,

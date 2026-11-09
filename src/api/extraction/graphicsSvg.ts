@@ -1,4 +1,4 @@
-import { TransformationMatrix } from '../../types/matrix';
+import type { TransformationMatrix } from '../../types/matrix';
 
 export type PathPaintStyle = {
   fill?: string;

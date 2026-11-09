@@ -1,4 +1,4 @@
-import { Assets } from '..';
+import type { Assets } from '..';
 import { PDFDocument, values, PDFTextField } from '@mariusgrote/pdf-lib';
 
 const fieldNames = {

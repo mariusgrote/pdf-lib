@@ -7,7 +7,7 @@
  */
 
 import DecodeStream from './DecodeStream';
-import { StreamType } from './Stream';
+import type { StreamType } from './Stream';
 
 class LZWStream extends DecodeStream {
   private stream: StreamType;

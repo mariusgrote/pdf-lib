@@ -1,4 +1,5 @@
-import { Assets } from '..';
+import type { Assets } from '..';
+import type { PDFFont } from '@mariusgrote/pdf-lib';
 import {
   PDFDocument,
   StandardFonts,
@@ -6,7 +7,6 @@ import {
   rgb,
   degrees,
   drawText,
-  PDFFont,
   drawEllipse,
   PDFWidgetAnnotation,
 } from '@mariusgrote/pdf-lib';

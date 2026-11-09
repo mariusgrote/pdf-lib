@@ -1,7 +1,7 @@
 import { zlibSync } from 'fflate';
 
 import { MethodNotImplementedError } from '../errors';
-import PDFDict from '../objects/PDFDict';
+import type PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
 import PDFStream from '../objects/PDFStream';
 import { Cache } from '../../utils';

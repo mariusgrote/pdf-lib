@@ -1,4 +1,5 @@
-import { Color, rgb } from './colors';
+import type { Color } from './colors';
+import { rgb } from './colors';
 import {
   drawImage,
   drawLine,
@@ -21,11 +22,9 @@ import PDFEmbeddedPage from './PDFEmbeddedPage';
 import PDFFont from './PDFFont';
 import PDFImage from './PDFImage';
 import PDFSvg from './PDFSvg';
-import {
-  JavaScriptActionMap,
-  extractAdditionalActions,
-} from './PDFJavaScriptAction';
-import {
+import type { JavaScriptActionMap } from './PDFJavaScriptAction';
+import { extractAdditionalActions } from './PDFJavaScriptAction';
+import type {
   PDFPageDrawCircleOptions,
   PDFPageDrawEllipseOptions,
   PDFPageDrawImageOptions,
@@ -35,14 +34,15 @@ import {
   PDFPageDrawSquareOptions,
   PDFPageDrawSVGOptions,
   PDFPageDrawTextOptions,
-  BlendMode,
   PDFPageDrawSVGElementOptions,
 } from './PDFPageOptions';
-import { degrees, Rotation, toDegrees } from './rotations';
+import { BlendMode } from './PDFPageOptions';
+import type { Rotation } from './rotations';
+import { degrees, toDegrees } from './rotations';
 import { StandardFonts } from './StandardFonts';
+import type { PDFHexString } from '../core';
 import {
   PDFContentStream,
-  PDFHexString,
   PDFName,
   PDFOperator,
   PDFPageLeaf,
@@ -64,7 +64,7 @@ import {
 } from '../utils';
 import { drawSvg } from './svg';
 import { extractPageContents } from './extraction/extractPageContents';
-import { PdfAsset } from './extraction/types';
+import type { PdfAsset } from './extraction/types';
 
 /**
  * Represents a single page of a [[PDFDocument]].

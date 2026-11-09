@@ -1,9 +1,9 @@
 import { MethodNotImplementedError } from '../errors';
-import PDFDict from './PDFDict';
+import type PDFDict from './PDFDict';
 import PDFName from './PDFName';
 import PDFNumber from './PDFNumber';
 import PDFObject from './PDFObject';
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import CharCodes from '../syntax/CharCodes';
 
 class PDFStream extends PDFObject {

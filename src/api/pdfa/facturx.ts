@@ -1,13 +1,13 @@
 import { encode } from 'html-entities';
 import PDFDocument from '../PDFDocument';
-import { AttachmentOptions } from '../PDFDocumentOptions';
+import type { AttachmentOptions } from '../PDFDocumentOptions';
 import { AFRelationship } from '../../core/embedders/FileEmbedder';
+import type { BinaryData } from '../../utils';
 import {
   assertIs,
   assertIsOneOfOrUndefined,
   assertOrUndefined,
   toUint8Array,
-  BinaryData,
 } from '../../utils';
 import { readCatalogPDFAConformance } from './catalogMetadata';
 

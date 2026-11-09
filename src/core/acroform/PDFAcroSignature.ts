@@ -1,5 +1,5 @@
-import PDFDict from '../objects/PDFDict';
-import PDFRef from '../objects/PDFRef';
+import type PDFDict from '../objects/PDFDict';
+import type PDFRef from '../objects/PDFRef';
 import PDFAcroTerminal from './PDFAcroTerminal';
 
 class PDFAcroSignature extends PDFAcroTerminal {

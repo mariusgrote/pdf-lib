@@ -1,4 +1,5 @@
 import fs from 'fs';
+import type { PDFWidgetAnnotation } from '../../../src/index';
 import {
   PDFDocument,
   PDFTextField,
@@ -7,7 +8,6 @@ import {
   PDFRadioGroup,
   PDFOptionList,
   PDFDropdown,
-  PDFWidgetAnnotation,
   PDFDict,
   PDFName,
   PDFForm,
