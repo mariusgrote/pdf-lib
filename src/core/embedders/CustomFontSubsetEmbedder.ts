@@ -76,7 +76,7 @@ class CustomFontSubsetEmbedder extends CustomFontEmbedder {
   }
 
   protected isCFF(): boolean {
-    return (this.subset as any).cff;
+    return !!this.subset.cff;
   }
 
   protected glyphId(glyph?: Glyph): number {
@@ -105,7 +105,7 @@ class CustomFontSubsetEmbedder extends CustomFontEmbedder {
         .encodeStream()
         .on('data', (bytes) => parts.push(bytes))
         .on('end', () => resolve(mergeUint8Arrays(parts)))
-        .on('error' as any, reject);
+        .on('error', reject);
     });
   }
 }

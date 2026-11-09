@@ -99,7 +99,7 @@ export class Font {
     if (cachedFont) return cachedFont;
 
     const json = decompressJson(compressedJsonForFontName[fontName]);
-    const font = Object.assign(new Font(), JSON.parse(json));
+    const font = Object.assign(new Font(), JSON.parse(json) as Partial<Font>);
 
     font.CharWidths = font.CharMetrics.reduce(
       (acc: { [charName: string]: number }, metric: ICharMetrics) => {

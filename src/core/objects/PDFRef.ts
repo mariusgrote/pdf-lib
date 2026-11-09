@@ -23,7 +23,7 @@ class PDFRef extends PDFObject {
   readonly tag: string;
 
   private constructor(
-    enforcer: any,
+    enforcer: unknown,
     objectNumber: number,
     generationNumber: number,
   ) {

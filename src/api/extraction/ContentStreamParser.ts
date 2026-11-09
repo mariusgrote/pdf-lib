@@ -144,7 +144,7 @@ class ContentStreamParser {
       value += charFromCode(this.next());
     }
     // Decode #HH escapes
-    value = value.replace(/#([0-9A-Fa-f]{2})/g, (_, hex) =>
+    value = value.replace(/#([0-9A-Fa-f]{2})/g, (_: string, hex: string) =>
       charFromCode(parseInt(hex, 16)),
     );
     return { type: 'name', value };

@@ -68,9 +68,13 @@ export const arrayAsString = (array: Uint8Array | number[]): string => {
   return str;
 };
 
-export const byAscendingId = <T extends { id: any }>(a: T, b: T) => a.id - b.id;
+export const byAscendingId = <T extends { id: number }>(a: T, b: T) =>
+  a.id - b.id;
 
-export const sortedUniq = <T>(array: T[], indexer: (elem: T) => any): T[] => {
+export const sortedUniq = <T>(
+  array: T[],
+  indexer: (elem: T) => unknown,
+): T[] => {
   const uniq: T[] = [];
 
   for (let idx = 0, len = array.length; idx < len; idx++) {
@@ -121,7 +125,7 @@ export const sum = (array: number[] | Uint8Array): number => {
 };
 
 export const range = (start: number, end: number): number[] => {
-  const arr = new Array(end - start);
+  const arr = new Array<number>(end - start);
   for (let idx = 0, len = arr.length; idx < len; idx++) {
     arr[idx] = start + idx;
   }
@@ -142,7 +146,9 @@ export const pluckIndices = <T>(arr: T[], indices: number[]) => {
  */
 export type BinaryData = string | ArrayBuffer | ArrayBufferView;
 
-export const canBeConvertedToUint8Array = (input: any): input is BinaryData =>
+export const canBeConvertedToUint8Array = (
+  input: unknown,
+): input is BinaryData =>
   typeof input === 'string' ||
   input instanceof ArrayBuffer ||
   ArrayBuffer.isView(input);

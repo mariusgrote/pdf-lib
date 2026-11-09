@@ -189,8 +189,8 @@ const calculateMD5 = (function calculateMD5Closure() {
 })();
 
 class Word64 {
-  private low: number;
-  private high: number;
+  low: number;
+  high: number;
 
   constructor(highInteger: number, lowInteger: number) {
     this.high = highInteger | 0;
@@ -585,7 +585,7 @@ const calculateSHA512 = (function calculateSHA512Closure() {
     padded[i++] = (length >> 5) & 0xff;
     padded[i++] = (length << 3) & 0xff;
 
-    const w = new Array(80);
+    const w = new Array<Word64>(80);
     for (i = 0; i < 80; i++) {
       w[i] = new Word64(0, 0);
     }
@@ -1357,22 +1357,41 @@ export const getNodeCrypto = (() => {
   return (): Primitives | undefined => {
     if (resolved !== null) return resolved;
     try {
+      // The parts of Node's `crypto` module used here.
+      type NodeCrypto = {
+        createHash?: (algorithm: string) => {
+          update: (data: Uint8Array) => { digest: () => Uint8Array };
+        };
+        createCipheriv?: (
+          algorithm: string,
+          key: Uint8Array,
+          iv: Uint8Array,
+        ) => {
+          setAutoPadding: (autoPadding: boolean) => unknown;
+          update: (data: Uint8Array) => Uint8Array;
+          final: () => Uint8Array;
+        };
+      };
       const module = (
         globalThis as {
-          process?: { getBuiltinModule?: (id: string) => any };
+          process?: {
+            getBuiltinModule?: (id: string) => NodeCrypto | undefined;
+          };
         }
       ).process?.getBuiltinModule?.('crypto');
+      const createHash = module?.createHash;
+      const createCipheriv = module?.createCipheriv;
       if (
-        typeof module?.createHash !== 'function' ||
-        typeof module?.createCipheriv !== 'function'
+        typeof createHash !== 'function' ||
+        typeof createCipheriv !== 'function'
       ) {
         return (resolved = undefined);
       }
       const primitives: Primitives = {
         hash: (algorithm, data) =>
-          new Uint8Array(module.createHash(algorithm).update(data).digest()),
+          new Uint8Array(createHash(algorithm).update(data).digest()),
         aes128CbcNoPadding: (key, iv, data) => {
-          const cipher = module.createCipheriv('aes-128-cbc', key, iv);
+          const cipher = createCipheriv('aes-128-cbc', key, iv);
           cipher.setAutoPadding(false);
           const body = cipher.update(data);
           const tail = cipher.final();

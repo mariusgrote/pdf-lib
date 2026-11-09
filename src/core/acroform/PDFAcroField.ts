@@ -157,7 +157,7 @@ class PDFAcroField {
     return attribute;
   }
 
-  ascend(visitor: (node: PDFAcroField) => any): void {
+  ascend(visitor: (node: PDFAcroField) => unknown): void {
     visitor(this);
     const parent = this.getParent();
     if (parent) parent.ascend(visitor);

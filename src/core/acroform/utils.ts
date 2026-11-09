@@ -128,7 +128,7 @@ const getInheritableAttribute = (startNode: PDFDict, name: PDFName) => {
   return attribute;
 };
 
-const ascend = (startNode: PDFDict, visitor: (node: PDFDict) => any) => {
+const ascend = (startNode: PDFDict, visitor: (node: PDFDict) => unknown) => {
   visitor(startNode);
   const Parent = startNode.lookupMaybe(PDFName.of('Parent'), PDFDict);
   if (Parent) ascend(Parent, visitor);

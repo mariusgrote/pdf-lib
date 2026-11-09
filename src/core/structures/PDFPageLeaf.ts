@@ -195,7 +195,7 @@ class PDFPageLeaf extends PDFDict {
     return key;
   }
 
-  ascend(visitor: (node: PDFPageTree | PDFPageLeaf) => any): void {
+  ascend(visitor: (node: PDFPageTree | PDFPageLeaf) => unknown): void {
     visitor(this);
     const Parent = this.Parent();
     if (Parent) Parent.ascend(visitor);

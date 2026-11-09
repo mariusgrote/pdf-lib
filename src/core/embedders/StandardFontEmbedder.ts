@@ -122,7 +122,7 @@ class StandardFontEmbedder {
 
   private encodeTextAsGlyphs(text: string): Glyph[] {
     const codePoints = Array.from(text);
-    const glyphs: Glyph[] = new Array(codePoints.length);
+    const glyphs: Glyph[] = new Array<Glyph>(codePoints.length);
     for (let idx = 0, len = codePoints.length; idx < len; idx++) {
       const codePoint = toCodePoint(codePoints[idx])!;
       try {

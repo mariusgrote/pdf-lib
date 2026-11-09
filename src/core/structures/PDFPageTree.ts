@@ -149,14 +149,14 @@ class PDFPageTree extends PDFDict {
     throw new CorruptPageTreeError(targetIndex, 'removeLeafNode');
   }
 
-  ascend(visitor: (node: PDFPageTree) => any): void {
+  ascend(visitor: (node: PDFPageTree) => unknown): void {
     visitor(this);
     const Parent = this.Parent();
     if (Parent) Parent.ascend(visitor);
   }
 
   /** Performs a Post-Order traversal of this page tree */
-  traverse(visitor: (node: TreeNode, ref: PDFRef) => any): void {
+  traverse(visitor: (node: TreeNode, ref: PDFRef) => unknown): void {
     const Kids = this.Kids();
     for (let idx = 0, len = Kids.size(); idx < len; idx++) {
       const kidRef = Kids.get(idx) as PDFRef;

@@ -8,7 +8,7 @@ import PDFObject from './PDFObject';
 import PDFRef from './PDFRef';
 import PDFStream from './PDFStream';
 import PDFString from './PDFString';
-import PDFContext from '../PDFContext';
+import PDFContext, { type UntypedLookup } from '../PDFContext';
 import CharCodes from '../syntax/CharCodes';
 import { PDFArrayIsNotRectangleError } from '../errors';
 import PDFRawStream from './PDFRawStream';
@@ -81,12 +81,12 @@ class PDFArray extends PDFObject {
     type2: typeof PDFHexString,
   ): PDFString | PDFHexString | undefined;
 
-  lookupMaybe(index: number, ...types: any[]) {
-    return this.context.lookupMaybe(
+  lookupMaybe(index: number, ...types: unknown[]) {
+    return (this.context.lookupMaybe as UntypedLookup).call(
+      this.context,
       this.get(index),
-      // @ts-ignore
       ...types,
-    ) as any;
+    );
   }
 
   lookup(index: number): PDFObject | undefined;
@@ -107,12 +107,12 @@ class PDFArray extends PDFObject {
     type2: typeof PDFHexString,
   ): PDFString | PDFHexString;
 
-  lookup(index: number, ...types: any[]) {
-    return this.context.lookup(
+  lookup(index: number, ...types: unknown[]) {
+    return (this.context.lookup as UntypedLookup).call(
+      this.context,
       this.get(index),
-      // @ts-ignore
       ...types,
-    ) as any;
+    );
   }
 
   asRectangle(): { x: number; y: number; width: number; height: number } {

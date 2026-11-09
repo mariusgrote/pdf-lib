@@ -17,8 +17,11 @@ export class PrivateConstructorError extends Error {
 }
 
 export class UnexpectedObjectTypeError extends Error {
-  constructor(expected: any, actual: any) {
-    const name = (t: any) => t?.name ?? t?.constructor?.name;
+  constructor(expected: unknown, actual: unknown) {
+    const name = (t: unknown) => {
+      const o = t as { name?: string; constructor?: { name?: string } } | null;
+      return o?.name ?? o?.constructor?.name;
+    };
 
     const expectedTypes = Array.isArray(expected)
       ? expected.map(name)
@@ -61,8 +64,12 @@ export class MissingPageContentsEmbeddingError extends Error {
 }
 
 export class UnrecognizedStreamTypeError extends Error {
-  constructor(stream: any) {
-    const streamType = stream?.contructor?.name ?? stream?.name ?? stream;
+  constructor(stream: unknown) {
+    const s = stream as {
+      constructor?: { name?: string };
+      name?: string;
+    } | null;
+    const streamType = s?.constructor?.name ?? s?.name ?? stream;
     const msg = `Unrecognized stream type: ${streamType}`;
     super(msg);
   }

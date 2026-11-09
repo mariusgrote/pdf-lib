@@ -147,7 +147,7 @@ class CustomFontEmbedder {
   }
 
   protected isCFF(): boolean {
-    return this.font.cff;
+    return !!this.font.cff;
   }
 
   protected async embedCIDFontDict(context: PDFContext): Promise<PDFRef> {

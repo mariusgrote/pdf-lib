@@ -1431,8 +1431,9 @@ export default class PDFDocument {
         {
           name: fileName.decodeText(),
           data: decodePDFRawStream(stream as PDFRawStream).decode(),
-          mimeType: mimeType?.replace(/#([0-9A-Fa-f]{2})/g, (_, hex) =>
-            String.fromCharCode(parseInt(hex, 16)),
+          mimeType: mimeType?.replace(
+            /#([0-9A-Fa-f]{2})/g,
+            (_: string, hex: string) => String.fromCharCode(parseInt(hex, 16)),
           ),
           afRelationship: afRelationship as AFRelationship,
           description,
