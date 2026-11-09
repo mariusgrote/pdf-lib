@@ -22,7 +22,9 @@ describe('PDFTrailer', () => {
 
   it('can be serialized', () => {
     const buffer = new Uint8Array(21).fill(toCharCode(' '));
-    expect(PDFTrailer.forLastCrossRefSectionOffset(1).copyBytesInto(buffer, 3));
+    expect(
+      PDFTrailer.forLastCrossRefSectionOffset(1).copyBytesInto(buffer, 3),
+    ).toBe(17);
     expect(buffer).toEqual(typedArrayFor('   startxref\n1\n%%EOF '));
   });
 });

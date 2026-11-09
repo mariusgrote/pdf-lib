@@ -256,12 +256,15 @@ describe('PDFPage.extractContents()', () => {
 
     loadedPage.node.normalize();
     const { Contents } = loadedPage.node.normalizedEntries();
-    const stream = Contents!.lookup(0);
-    // After round-trip the content stream is a raw (possibly flate) stream
-    if (stream instanceof PDFRawStream) {
-      const compressed = stream.getContents();
-      const decoded = decodePDFRawStream(stream).decode();
-      expect(compressed.byteLength).toBeLessThan(decoded.byteLength);
-    }
+    // Normalizing wraps the loaded content in new q/Q streams, so find the
+    // original (flate-compressed) stream instead of assuming its index.
+    const stream = Contents!
+      .asArray()
+      .map((ref) => loaded.context.lookup(ref))
+      .find((s) => s instanceof PDFRawStream);
+    expect(stream).toBeInstanceOf(PDFRawStream);
+    const compressed = (stream as PDFRawStream).getContents();
+    const decoded = decodePDFRawStream(stream as PDFRawStream).decode();
+    expect(compressed.byteLength).toBeLessThan(decoded.byteLength);
   });
 });

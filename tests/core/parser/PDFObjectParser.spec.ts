@@ -32,9 +32,11 @@ const parse = (value: string | Uint8Array, options: ParseOptions = {}) => {
 };
 
 const expectParse = (value: string | Uint8Array, options?: ParseOptions) =>
+  // oxlint-disable-next-line vitest/valid-expect -- callers chain the matcher.
   expect(parse(value, options));
 
 const expectParseStr = (value: string | Uint8Array, options?: ParseOptions) =>
+  // oxlint-disable-next-line vitest/valid-expect -- callers chain the matcher.
   expect(String(parse(value, options)));
 
 describe('PDFObjectParser', () => {

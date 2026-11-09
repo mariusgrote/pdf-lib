@@ -45,6 +45,14 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
   scripts with tsdown. No dependency runs install scripts anymore. The
   standard-fonts metric scripts run with plain Node, which strips TypeScript
   types itself.
+- `pnpm build` checks the package with publint and Are the Types Wrong
+  (`esm-only` profile) and fails on problems.
+- Add Dependabot for npm and GitHub Actions (weekly, with a seven-day
+  cooldown), and pin the CI actions to commit SHAs.
+- Drop `rimraf` and `http-server`; `pnpm apps:web` now uses Vite.
+- Enable oxlint's `vitest` and `import` plugins. This found test assertions
+  that never ran: `expect()` calls without a matcher, and a conditional
+  `expect` that was always skipped.
 - Add a CI workflow for pull requests; remove the old CircleCI config and the
   sponsor-label and stale-issue workflows.
 - Not published to npm: the package is marked `private` and there is no

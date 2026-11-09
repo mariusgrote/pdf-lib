@@ -33,7 +33,7 @@ describe('PDFRawStream', () => {
 
   it('can be serialized', () => {
     const buffer = new Uint8Array(44).fill(toCharCode(' '));
-    expect(PDFRawStream.of(dict, data).copyBytesInto(buffer, 3));
+    expect(PDFRawStream.of(dict, data).copyBytesInto(buffer, 3)).toBe(40);
     expect(buffer).toEqual(
       mergeIntoTypedArray(
         '   <<\n/Length 7\n>>\nstream\n',

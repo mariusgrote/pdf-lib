@@ -284,22 +284,24 @@ describe('PDFDocument - XFA signature fields', () => {
   // Optional validation against a real (unshipped) XFA-with-signatures PDF,
   // e.g. an ANAF smart form. Skipped unless XFA_SIG_SAMPLE_PDF points to a file.
   const samplePath = process.env.XFA_SIG_SAMPLE_PDF;
-  const maybeIt = samplePath && fs.existsSync(samplePath) ? it : it.skip;
-  maybeIt('detects signature fields in a real XFA sample PDF', async () => {
-    const bytes = toUint8Array(fs.readFileSync(samplePath as string));
-    const doc = await PDFDocument.load(bytes, {
-      preserveXFA: true,
-      throwOnInvalidObject: false,
-    });
+  it.skipIf(!samplePath || !fs.existsSync(samplePath))(
+    'detects signature fields in a real XFA sample PDF',
+    async () => {
+      const bytes = toUint8Array(fs.readFileSync(samplePath as string));
+      const doc = await PDFDocument.load(bytes, {
+        preserveXFA: true,
+        throwOnInvalidObject: false,
+      });
 
-    const sigFields = doc.getForm().getXFASignatures();
-    expect(sigFields.length).toBeGreaterThan(0);
-    sigFields.forEach((s) => {
-      expect(typeof s.field).toBe('string');
-      expect(s.field.length).toBeGreaterThan(0);
-      expect(Array.isArray(s.refs)).toBe(true);
-    });
-  });
+      const sigFields = doc.getForm().getXFASignatures();
+      expect(sigFields.length).toBeGreaterThan(0);
+      sigFields.forEach((s) => {
+        expect(typeof s.field).toBe('string');
+        expect(s.field.length).toBeGreaterThan(0);
+        expect(Array.isArray(s.refs)).toBe(true);
+      });
+    },
+  );
 });
 
 describe('PDFDocument - AcroForm signature detection (normal PDFs)', () => {

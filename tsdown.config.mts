@@ -35,6 +35,9 @@ export default defineConfig([
     target: 'es2020',
     sourcemap: true,
     dts: true,
+    // Check package.json and the exported types as a consumer would see them.
+    publint: { level: 'error' },
+    attw: { profile: 'esm-only', level: 'error' },
   },
   browser('esm', 'pdf-lib.esm', false),
   browser('esm', 'pdf-lib.esm.min', true),
