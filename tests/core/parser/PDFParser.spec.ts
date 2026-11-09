@@ -25,14 +25,14 @@ describe('PDFParser', () => {
       'Invalid object ref:',
       'Removing parsed object: 0 0 R',
     ];
-    console.warn = jest.fn((...args) => {
+    console.warn = vi.fn((...args) => {
       const isIgnored = ignoredWarnings.find((iw) => args[0].includes(iw));
       if (!isIgnored) origConsoleWarn(...args);
     });
   });
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   afterAll(() => {
@@ -506,9 +506,6 @@ describe('PDFParser', () => {
     );
     const context = await parser.parseDocument();
 
-    expect(context.pdfFileDetails.originalBytes).toBeDefined();
-    expect(context.pdfFileDetails.originalBytes?.toString()).toEqual(
-      pdfBytes.toString(),
-    );
+    expect(context.pdfFileDetails.originalBytes).toBe(pdfBytes);
   });
 });
