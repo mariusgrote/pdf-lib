@@ -144,7 +144,14 @@
     "typescript/no-unsafe-member-access": "error",
     "typescript/no-unsafe-return": "error",
     "typescript/no-unsafe-enum-comparison": "error",
-    "typescript/no-unnecessary-type-assertion": "error"
+    "typescript/no-unnecessary-type-assertion": "error",
+    "vitest/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": ["expect", "expectParse", "expectParseStr"]
+      }
+    ],
+    "vitest/no-commented-out-tests": "error"
   },
   "overrides": [
     {
