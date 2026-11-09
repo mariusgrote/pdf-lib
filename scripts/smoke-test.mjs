@@ -1,6 +1,6 @@
 // Loads the built package the way consumers do (Node ESM and CommonJS) and
-// checks that the published package.json has no install-time scripts.
-// Run after `yarn build`.
+// checks that package.json has no install-time scripts.
+// Run after `pnpm build`.
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';

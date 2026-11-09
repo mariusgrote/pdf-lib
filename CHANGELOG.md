@@ -14,16 +14,17 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
 - Fix the ESM build in Node: JSON font data is now imported with
   `with { type: 'json' }` (previously `ERR_IMPORT_ATTRIBUTE_MISSING`; see
   cantoo-scribe/pdf-lib#155).
-- Remove the `prepare` script and Husky/lint-staged, so the published package
-  has no install-time scripts (cantoo-scribe/pdf-lib#159).
-- Add `yarn test:smoke`, which loads the built package in Node (ESM and
-  CommonJS) and fails on install-time scripts. CI and the publish workflow
-  run it.
+- Remove the `prepare` script and Husky/lint-staged, so the package has no
+  install-time scripts (cantoo-scribe/pdf-lib#159).
+- Add `pnpm test:smoke`, which loads the built package in Node (ESM and
+  CommonJS) and fails on install-time scripts. CI runs it.
 - Switch from Yarn to pnpm 12 (`pnpm-lock.yaml`, `pnpm-workspace.yaml` with a
   seven-day `minimumReleaseAge`). Declare `@types/node`, which the tests used
   without listing it, and pin `downlevel-dts` to the project's TypeScript.
 - Add a CI workflow for pull requests; remove the old CircleCI config and the
   sponsor-label and stale-issue workflows.
+- Not published to npm: the package is marked `private` and there is no
+  publish workflow.
 
 ## [2.11.0]
 

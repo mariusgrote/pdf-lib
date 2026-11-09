@@ -2,11 +2,7 @@
 
 A fork of [`pdf-lib`](https://github.com/Hopding/pdf-lib), based on [Cantoo's fork](https://github.com/cantoo-scribe/pdf-lib) (`@cantoo/pdf-lib`) 2.11.0. It keeps the original API and docs.
 
-```bash
-npm install @mariusgrote/pdf-lib
-# or
-pnpm add @mariusgrote/pdf-lib
-```
+This fork is not published to npm. See [Installation](#installation) for how to build it and use it locally.
 
 **Credit.** `pdf-lib` was created by [Andrew Dillon (@Hopding)](https://github.com/Hopding). Most of the improvements listed below were made by [Cantoo](https://cantoo.fr) and the contributors to their fork. This fork builds on their work under the same MIT license.
 
@@ -14,7 +10,7 @@ pnpm add @mariusgrote/pdf-lib
 
 - The published `package.json` has no install-time scripts (no `prepare`).
 - The ESM build imports its JSON font data with `with { type: 'json' }`, so it loads in Node.
-- The publish workflow loads the built package in Node (ESM and CommonJS) before publishing.
+- CI loads the built package in Node (ESM and CommonJS).
 - Uses pnpm instead of Yarn.
 
 See [CHANGELOG](CHANGELOG.md), [CONTRIBUTING](docs/CONTRIBUTING.md) and [SECURITY](SECURITY.md).
@@ -84,13 +80,6 @@ See [CHANGELOG.md](CHANGELOG.md) for version-by-version detail.
 <br />
 
 <div align="center">
-  <!-- NPM Version -->
-  <a href="https://www.npmjs.com/package/pdf-lib">
-    <img
-      src="https://img.shields.io/npm/v/pdf-lib.svg?style=flat-square"
-      alt="NPM Version"
-    />
-  </a>
   <!-- Build Status -->
   <a href="https://circleci.com/gh/Hopding/pdf-lib">
     <img
@@ -152,7 +141,7 @@ See [CHANGELOG.md](CHANGELOG.md) for version-by-version detail.
 - [Deno Usage](#deno-usage)
 - [Complete Examples](#complete-examples)
 - [Installation](#installation)
-  - [NPM Module](#npm-module)
+  - [Building from source](#building-from-source)
   - [Vendored PNG & standard fonts](#vendored-png--standard-fonts)
   - [UMD Module](#umd-module)
   - [Fontkit Installation](#fontkit-installation)
@@ -1766,19 +1755,19 @@ There are currently four apps:
 
 ## Installation
 
-### NPM Module
+### Building from source
 
-To install the latest stable release:
+`@mariusgrote/pdf-lib` is not published to npm. (`pdf-lib` on npm is the original Hopding package, and `@cantoo/pdf-lib` is Cantoo's fork.) Build it from a clone and add the local folder to your project:
 
 ```bash
-# With npm
-npm install --save @mariusgrote/pdf-lib
+git clone https://github.com/mariusgrote/pdf-lib.git
+cd pdf-lib
+pnpm install
+pnpm build
 
-# With pnpm
-pnpm add @mariusgrote/pdf-lib
+# in your project
+pnpm add ../pdf-lib
 ```
-
-(`pdf-lib` without the scope is still the original Hopding package on npm, and `@cantoo/pdf-lib` is Cantoo's fork.)
 
 ### Vendored PNG & standard fonts
 
@@ -1793,25 +1782,13 @@ import { FontNames } from '@mariusgrote/pdf-lib/standard-fonts';
 
 ### UMD Module
 
-You can also download `pdf-lib` as a UMD module from [unpkg](https://unpkg.com/#/) or [jsDelivr](https://www.jsdelivr.com/). The UMD builds have been compiled to ES5, so they should work [in any modern browser](https://caniuse.com/#feat=es5). UMD builds are useful if you aren't using a package manager or module bundler. For example, you can use them directly in the `<script>` tag of an HTML page.
-
-The following builds are available:
-
-- https://unpkg.com/pdf-lib/dist/pdf-lib.js
-- https://unpkg.com/pdf-lib/dist/pdf-lib.min.js
-- https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js
-- https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js
-
-> **NOTE:** if you are using the CDN scripts in production, you should include a specific version number in the URL, for example:
->
-> - https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js
-> - https://cdn.jsdelivr.net/npm/pdf-lib@1.4.0/dist/pdf-lib.min.js
+`pnpm build` also writes UMD builds to `dist/` (`pdf-lib.js` and `pdf-lib.min.js`). They have been compiled to ES5, so they should work [in any modern browser](https://caniuse.com/#feat=es5). UMD builds are useful if you aren't using a package manager or module bundler. For example, you can copy one into your site and load it with a `<script>` tag.
 
 When using a UMD build, you will have access to a global `window.PDFLib` variable. This variable contains all of the classes and functions exported by `pdf-lib`. For example:
 
 ```javascript
-// NPM module
-import { PDFDocument, rgb } from 'pdf-lib';
+// ES module
+import { PDFDocument, rgb } from '@mariusgrote/pdf-lib';
 
 // UMD module
 var PDFDocument = PDFLib.PDFDocument;

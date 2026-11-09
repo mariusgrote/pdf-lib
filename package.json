@@ -61,7 +61,6 @@
   "scripts": {
     "release": "pnpm release:prep && release-it",
     "release:prep": "pnpm lint && pnpm clean && pnpm typecheck && pnpm test && pnpm build && pnpm test:smoke",
-    "release:publish": "npm publish --access public",
     "get:version": "node --eval 'console.log(require(`./package.json`).version)'",
     "clean": "rimraf ts3.4 build cjs dist es scratchpad/build coverage tsBuildInfo.json apps/node-build apps/node/tsBuildInfo.json isolate*.log flamegraph.html out.pdf src/packages/upng/dist src/packages/standard-fonts/dist",
     "typecheck": "tsc --noEmit --incremental false --tsBuildInfoFile null",
@@ -85,7 +84,6 @@
     "build:umd:min": "rollup --config rollup.config.mjs --file dist/pdf-lib.min.js --environment MINIFY,MODULE_TYPE:umd",
     "build:downlevel-dts": "rimraf ts3.4 && pnpm exec downlevel-dts . ts3.4 && rimraf ts3.4/scratchpad",
     "build:test": "pnpm build:packages && pnpm build:es && pnpm build:umd",
-    "prepublishOnly": "pnpm build:packages",
     "scratchpad:start": "tsc --build scratchpad/tsconfig.json --watch",
     "scratchpad:run": "node scratchpad/build/scratchpad/index.js",
     "scratchpad:flame": "rimraf isolate*.log && node --prof scratchpad/build/scratchpad/index.js && node --prof-process --preprocess -j isolate*.log | flamebearer",
@@ -100,7 +98,6 @@
   },
   "main": "cjs/index.js",
   "module": "es/index.js",
-  "unpkg": "dist/pdf-lib.min.js",
   "types": "cjs/index.d.ts",
   "typesVersions": {
     "<=3.5": {
@@ -157,7 +154,7 @@
     "typescript": "^5.0.0"
   },
   "license": "MIT",
-  "private": false,
+  "private": true,
   "homepage": "https://github.com/mariusgrote/pdf-lib#readme",
   "repository": "git+https://github.com/mariusgrote/pdf-lib.git",
   "bugs": {

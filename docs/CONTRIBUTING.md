@@ -195,7 +195,7 @@ Flamegraphs are incredibly useful visual tools for troubleshooting performance i
 
 ## Compiling the Project
 
-For most development, manual compilation isn't necessary. The scratchpad and unit tests are usually all you need to test your code changes. But manual compilation _is_ necessary prior to running the integration tests or releasing a new version of the code to NPM.
+For most development, manual compilation isn't necessary. The scratchpad and unit tests are usually all you need to test your code changes. But manual compilation _is_ necessary prior to running the integration tests or cutting a release.
 
 Compiling the project will produce 4 artifacts:
 
