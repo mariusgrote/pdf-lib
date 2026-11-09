@@ -12,14 +12,22 @@ npm (`package.json` is marked `private`).
 ## Checklist (each release)
 
 1. `git checkout main && git pull`
-2. Update `CHANGELOG.md` (move `[Unreleased]` notes under the new version)
-3. Optional local checks / integration apps if the change is risky
-4. Run `pnpm release` — this runs `release:prep` (lint, typecheck, tests, build,
-   smoke test), then `release-it` bumps `package.json`, commits
-   `Release X.Y.Z`, creates tag `vX.Y.Z`, and opens a GitHub Release.
-5. Push the commit and tag:
+2. Update `CHANGELOG.md` (move `[Unreleased]` notes under the new version) and
+   commit it.
+3. Run the full check (lint, typecheck, tests, build, smoke test):
+   ```bash
+   pnpm release:check
+   ```
+4. Bump the version. This edits `package.json`, commits `X.Y.Z`, and creates
+   tag `vX.Y.Z`:
+   ```bash
+   npm version patch   # or minor / major
+   ```
+5. Push the commit and the tag:
    ```bash
    git push origin main vX.Y.Z
    ```
-6. Edit the [GitHub release notes](https://github.com/mariusgrote/pdf-lib/releases)
-   if needed.
+6. Create the GitHub Release from the changelog notes:
+   ```bash
+   gh release create vX.Y.Z --title vX.Y.Z --notes "..."
+   ```

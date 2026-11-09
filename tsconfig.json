@@ -40,7 +40,6 @@
   },
   "include": ["src/**/*", "tests/**/*"],
   "exclude": [
-    ".circleci",
     ".github",
     ".vscode",
     "apps",
@@ -48,7 +47,6 @@
     "cjs",
     "docs",
     "node_modules",
-    "scratchpad",
     "tests",
     "src/packages/*/dist",
     "src/packages/*/scripts",

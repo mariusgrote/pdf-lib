@@ -4,8 +4,6 @@
 
 `pdf-lib` is a JavaScript library designed to create and modify PDF files in any JavaScript environment. Contributions are welcomed and appreciated! Please read through this document to learn how to setup and run the project on your machine. If you have any questions or run into trouble, please [create a discussion](https://github.com/mariusgrote/pdf-lib/discussions).
 
-Be sure to read through [MAINTAINERSHIP.md](MAINTAINERSHIP.md) so that you understand how this project is maintained.
-
 ### Table Of Contents
 
 - [PR Requirements](#pull-request-requirements)
@@ -14,9 +12,6 @@ Be sure to read through [MAINTAINERSHIP.md](MAINTAINERSHIP.md) so that you under
 - [Local Setup and Prerequisites](#local-setup-and-prerequisites)
 - [Running the Unit Tests](#running-the-unit-tests)
 - [Running the Integration Tests](#running-the-integration-tests)
-- [Using the Scratchpad](#using-the-scratchpad)
-- [Using the VSCode Debugger](#using-the-vscode-debugger)
-- [Generating a Flamegraph](#generating-a-flamegraph)
 - [Compiling the Project](#compiling-the-project)
 - [Running the Linter](#running-the-linter)
 - [Running the Type Checker](#running-the-type-checker)
@@ -26,15 +21,13 @@ Be sure to read through [MAINTAINERSHIP.md](MAINTAINERSHIP.md) so that you under
 
 All PRs must:
 
-- Work in Node, Deno, Browser, and React Native environemnts.
-- Be explicitly tested in Node, Deno, and multiple browsers.
+- Work in Node and browser environments.
+- Be explicitly tested in Node and multiple browsers.
 - Work on **new** PDF files.
 - Work on all types of **existing** PDF files.
 - Be fully unit tested.
 - Be fully integration tested.
 - Have doc comments for new public APIs.
-
-See also [MAINTAINERSHIP.md#pull-requests](MAINTAINERSHIP.md#pull-requests).
 
 It is recommended to read the PR template before you get underway with your changes.
 
@@ -48,7 +41,7 @@ If it's possible to build your PR without introducing new dependencies, then tha
 - It must be well documented.
 - It must be actively supported.
 - It must have a small bundle size.
-- It must work in all JS environments (Node, Deno, Browser, and React Native).
+- It must work in Node and the browser.
 
 ## Understanding PDFs
 
@@ -73,7 +66,7 @@ You can develop `pdf-lib` on Windows, Mac, or Linux machines. While most of the 
 
 In order to work on `pdf-lib`, please ensure you have installed the following:
 
-- **Node.js** provides the runtime needed to run this project. ([Installation instructions](https://nodejs.org/en/download/) - need `v9.0.0` or greater).
+- **Node.js** provides the runtime needed to run this project. ([Installation instructions](https://nodejs.org/en/download/) - need v22 or later).
 - **pnpm** is the package manager used for this project ([installation instructions](https://pnpm.io/installation), version 12 or later). CI uses pnpm 12.4.1. New dependency versions are only resolved once they are seven days old (`minimumReleaseAge` in `pnpm-workspace.yaml`).
 - **Git** is the SCM used for this project. ([Installation instructions](https://git-scm.com/downloads) - need `2.17.2` or greater)
 
@@ -105,7 +98,7 @@ pnpm test
 This should output something like:
 
 ```
-$ jest --config jest.json --runInBand
+$ jest --config jest.config.js --runInBand
  PASS  tests/api/PDFDocument.spec.ts (13.238s)
  PASS  tests/core/parser/PDFObjectParser.spec.ts
  PASS  tests/core/parser/PDFParser.spec.ts
@@ -125,20 +118,15 @@ Hopefully you see that all the tests passed! But if you see errors or warnings, 
 
 ## Running the Integration Tests
 
-In addition to unit tests, we maintain a suite of integration tests for 3 different JavaScript environments. All integration tests are kept in the [`apps/`](./apps) directory. The goal of these tests is to ensure the project as a whole works correctly, whereas the unit tests ensure individual classes and functions work correctly. The integration tests take longer to run than the unit tests. They also require manual inspection of the PDFs they create to make sure nothing is broken, whereas the unit tests are entirely automatic (they pass/fail without human input).
+In addition to unit tests, we maintain integration tests for Node and the browser. All integration tests are kept in the [`apps/`](./apps) directory. The goal of these tests is to ensure the project as a whole works correctly, whereas the unit tests ensure individual classes and functions work correctly. The integration tests take longer to run than the unit tests. They also require manual inspection of the PDFs they create to make sure nothing is broken, whereas the unit tests are entirely automatic (they pass/fail without human input).
 
 > **Make sure to [compile the code](#compiling-the-project) before running these tests**
 
-There are integration tests for Node, Deno, browser, and React Native environments:
+There are integration tests for Node and the browser:
 
 - To run the tests for Node:
   ```
   pnpm apps:node
-  # Follow the prompts in your terminal
-  ```
-- To run the tests for Deno:
-  ```
-  pnpm apps:deno
   # Follow the prompts in your terminal
   ```
 - To run the tests for the browser:
@@ -146,63 +134,16 @@ There are integration tests for Node, Deno, browser, and React Native environmen
   pnpm apps:web
   # Open http://localhost:8080/apps/web/test1.html in your browser
   ```
-- To run the tests for React Native (iOS):
-  ```
-  pnpm apps:rn:ios
-  # Tap through the tests in your simulator
-  ```
-- To run the tests for React Native (Android):
-  ```
-  pnpm apps:rn:android
-  adb reverse tcp:8080 tcp:8080
-  # Tap through the tests in your simulator
-  ```
-
-## Using the Scratchpad
-
-The scratchpad is a handy tool for testing your code changes. It serves as an entrypoint to the code contained in [`src/`](./src). There are two steps required to use the scratchpad:
-
-1. Start the TypeScript compiler:
-   ```
-   pnpm scratchpad:start
-   ```
-   Note that you must leave this server running. It will detect code changes
-   as you make them and automatically recompile the code.
-2. Run the [`scratchpad/index.ts`](./scratchpad/index.ts) file:
-   ```
-   pnpm scratchpad:run
-   ```
-   This will compile and execute the code in your scratchpad file. If you
-   (1) create a PDF in the scratchpad, (2) save it to the file system, and (3) pass its file path to [`openPdf`](./scratchpad/open.ts#L11) function, then running this command will automatically open the file in your viewer of choice.
-
-## Using the VSCode Debugger
-
-You can use the VSCode debugger to run your scratchpad file. This can be a very powerful tool for testing and debugging the code. There are two steps required to use the debugger:
-
-1. Start the TypeScript compiler:
-   ```
-   pnpm scratchpad:start
-   ```
-   Note that you must leave this server running. It will detect code changes
-   as you make them and automatically recompile the code.
-2. Run the [`scratchpad/index.ts`](./scratchpad/index.ts) file in the debugger
-   by clicking the `Start Debugging` button (or use the `F5` keyboard
-   shortcut).
-
-## Generating a Flamegraph
-
-Flamegraphs are incredibly useful visual tools for troubleshooting performance issues. You can generate a flamegraph using the [scratchpad file](#using-the-scratchpad) as an entrypoint by running `pnpm scratchpad:flame` (note that you must have the TypeScript compiler running, as explained above). This will run the scratchpad file, generate a flamegraph of its execution, and automatically open it in your browser.
 
 ## Compiling the Project
 
-For most development, manual compilation isn't necessary. The scratchpad and unit tests are usually all you need to test your code changes. But manual compilation _is_ necessary prior to running the integration tests or cutting a release.
+For most development, manual compilation isn't necessary. The unit tests are usually all you need to test your code changes. But manual compilation _is_ necessary prior to running the integration tests or cutting a release.
 
-Compiling the project will produce 4 artifacts:
+`pnpm build` writes:
 
-- **`compiled/cjs`** - a directory containing a CommonJS version of the project (uses `require` instead of `import`). This folder contains `.js` and [`.d.ts`](https://stackoverflow.com/a/21247316) files, rather than the `.ts` files that the project source is written in.
-- **`compiled/es`** - a directory containing an ES2015 version of the project (uses `import` instead of `require`). This folder contains `.js` and [`.d.ts`](https://stackoverflow.com/a/21247316) files, rather than the `.ts` files that the project source is written in.
-- **`compiled/dist/pdf-lib.js`** - a single JavaScript file containing a [UMD](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) version of the project.
-- **`compiled/dist/pdf-lib.min.js`** - a single JavaScript file containing a minified [UMD](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) version of the project.
+- **`cjs/`** - CommonJS build (`.js` and `.d.ts` files).
+- **`es/`** - ES module build (`.js` and `.d.ts` files).
+- **`dist/`** - single-file ESM and UMD bundles (`pdf-lib.esm.js`, `pdf-lib.js`, plus minified versions) and the `upng` / `standard-fonts` subpath packages.
 
 To compile the project, execute the following:
 
@@ -210,30 +151,11 @@ To compile the project, execute the following:
 pnpm build
 ```
 
-This should output something like the following:
-
-```
-$ pnpm build:cjs && pnpm build:es && pnpm build:umd && pnpm build:umd:min
-$ ttsc --module commonjs --outDir cjs
-$ ttsc --module ES2015 --outDir es
-$ rollup --config rollup.config.js --file dist/pdf-lib.js
-
-es/index.js → dist/pdf-lib.js...
-created dist/pdf-lib.js in 1.5s
-$ rollup --config rollup.config.js --file dist/pdf-lib.min.js --environment MINIFY
-
-es/index.js → dist/pdf-lib.min.js...
-created dist/pdf-lib.min.js in 4s
-✨  Done in 17.34s.
-```
-
-The compiled artifacts will be located in the `cjs/`, `es/`, and `dist/` directories.
-
 ## Running the Linter
 
 We use two linters to keep `pdf-lib`'s source code clean, tidy, and consistent:
 
-- [**TSLint**](https://palantir.github.io/tslint/)
+- [**ESLint**](https://eslint.org/)
 - [**Prettier**](https://prettier.io/)
 
 It is recommended that you setup your editor to automatically run these linters for you (either on save, or some other keyboard shortcut). However, this is not required. The linters can be run from the command line as well.
@@ -242,16 +164,6 @@ To run the linter, execute the following:
 
 ```
 pnpm lint
-```
-
-This should output something like the following:
-
-```
-$ pnpm lint:prettier && pnpm lint:tslint:src && pnpm lint:tslint:tests
-$ prettier --write './{src,tests}/**/*.{ts,js,json}' --loglevel error
-$ tslint --project tsconfig.json --fix
-$ tslint --project tests/tsconfig.json --fix
-✨  Done in 7.89s.
 ```
 
 The linter is very strict about the format and style of your code. Anytime it finds something that doesn't comply with the project's formatting and style standards, it will try to automatically rewrite the file to comply. Note that not all linter errors can be fixed automatically. You will have to manually fix those that can't.

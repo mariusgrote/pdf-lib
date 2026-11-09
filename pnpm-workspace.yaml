@@ -6,8 +6,3 @@ minimumReleaseAge: 10080
 allowBuilds:
   # Used by scripts/run-ts.mjs to regenerate the standard-fonts metrics.
   esbuild: true
-
-overrides:
-  # downlevel-dts asks for typescript@next, which now resolves to the
-  # TypeScript 7 preview without a JS API. Use the project's TypeScript.
-  downlevel-dts>typescript: $typescript

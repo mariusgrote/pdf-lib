@@ -7,11 +7,11 @@ body:
       value: |
         Thanks for taking the time to submit a proposal!
         
-        In most cases, [discussions](https://github.com/Hopding/pdf-lib/discussions) are a better place to submit feedback and discuss ideas. This form is meant for ideas that have a clear path to implementation. You should only use this form to submit a proposal if:
+        In most cases, a [discussion](https://github.com/mariusgrote/pdf-lib/discussions) is a better place to submit feedback and discuss ideas. This form is meant for ideas that have a clear path to implementation. You should only use this form to submit a proposal if:
         * You have a specific idea in mind to improve `pdf-lib`.
         * You've done your research.
-        * You've read [CONTRIBUTING.md](https://github.com/Hopding/pdf-lib/blob/master/docs/CONTRIBUTING.md) and understand what involved in making a change to `pdf-lib`.
-        * You've read the sections of the PDF specification listed [here](https://github.com/Hopding/pdf-lib/blob/master/docs/CONTRIBUTING.md#understanding-pdfs).
+        * You've read [CONTRIBUTING.md](https://github.com/mariusgrote/pdf-lib/blob/main/docs/CONTRIBUTING.md) and understand what involved in making a change to `pdf-lib`.
+        * You've read the sections of the PDF specification listed [here](https://github.com/mariusgrote/pdf-lib/blob/main/docs/CONTRIBUTING.md#understanding-pdfs).
         * You can describe a technical approach to implementing your idea.
 
         If you still think this is the right form to propose you're idea, then please fill it out. We love well thought out, detailed, technical proposals! 💖
@@ -26,8 +26,6 @@ body:
         * [45 GitHub Issues Dos and Don'ts](https://davidwalsh.name/45-github-issues-dos-donts)
 
         (These posts are focused more on issues/questions, but can still help you write a good proposal).
-
-        You can read [MAINTAINERSHIP.md](https://github.com/Hopding/pdf-lib/blob/master/docs/MAINTAINERSHIP.md) to learn more about how this repo is maintained.
   - type: textarea
     attributes:
       label: Describe your idea

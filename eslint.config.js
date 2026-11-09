@@ -12,7 +12,6 @@ module.exports = [
       'dist/**',
       'cjs/**',
       'es/**',
-      'ts3.4/**',
       'coverage/**',
       'build/**',
       'apps/node-build/**',
@@ -90,22 +89,6 @@ module.exports = [
     ],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
-    },
-  },
-  {
-    files: ['**/apps/rn/**/*.{ts,tsx,js,jsx,mjs}'],
-    languageOptions: {
-      globals: {
-        require: 'readonly',
-      },
-    },
-  },
-  {
-    files: ['**/apps/deno/**/*.{ts,tsx,js,jsx,mjs}'],
-    languageOptions: {
-      globals: {
-        Deno: 'readonly',
-      },
     },
   },
 ];

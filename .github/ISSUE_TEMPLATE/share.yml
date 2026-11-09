@@ -6,8 +6,6 @@ body:
     attributes:
       value: |
         Use this form to let other contributors and the `pdf-lib` maintainers know that you're working on something. 
-
-        You can read [MAINTAINERSHIP.md](https://github.com/Hopding/pdf-lib/blob/master/docs/MAINTAINERSHIP.md) to learn more about how this repo is maintained.
   - type: textarea
     attributes:
       label: What are you working on?

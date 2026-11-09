@@ -1,17 +1,13 @@
-scratchpad/build/
 apps/node-build/
 node_modules/
 coverage/
-ts3.4/
 build/
 dist/
 cjs/
 es/
 
 tsBuildInfo.json
-flamegraph.html
 pnpm-debug.log*
-isolate*.log
 .DS_Store
 out.pdf
 *.tgz

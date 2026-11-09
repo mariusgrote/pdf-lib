@@ -20,11 +20,18 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
   CommonJS) and fails on install-time scripts. CI runs it.
 - Switch from Yarn to pnpm 12 (`pnpm-lock.yaml`, `pnpm-workspace.yaml` with a
   seven-day `minimumReleaseAge`). Declare `@types/node`, which the tests used
-  without listing it, and pin `downlevel-dts` to the project's TypeScript.
+  without listing it,.
 - Add a CI workflow for pull requests; remove the old CircleCI config and the
   sponsor-label and stale-issue workflows.
 - Not published to npm: the package is marked `private` and there is no
   publish workflow.
+- Drop the TypeScript 3.4 type declarations (`ts3.4/`, `typesVersions`,
+  `downlevel-dts`).
+- Remove the React Native and Deno integration apps, the scratchpad and
+  flamegraph tooling, the unused `tslint.json`, `release-it` (releases now use
+  `npm version` and `gh release create`, see `docs/RELEASING.md`), and
+  upstream's funding, issue-label and maintainership files.
+- Shorten the README to the fork's own content.
 
 ## [2.11.0]
 

@@ -2,7 +2,7 @@
   "name": "@mariusgrote/pdf-lib",
   "version": "2.11.0",
   "description": "Create and modify PDF files with JavaScript",
-  "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
+  "author": "Marius Grote (https://github.com/mariusgrote)",
   "exports": {
     ".": {
       "types": "./cjs/index.d.ts",
@@ -21,6 +21,7 @@
     }
   },
   "contributors": [
+    "Andrew Dillon <andrew.dillon.j@gmail.com>",
     "François Billioud (https://github.com/Sharcoux)",
     "Matheus Santos (https://github.com/matheus-santos)",
     "Cantoo (https://github.com/cantoo-scribe)",
@@ -50,19 +51,16 @@
     "Brent McSharry (https://github.com/mcshaz)",
     "Tim Knapp (https://github.com/duffyd)",
     "Ching Chang (https://github.com/ChingChang9)",
-    "François Billioud (https://github.com/Sharcoux)",
     "Phakorn Kiong (https://github.com/PhakornKiong)",
     "Donald Ness (https://github.com/programmarchy)",
     "Remus DRAICA (https://github.com/remdra)",
     "David Abdala (https://github.com/adnsistemas)",
-    "Eran Ohayon (https://github.com/erano067)",
-    "Marius Grote (https://github.com/mariusgrote)"
+    "Eran Ohayon (https://github.com/erano067)"
   ],
   "scripts": {
-    "release": "pnpm release:prep && release-it",
-    "release:prep": "pnpm lint && pnpm clean && pnpm typecheck && pnpm test && pnpm build && pnpm test:smoke",
+    "release:check": "pnpm lint && pnpm clean && pnpm typecheck && pnpm test && pnpm build && pnpm test:smoke",
     "get:version": "node --eval 'console.log(require(`./package.json`).version)'",
-    "clean": "rimraf ts3.4 build cjs dist es scratchpad/build coverage tsBuildInfo.json apps/node-build apps/node/tsBuildInfo.json isolate*.log flamegraph.html out.pdf src/packages/upng/dist src/packages/standard-fonts/dist",
+    "clean": "rimraf build cjs dist es coverage tsBuildInfo.json apps/node-build apps/node/tsBuildInfo.json out.pdf src/packages/upng/dist src/packages/standard-fonts/dist",
     "typecheck": "tsc --noEmit --incremental false --tsBuildInfoFile null",
     "test": "pnpm build:packages && jest --config jest.config.js --runInBand",
     "testw": "jest --config jest.config.js --watch",
@@ -75,43 +73,27 @@
     "standard-fonts:afm": "node ./scripts/run-ts.mjs src/packages/standard-fonts/scripts/fonts/parse.ts",
     "standard-fonts:encodings": "node ./scripts/run-ts.mjs src/packages/standard-fonts/scripts/encodings/parse.ts",
     "standard-fonts:metrics": "pnpm standard-fonts:afm && pnpm standard-fonts:encodings",
-    "build": "pnpm build:packages && pnpm build:cjs && pnpm build:es && pnpm build:esm && pnpm build:esm:min && pnpm build:umd && pnpm build:umd:min && pnpm build:downlevel-dts && pnpm build:mirror",
+    "build": "pnpm build:packages && pnpm build:cjs && pnpm build:es && pnpm build:esm && pnpm build:esm:min && pnpm build:umd && pnpm build:umd:min && pnpm build:mirror",
     "build:cjs": "tsc --module commonjs --outDir cjs",
     "build:es": "tsc --module ES2015 --outDir es && node ./scripts/es-build.js",
     "build:esm": "rollup --config rollup.config.mjs --file dist/pdf-lib.esm.js --environment MODULE_TYPE:es",
     "build:esm:min": "rollup --config rollup.config.mjs --file dist/pdf-lib.esm.min.js --environment MINIFY,MODULE_TYPE:es",
     "build:umd": "rollup --config rollup.config.mjs --file dist/pdf-lib.js --environment MODULE_TYPE:umd",
     "build:umd:min": "rollup --config rollup.config.mjs --file dist/pdf-lib.min.js --environment MINIFY,MODULE_TYPE:umd",
-    "build:downlevel-dts": "rimraf ts3.4 && pnpm exec downlevel-dts . ts3.4 && rimraf ts3.4/scratchpad",
     "build:test": "pnpm build:packages && pnpm build:es && pnpm build:umd",
-    "scratchpad:start": "tsc --build scratchpad/tsconfig.json --watch",
-    "scratchpad:run": "node scratchpad/build/scratchpad/index.js",
-    "scratchpad:flame": "rimraf isolate*.log && node --prof scratchpad/build/scratchpad/index.js && node --prof-process --preprocess -j isolate*.log | flamebearer",
     "apps:node": "tsc --build apps/node/tsconfig.json && node apps/node-build/index.js",
-    "apps:deno": "deno run --allow-read --allow-write --allow-run apps/deno/index.ts",
     "apps:web": "http-server -c-1 -o apps/web/test1.html",
     "apps:web:mac": "bash -c 'sleep 1 && open http://localhost:8080/apps/web/test1.html' & pnpm apps:web",
-    "apps:rn:ios": "cd apps/rn && pnpm add ../.. && react-native run-ios",
-    "apps:rn:android": "pnpm apps:rn:emulator & cd apps/rn && pnpm add ../.. && react-native run-android",
-    "apps:rn:emulator": "emulator -avd \"$(emulator -list-avds | head -n 1)\" & bash -c 'sleep 5 && adb reverse tcp:8080 tcp:8080 && adb reverse tcp:8081 tcp:8081'",
     "test:smoke": "node ./scripts/smoke-test.mjs"
   },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "types": "cjs/index.d.ts",
-  "typesVersions": {
-    "<=3.5": {
-      "*": [
-        "ts3.4/*"
-      ]
-    }
-  },
   "files": [
     "cjs/",
     "dist/",
     "es/",
     "src/",
-    "ts3.4",
     "LICENSE.md",
     "package.json",
     "README.md"
@@ -137,17 +119,14 @@
     "@types/node": "20.11.13",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "downlevel-dts": "^0.11.0",
     "esbuild": "^0.25.0",
     "eslint": "^9.35.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "flamebearer": "^1.1.3",
     "globals": "^15.0.0",
     "http-server": "^14.1.1",
     "jest": "29.7.0",
     "prettier": "^3.2.5",
-    "release-it": "^17.0.3",
     "rimraf": "^5.0.5",
     "rollup": "^4.9.6",
     "ts-jest": "^29.0",
