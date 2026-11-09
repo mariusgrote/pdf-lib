@@ -34,10 +34,10 @@ const getApRefs = (widget: PDFWidgetAnnotation) => {
   const onValue = widget.getOnValue() ?? PDFName.of('Yes');
   const aps = widget.getAppearances();
   return [
-    (aps?.normal as PDFDict).get(onValue),
+    (aps!.normal as PDFDict).get(onValue),
     (aps?.rollover as PDFDict | undefined)?.get(onValue),
     (aps?.down as PDFDict | undefined)?.get(onValue),
-    (aps?.normal as PDFDict).get(PDFName.of('Off')),
+    (aps!.normal as PDFDict).get(PDFName.of('Off')),
     (aps?.rollover as PDFDict | undefined)?.get(PDFName.of('Off')),
     (aps?.down as PDFDict | undefined)?.get(PDFName.of('Off')),
   ].filter(Boolean);
@@ -60,14 +60,14 @@ describe('PDFForm', () => {
     const ignoredWarnings = [
       'Removing XFA form data as pdf-lib does not support reading or writing XFA',
     ];
-    console.warn = jest.fn((...args) => {
+    console.warn = vi.fn((...args) => {
       const isIgnored = ignoredWarnings.find((iw) => args[0].includes(iw));
       if (!isIgnored) origConsoleWarn(...args);
     });
   });
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   afterAll(() => {
@@ -290,7 +290,7 @@ describe('PDFForm', () => {
 
     expect(() => form.updateFieldAppearances()).not.toThrow();
 
-    expect(
+    await expect(
       pdfDoc.save({ updateFieldAppearances: true }),
     ).resolves.toBeInstanceOf(Uint8Array);
   });
@@ -438,7 +438,7 @@ describe('PDFForm', () => {
     page.node.addAnnot(widgetRef);
 
     const origConsoleError = console.error;
-    console.error = jest.fn();
+    console.error = vi.fn();
     try {
       form.flatten();
     } finally {

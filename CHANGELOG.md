@@ -21,6 +21,11 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
 - Switch from Yarn to pnpm 12 (`pnpm-lock.yaml`, `pnpm-workspace.yaml` with a
   seven-day `minimumReleaseAge`). Declare `@types/node`, which the tests used
   without listing it,.
+- Replace ESLint 9 and Prettier with oxlint and oxfmt (`pnpm lint`,
+  `pnpm fmt`, `pnpm fmt:check`).
+- Replace Jest with Vitest. Tests run against the TypeScript sources, so
+  `pnpm test` no longer builds the vendored packages first, and
+  `pnpm typecheck` now also checks the tests.
 - Add a CI workflow for pull requests; remove the old CircleCI config and the
   sponsor-label and stale-issue workflows.
 - Not published to npm: the package is marked `private` and there is no

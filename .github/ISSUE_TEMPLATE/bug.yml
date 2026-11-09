@@ -1,6 +1,6 @@
 name: Bug Report 🐛
 description: Something not working? Let us know! Just be sure it's something we can reproduce.
-labels: ["bug", "needs-triage"]
+labels: ['bug', 'needs-triage']
 body:
   - type: markdown
     attributes:
@@ -54,9 +54,9 @@ body:
         Please also type out a list of specific steps we can take to run your code and reproduce the issue. Depending on what you're reporting, this might be simple as running a JSFiddle or downloading a ZIP file and executing `node index.js`. Some issues will require more instructions. 
 
         > If you are unable to share certain files (e.g. confidential PDFs), then state this in your response. Be prepared to share the files privately (e.g. via email). If you are unable to do this then we probably can't fix the issue.
-     
+
         ⚠️ If your response includes incomplete code or doesn't clearly state how to execute the code you've provided, your report will be closed without comment.
-        
+
         💖 Thank you for taking the time to create a well-defined report! This helps reduce the demand placed on maintainers trying to help you. We want to make this a pleasant, efficient process for both you and us!
     validations:
       required: true

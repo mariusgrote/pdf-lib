@@ -4,10 +4,10 @@ PNG / APNG encoder and decoder based on [photopea/UPNG.js](https://github.com/ph
 
 ## Benefits vs original UPNG / `@pdf-lib/upng`
 
-|             | photopea/UPNG.js & `@pdf-lib/upng`              | `@mariusgrote/upng`                                                                  |
+|             | photopea/UPNG.js & `@pdf-lib/upng`              | `@mariusgrote/upng`                                                             |
 | ----------- | ----------------------------------------------- | ------------------------------------------------------------------------------- |
 | Compression | `pako`                                          | **[`fflate`](https://www.npmjs.com/package/fflate)**                            |
-| Packaging   | Separate npm package                            | Also shipped as `@mariusgrote/pdf-lib/upng`                                          |
+| Packaging   | Separate npm package                            | Also shipped as `@mariusgrote/pdf-lib/upng`                                     |
 | Source      | One monolithic `UPNG.js`                        | **Modular TypeScript** (`decode`, `encode`, `quantize`, `framize`, `filter`, …) |
 | Encode      | Full UPNG (`quantize`, `framize`, lossy `cnum`) | **Same** feature set, ported from photopea's current sources                    |
 | Types       | `@pdf-lib/upng` ships `.d.ts`                   | Same public surface, types generated from the sources                           |

@@ -6,6 +6,8 @@
     "rootDir": null,
     "rootDirs": ["../src", "../tests"],
     "incremental": false,
-    "tsBuildInfoFile": null
+    "tsBuildInfoFile": null,
+    "preserveSymlinks": false,
+    "types": ["node", "vitest/globals"]
   }
 }

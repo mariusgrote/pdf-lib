@@ -1,28 +1,32 @@
-<!-- 
+<!--
 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
 👉 🚨 Do not remove or skip any sections in this template ⛔️ 👈
 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
 
-Thank you for taking the time to make a PR! 💖 
+Thank you for taking the time to make a PR! 💖
 Please fill out this template completely to help us provide a prompt review. 😃
 You can add more sections if you like. ✅
 -->
 
 ## What?
+
 <!-- Describe what your PR does. Include code snippets demonstrating how to use any APIs you added/updated. -->
 
 ## Why?
+
 <!-- Describe why you created this PR. Explain why others would find it useful. -->
 
 ## How?
+
 <!-- Describe how your PR works. Did you consider any alternative implementations? -->
 
 ## Testing?
+
 <!-- Describe how you tested your PR. Why are you confident it is correct? -->
 
-
 ## New Dependencies?
-<!-- 
+
+<!--
 If you added a new dependency then please read https://github.com/mariusgrote/pdf-lib/blob/main/docs/CONTRIBUTING.md#adding-dependencies and then:
   * Clearly explain why it is necessary.
   * Explain how you know it is well tested.
@@ -34,18 +38,22 @@ If you did not add a new dependency, simply state "No".
 -->
 
 ## Screenshots
+
 <!-- If your changes can affect the visual appearance of a PDF, then provide screenshots demonstrating this. Otherwise state "N/A".  -->
 
 ## Suggested Reading?
-<!-- 
-Have you read the PDF specification sections recommended in https://github.com/mariusgrote/pdf-lib/blob/main/docs/CONTRIBUTING.md#understanding-pdfs? 
+
+<!--
+Have you read the PDF specification sections recommended in https://github.com/mariusgrote/pdf-lib/blob/main/docs/CONTRIBUTING.md#understanding-pdfs?
 State "Yes" or "No".
 -->
 
 ## Anything Else?
+
 <!-- Please share any additional notes here. -->
 
 ## Checklist
+
 - [ ] I read [CONTRIBUTING.md](https://github.com/mariusgrote/pdf-lib/blob/main/docs/CONTRIBUTING.md).
 - [ ] I added/updated unit tests for my changes.
 - [ ] I added/updated integration tests for my changes.

@@ -66,14 +66,14 @@ describe('PDFDocument', () => {
         'Trying to parse invalid object:',
         'Invalid object ref:',
       ];
-      console.warn = jest.fn((...args) => {
+      console.warn = vi.fn((...args) => {
         const isIgnored = ignoredWarnings.find((iw) => args[0].includes(iw));
         if (!isIgnored) origConsoleWarn(...args);
       });
     });
 
     beforeEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     afterAll(() => {
@@ -2181,7 +2181,9 @@ describe('PDFDocument', () => {
       const savedBytes = await pdfDoc1.save();
 
       // Load without preserveXFA
-      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleWarnSpy = vi
+        .spyOn(console, 'warn')
+        .mockImplementation(() => {});
       const pdfDoc2 = await PDFDocument.load(savedBytes);
       const form2 = pdfDoc2.getForm();
 
