@@ -9,8 +9,8 @@ This fork is not published to npm. See [Installation](#installation) for how to 
 **How this fork differs from `@cantoo/pdf-lib`**
 
 - The published `package.json` has no install-time scripts (no `prepare`).
-- The ESM build imports its JSON font data with `with { type: 'json' }`, so it loads in Node.
-- CI loads the built package in Node (ESM and CommonJS).
+- ESM-only package, built with [tsdown](https://tsdown.dev). `require()` still works on Node 22.12+, which can load ES modules.
+- CI loads the built package in Node through its `exports` (`import` and `require()`), plus the browser bundles.
 - Uses pnpm instead of Yarn.
 
 See [CHANGELOG](CHANGELOG.md), [CONTRIBUTING](docs/CONTRIBUTING.md) and [SECURITY](SECURITY.md).
@@ -92,7 +92,9 @@ import UPNG from '@mariusgrote/pdf-lib/upng';
 import { FontNames } from '@mariusgrote/pdf-lib/standard-fonts';
 ```
 
-`pnpm build` also writes UMD builds to `dist/` (`pdf-lib.js` and `pdf-lib.min.js`). Load one with a `<script>` tag and use the global `PDFLib` (for example `PDFLib.PDFDocument`).
+The package is ESM-only. On Node 22.12 and later, `require('@mariusgrote/pdf-lib')` also works, because Node can `require()` ES modules.
+
+`pnpm build` also writes self-contained browser bundles to `dist/`: UMD (`pdf-lib.js`, `pdf-lib.min.js`) and ESM (`pdf-lib.esm.mjs`, `pdf-lib.esm.min.mjs`). Load a UMD bundle with a `<script>` tag and use the global `PDFLib` (for example `PDFLib.PDFDocument`).
 
 ### Fontkit
 

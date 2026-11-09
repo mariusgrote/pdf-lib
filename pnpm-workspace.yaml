@@ -2,7 +2,3 @@ packages: []
 
 # Wait seven days before resolving newly published dependency versions.
 minimumReleaseAge: 10080
-
-allowBuilds:
-  # Used by scripts/run-ts.mjs to regenerate the standard-fonts metrics.
-  esbuild: true

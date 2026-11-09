@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { PDFDocument } from 'src/index';
-import { PDFString, PDFName } from 'src/core';
+import { PDFDocument } from '../../src/index';
+import { PDFString, PDFName } from '../../src/core';
 
 const toUint8Array = (buf: Buffer) => new Uint8Array(buf);
 

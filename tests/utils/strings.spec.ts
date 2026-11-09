@@ -1,5 +1,5 @@
 import fontkit from '@cantoo/fontkit';
-import { FontNames } from '../../src/packages/standard-fonts';
+import { FontNames } from '../../src/packages/standard-fonts/index';
 import fs from 'fs';
 
 import { asUint8Array } from '../asUint8Array';

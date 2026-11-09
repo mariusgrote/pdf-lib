@@ -11,13 +11,22 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
 
 - Rename the package to `@mariusgrote/pdf-lib`. The vendored `upng` and
   `standard-fonts` packages are only shipped as subpath exports.
-- Fix the ESM build in Node: JSON font data is now imported with
-  `with { type: 'json' }` (previously `ERR_IMPORT_ATTRIBUTE_MISSING`; see
-  cantoo-scribe/pdf-lib#155).
+- **Breaking:** the package is ESM-only. `cjs/` and `es/` are replaced by
+  bundled entry points in `dist/` (`index.mjs`, `upng.mjs`,
+  `standard-fonts.mjs` with `.d.mts` types), built with
+  [tsdown](https://tsdown.dev). `require()` still works on Node 22.12+. The
+  output targets ES2020, which the code's use of ES2020 APIs already needed.
+  This also fixes loading the ESM build in Node (`ERR_IMPORT_ATTRIBUTE_MISSING`,
+  cantoo-scribe/pdf-lib#155), since JSON data is now bundled.
+- The browser bundles stay in `dist/`. The ESM ones are renamed to
+  `pdf-lib.esm.mjs` and `pdf-lib.esm.min.mjs`. The separate UMD builds of the
+  vendored `upng` and `standard-fonts` packages are dropped.
+- Drop the `tslib` dependency; it was only needed for `tsc`'s helper imports.
 - Remove the `prepare` script and Husky/lint-staged, so the package has no
   install-time scripts (cantoo-scribe/pdf-lib#159).
-- Add `pnpm test:smoke`, which loads the built package in Node (ESM and
-  CommonJS) and fails on install-time scripts. CI runs it.
+- Add `pnpm test:smoke`, which loads the built package by name through its
+  `exports` (`import` and `require()`, all three entry points), runs the
+  browser bundles, and fails on install-time scripts. CI runs it.
 - Switch from Yarn to pnpm 12 (`pnpm-lock.yaml`, `pnpm-workspace.yaml` with a
   seven-day `minimumReleaseAge`). Declare `@types/node`, which the tests used
   without listing it,.
@@ -31,6 +40,11 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
 - The Node integration apps import `@mariusgrote/pdf-lib` by name. A
   `@mariusgrote/source` export condition points type-checking at `src/`, so
   linting them needs no build; Node and bundlers ignore the condition.
+  `pnpm apps:build` compiles them against the built type declarations.
+- Replace Rollup (and its plugins and terser), esbuild and the custom build
+  scripts with tsdown. No dependency runs install scripts anymore. The
+  standard-fonts metric scripts run with plain Node, which strips TypeScript
+  types itself.
 - Add a CI workflow for pull requests; remove the old CircleCI config and the
   sponsor-label and stale-issue workflows.
 - Not published to npm: the package is marked `private` and there is no

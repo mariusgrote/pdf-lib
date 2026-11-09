@@ -1,53 +1,25 @@
 {
+  // Type-checking (oxlint) and declaration generation (tsdown). JavaScript
+  // output is built by tsdown, not tsc.
   "compilerOptions": {
-    /* Basic Options */
-    "target": "es2015",
-    "module": "commonjs",
-    "allowJs": true,
-    "checkJs": false,
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": [],
+    "rootDir": "./src",
     "declaration": true,
     "declarationMap": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "outDir": "./build",
-    "rootDir": "./src",
-    "composite": false,
-    "incremental": true,
-    "tsBuildInfoFile": "./tsBuildInfo.json",
-    "removeComments": false,
-    "importHelpers": true,
-    "isolatedModules": false,
-    "newLine": "LF",
+    "isolatedModules": true,
     "resolveJsonModule": true,
-    /* Strict Type-Checking Options */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+
     "strict": true,
-    /* Additional Checks */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    /* Module Resolution Options */
-    "paths": {
-      "src/*": ["./src/*"]
-    },
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "moduleResolution": "bundler",
-    "types": ["node"],
-    "jsx": "react"
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*", "tests/**/*"],
-  "exclude": [
-    ".github",
-    ".vscode",
-    "apps",
-    "assets",
-    "cjs",
-    "docs",
-    "node_modules",
-    "tests",
-    "src/packages/*/dist",
-    "src/packages/*/scripts",
-    "src/packages/*/*.d.ts"
-  ]
+  "include": ["src"],
+  "exclude": ["src/packages/*/scripts"]
 }

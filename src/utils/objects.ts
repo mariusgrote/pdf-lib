@@ -1,4 +1,4 @@
-import { FontNames } from '../packages/standard-fonts';
+import { FontNames } from '../packages/standard-fonts/index';
 
 export const values = (obj: any) => Object.keys(obj).map((k) => obj[k]);
 

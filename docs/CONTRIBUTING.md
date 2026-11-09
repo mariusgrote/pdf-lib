@@ -131,11 +131,13 @@ There are integration tests for Node and the browser:
 
 For most development, manual compilation isn't necessary. The unit tests are usually all you need to test your code changes. But manual compilation _is_ necessary prior to running the integration tests or cutting a release.
 
-`pnpm build` writes:
+`pnpm build` runs [tsdown](https://tsdown.dev) (configured in `tsdown.config.mts`) and writes everything to `dist/`:
 
-- **`cjs/`** - CommonJS build (`.js` and `.d.ts` files).
-- **`es/`** - ES module build (`.js` and `.d.ts` files).
-- **`dist/`** - single-file ESM and UMD bundles (`pdf-lib.esm.js`, `pdf-lib.js`, plus minified versions) and the `upng` / `standard-fonts` subpath packages.
+- **`index.mjs`, `upng.mjs`, `standard-fonts.mjs`** and their `.d.mts` type declarations - the npm package entry points, ESM-only.
+- **`pdf-lib.js` / `pdf-lib.min.js`** - self-contained UMD bundles that set the global `PDFLib`.
+- **`pdf-lib.esm.mjs` / `pdf-lib.esm.min.mjs`** - self-contained ESM bundles for browsers.
+
+`pnpm test:smoke` loads all of them, and `pnpm apps:build` compiles the Node integration apps against the generated type declarations.
 
 To compile the project, execute the following:
 

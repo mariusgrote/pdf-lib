@@ -3,7 +3,7 @@ import {
   extractLinesFromSection,
   takeAfterFirstSpace,
   takeUntilFirstSpace,
-} from './utils';
+} from './utils.ts';
 
 export interface IFontMetrics {
   Comment: string;

@@ -52,5 +52,8 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Compile the Node apps against the built type declarations
+        run: pnpm apps:build
+
       - name: Load the built package in Node
         run: pnpm test:smoke

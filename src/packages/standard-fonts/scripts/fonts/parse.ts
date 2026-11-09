@@ -1,10 +1,16 @@
 import { copyFile, readdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 
-import { compressJson } from '../compressJson';
-import { ICharMetrics, parseCharMetricsSection } from './parseCharacterMetrics';
-import { IFontMetrics, parseFontMetricsSection } from './parseFontMetrics';
-import { IKernPair, parseKernPairsSection } from './parseKernPairs';
+import { compressJson } from '../compressJson.ts';
+import {
+  type ICharMetrics,
+  parseCharMetricsSection,
+} from './parseCharacterMetrics.ts';
+import {
+  type IFontMetrics,
+  parseFontMetricsSection,
+} from './parseFontMetrics.ts';
+import { type IKernPair, parseKernPairsSection } from './parseKernPairs.ts';
 
 interface IMetrics extends IFontMetrics {
   CharMetrics: ICharMetrics[];

@@ -1,12 +1,8 @@
 apps/node-build/
 node_modules/
 coverage/
-build/
 dist/
-cjs/
-es/
 
-tsBuildInfo.json
 pnpm-debug.log*
 .DS_Store
 out.pdf
@@ -14,6 +10,5 @@ out.pdf
 
 .vscode/settings.json
 
-src/packages/*/dist/
 src/packages/standard-fonts/font_metrics/*.json
 src/packages/standard-fonts/encoding_metrics/*.json
