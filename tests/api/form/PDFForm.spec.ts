@@ -34,10 +34,10 @@ const getApRefs = (widget: PDFWidgetAnnotation) => {
   const onValue = widget.getOnValue() ?? PDFName.of('Yes');
   const aps = widget.getAppearances();
   return [
-    (aps?.normal as PDFDict).get(onValue),
+    (aps!.normal as PDFDict).get(onValue),
     (aps?.rollover as PDFDict | undefined)?.get(onValue),
     (aps?.down as PDFDict | undefined)?.get(onValue),
-    (aps?.normal as PDFDict).get(PDFName.of('Off')),
+    (aps!.normal as PDFDict).get(PDFName.of('Off')),
     (aps?.rollover as PDFDict | undefined)?.get(PDFName.of('Off')),
     (aps?.down as PDFDict | undefined)?.get(PDFName.of('Off')),
   ].filter(Boolean);
