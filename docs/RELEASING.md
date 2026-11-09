@@ -14,7 +14,7 @@ npm (`package.json` is marked `private`).
 1. `git checkout main && git pull`
 2. Update `CHANGELOG.md` (move `[Unreleased]` notes under the new version) and
    commit it.
-3. Run the full check (lint, typecheck, tests, build, smoke test):
+3. Run the full check (formatting, lint and typecheck, tests, build, smoke test):
    ```bash
    pnpm release:check
    ```

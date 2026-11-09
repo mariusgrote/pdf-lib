@@ -1098,6 +1098,7 @@ class AESBaseCipher {
     this.buffer = new Uint8Array(16);
     this.bufferLength = 0;
     // starting decryption
+    // oxlint-disable-next-line typescript/unbound-method -- swaps the instance method; always called on `this`.
     this.decryptBlock = this._decryptBlock2;
     return this.decryptBlock(data, finalize);
   }
@@ -1341,12 +1342,12 @@ class PDF17 {
 export const getNodeCrypto = (() => {
   type Digest = 'sha256' | 'sha384' | 'sha512';
   type Primitives = {
-    hash(algorithm: Digest, data: Uint8Array): Uint8Array;
-    aes128CbcNoPadding(
+    hash: (algorithm: Digest, data: Uint8Array) => Uint8Array;
+    aes128CbcNoPadding: (
       key: Uint8Array,
       iv: Uint8Array,
       data: Uint8Array,
-    ): Uint8Array;
+    ) => Uint8Array;
   };
 
   let resolved: Primitives | undefined | null = null;

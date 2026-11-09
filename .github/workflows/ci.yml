@@ -43,11 +43,8 @@ jobs:
       - name: Check formatting
         run: pnpm fmt:check
 
-      - name: Lint
+      - name: Lint and typecheck
         run: pnpm lint --format github
-
-      - name: Typecheck
-        run: pnpm typecheck
 
       - name: Test
         run: pnpm test
