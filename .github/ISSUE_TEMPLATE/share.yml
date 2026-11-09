@@ -1,6 +1,5 @@
 name: Share What You're Working On ✨
 description: Working on something? Let us know!
-labels: ['in-progress', 'needs-triage']
 body:
   - type: markdown
     attributes:

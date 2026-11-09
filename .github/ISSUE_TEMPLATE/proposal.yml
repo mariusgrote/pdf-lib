@@ -1,6 +1,6 @@
 name: Proposal 💡
 description: We're eager to improve pdf-lib! Have an idea you'd like to propose?
-labels: ['proposal', 'needs-triage']
+labels: ['enhancement']
 body:
   - type: markdown
     attributes:
