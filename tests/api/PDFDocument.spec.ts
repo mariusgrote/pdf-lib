@@ -53,7 +53,7 @@ const simplePdfBytes = fs.readFileSync('assets/pdfs/simple.pdf');
 const simpleStreamsPdfBytes = fs.readFileSync('assets/pdfs/simple_streams.pdf');
 
 const v15PdfBytes = fs.readFileSync('assets/pdfs/v15xref.pdf');
-const v14PdfBytes = fs.readFileSync('assets/pdfs/bixby_guide.pdf');
+const v14PdfBytes = fs.readFileSync('assets/pdfs/with_cropbox.pdf');
 const v13PdfBytes = normalPdfBytes;
 
 describe('PDFDocument', () => {
