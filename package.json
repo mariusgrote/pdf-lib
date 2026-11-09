@@ -84,12 +84,12 @@
     "test:smoke": "node ./scripts/smoke-test.mjs"
   },
   "dependencies": {
-    "culori": ">=4",
+    "culori": "^4.0.2",
     "fflate": "^0.8.2",
-    "node-html-better-parser": ">=1.5.9"
+    "node-html-better-parser": "^1.5.9"
   },
   "peerDependencies": {
-    "html-entities": ">=2.3.2"
+    "html-entities": "^2.3.2"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
