@@ -295,7 +295,7 @@ describe('PDFForm', () => {
     ).resolves.toBeInstanceOf(Uint8Array);
   });
 
-  it('it cleans references of removed fields and their widgets', async () => {
+  it('cleans references of removed fields and their widgets', async () => {
     const pdfDoc = await PDFDocument.load(fancyFieldsPdfBytes);
     const form = pdfDoc.getForm();
 
@@ -328,7 +328,7 @@ describe('PDFForm', () => {
     rgWidgetRefs.forEach((ref) => expect(refs2).not.toContain(ref));
   });
 
-  it('it cleans references of removed fields and their widgets when created with pdf-lib', async () => {
+  it('cleans references of removed fields and their widgets when created with pdf-lib', async () => {
     const pdfDoc = await PDFDocument.create();
     const page = pdfDoc.addPage();
     const form = pdfDoc.getForm();

@@ -379,7 +379,7 @@ describe('PDFParser', () => {
     ).toBe(176);
   });
 
-  it('can parse files with invalid stream EOLs: "stream \r\n', async () => {
+  it('can parse files with invalid stream EOLs: "stream \\r\\n"', async () => {
     const pdfBytes = asUint8Array(
       fs.readFileSync('./assets/pdfs/with_invalid_stream_EOL.pdf'),
     );

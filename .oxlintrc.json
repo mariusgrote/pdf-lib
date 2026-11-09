@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript"],
+  "plugins": ["typescript", "vitest", "import"],
   "categories": {
     "correctness": "off"
   },
@@ -113,7 +113,31 @@
     "typescript/prefer-promise-reject-errors": "error",
     "typescript/restrict-plus-operands": "error",
     "typescript/unbound-method": "error",
-    "typescript/consistent-type-exports": "error"
+    "typescript/consistent-type-exports": "error",
+    "vitest/no-focused-tests": "error",
+    "vitest/no-disabled-tests": "error",
+    "vitest/no-import-node-test": "error",
+    "vitest/no-test-prefixes": "error",
+    "vitest/no-identical-title": "error",
+    "vitest/valid-expect": "error",
+    "vitest/valid-title": "error",
+    "vitest/no-standalone-expect": [
+      "error",
+      {
+        "additionalTestBlockFunctions": ["it.skipIf", "it.runIf"]
+      }
+    ],
+    "vitest/no-conditional-expect": "error",
+    "import/default": "error",
+    "import/named": "error",
+    "import/namespace": "error",
+    "import/no-self-import": "error",
+    "import/first": "error",
+    "import/no-absolute-path": "error",
+    "import/no-empty-named-blocks": "error",
+    "import/no-named-as-default": "error",
+    "import/no-duplicates": "error",
+    "import/no-webpack-loader-syntax": "error"
   },
   "overrides": [
     {

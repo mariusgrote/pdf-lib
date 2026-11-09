@@ -1,6 +1,6 @@
-import { getNodeCrypto } from '../../src/core/crypto';
 import {
   AES128Cipher,
+  getNodeCrypto,
   calculateSHA256,
   calculateSHA384,
   calculateSHA512,
@@ -15,18 +15,19 @@ const toHex = (bytes: Uint8Array) =>
 describe('getNodeCrypto', () => {
   const native = getNodeCrypto();
 
-  const itOnNode = native ? it : it.skip;
-
-  itOnNode('exposes OpenSSL primitives that match known vectors', () => {
-    const empty = new Uint8Array(0);
-    const zeros = new Uint8Array(16);
-    expect(toHex(native!.hash('sha256', empty)).toUpperCase()).toBe(
-      'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-    );
-    expect(
-      toHex(native!.aes128CbcNoPadding(zeros, zeros, zeros)).toUpperCase(),
-    ).toBe('66E94BD4EF8A2C3B884CFA59CA342B2E');
-  });
+  it.skipIf(!native)(
+    'exposes OpenSSL primitives that match known vectors',
+    () => {
+      const empty = new Uint8Array(0);
+      const zeros = new Uint8Array(16);
+      expect(toHex(native!.hash('sha256', empty)).toUpperCase()).toBe(
+        'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      );
+      expect(
+        toHex(native!.aes128CbcNoPadding(zeros, zeros, zeros)).toUpperCase(),
+      ).toBe('66E94BD4EF8A2C3B884CFA59CA342B2E');
+    },
+  );
 
   it('matches the JavaScript Algorithm 2.B implementation', () => {
     const password = new Uint8Array([0x75, 0x73, 0x65, 0x72]);

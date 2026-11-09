@@ -124,7 +124,7 @@ There are integration tests for Node and the browser:
 - To run the tests for the browser:
   ```
   pnpm apps:web
-  # Open http://localhost:8080/apps/web/test1.html in your browser
+  # Vite serves the repo and opens apps/web/test1.html in your browser
   ```
 
 ## Compiling the Project
