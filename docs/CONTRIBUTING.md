@@ -87,7 +87,7 @@ If you don't see any errors or warnings, then everything should have worked corr
 
 ## Running the Unit Tests
 
-We use the [Jest](https://jestjs.io/) framework to write unit tests for `pdf-lib`. All unit tests are kept in the [`tests`](./tests) directory.
+We use [Vitest](https://vitest.dev/) to write unit tests for `pdf-lib`. All unit tests are kept in the [`tests`](./tests) directory. They run against the TypeScript sources, so no build is needed first.
 
 To run the unit tests, execute the following:
 
@@ -98,21 +98,13 @@ pnpm test
 This should output something like:
 
 ```
-$ jest --config jest.config.js --runInBand
- PASS  tests/api/PDFDocument.spec.ts (13.238s)
- PASS  tests/core/parser/PDFObjectParser.spec.ts
- PASS  tests/core/parser/PDFParser.spec.ts
- ...
- PASS  tests/core/document/PDFTrailer.spec.ts
- PASS  tests/core/streams/AsciiHexStream.spec.ts
-
-Test Suites: 44 passed, 44 total
-Tests:       380 passed, 380 total
-Snapshots:   0 total
-Time:        22.975s, estimated 39s
-Ran all test suites.
-✨  Done in 23.66s.
+$ vitest run
+ Test Files  77 passed (77)
+      Tests  904 passed | 1 skipped (905)
+   Duration  27.10s
 ```
+
+Use `pnpm testw` to re-run tests on change, and `pnpm testc` for a coverage report.
 
 Hopefully you see that all the tests passed! But if you see errors or warnings, then something must be wrong with your setup. Please ensure you've following the installation steps outlined in the [local setup and prerequisites section](#local-setup-and-prerequisites). If you still can't get the tests running after following these steps, then please [create an issue](https://github.com/mariusgrote/pdf-lib/issues/new) explaining the problem you're having.
 
@@ -153,20 +145,21 @@ pnpm build
 
 ## Running the Linter
 
-We use two linters to keep `pdf-lib`'s source code clean, tidy, and consistent:
+We use two tools to keep `pdf-lib`'s source code clean, tidy, and consistent:
 
-- [**ESLint**](https://eslint.org/)
-- [**Prettier**](https://prettier.io/)
+- [**oxlint**](https://oxc.rs/docs/guide/usage/linter) for linting
+- [**oxfmt**](https://oxc.rs/docs/guide/usage/formatter) for formatting
 
-It is recommended that you setup your editor to automatically run these linters for you (either on save, or some other keyboard shortcut). However, this is not required. The linters can be run from the command line as well.
-
-To run the linter, execute the following:
+It is recommended that you set up your editor to run them for you (for example with the Oxc extension). However, this is not required. They can be run from the command line as well:
 
 ```
-pnpm lint
+pnpm fmt        # format all files
+pnpm fmt:check  # check formatting without writing
+pnpm lint       # lint
+pnpm lint:fix   # lint and apply automatic fixes
 ```
 
-The linter is very strict about the format and style of your code. Anytime it finds something that doesn't comply with the project's formatting and style standards, it will try to automatically rewrite the file to comply. Note that not all linter errors can be fixed automatically. You will have to manually fix those that can't.
+Not all lint errors can be fixed automatically. You will have to manually fix those that can't.
 
 ## Running the Type Checker
 
@@ -178,14 +171,7 @@ To run the type checker, execute the following:
 pnpm typecheck
 ```
 
-This should output something like the following:
-
-```
-$ tsc --noEmit
-✨  Done in 1.38s.
-```
-
-This means your code is correctly typed. If the command fails, then your code has incorrect or missing types somewhere.
+This runs `tsc --noEmit` over `src/` and `tests/`. Vitest strips types without checking them, so run this before you push. If it prints no errors, your code is correctly typed. If the command fails, your code has incorrect or missing types somewhere.
 
 ## Debugging Tips
 
