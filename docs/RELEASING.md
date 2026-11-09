@@ -29,7 +29,7 @@ For `@mariusgrote/pdf-lib`:
 
 ## Checklist (each release)
 
-1. `git checkout master && git pull`
+1. `git checkout main && git pull`
 2. Update `CHANGELOG.md` (move `[Unreleased]` notes under the new version)
 3. Optional local checks / integration apps if the change is risky
 4. Run `pnpm release` — this runs `release:prep`, then `release-it` bumps
@@ -37,7 +37,7 @@ For `@mariusgrote/pdf-lib`:
    GitHub Release. It does **not** publish to npm (see `.release-it.json`).
 5. Push the commit and tag:
    ```bash
-   git push origin master vX.Y.Z
+   git push origin main vX.Y.Z
    ```
 6. The **Publish** workflow runs on the tag, builds, and runs `npm publish`
    with OIDC. Watch it under Actions.
