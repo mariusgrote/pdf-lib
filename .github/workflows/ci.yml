@@ -40,13 +40,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Format, lint and tests run in the background while the build chain
+      # runs in the foreground. None of them read the build output.
       - name: Check formatting
+        id: fmt
+        background: true
         run: pnpm fmt:check
 
       - name: Lint and typecheck
+        id: lint
+        background: true
         run: pnpm lint --format github
 
       - name: Test
+        id: test
+        background: true
         run: pnpm test
 
       - name: Build
@@ -57,3 +65,6 @@ jobs:
 
       - name: Load the built package in Node
         run: pnpm test:smoke
+
+      - name: Wait for format, lint and tests
+        wait: [fmt, lint, test]
