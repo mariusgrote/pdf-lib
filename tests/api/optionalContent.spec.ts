@@ -1,6 +1,4 @@
 import {
-  PDFArray,
-  PDFDict,
   PDFDocument,
   PDFHexString,
   PDFName,
@@ -24,14 +22,14 @@ const installOptionalContent = (
     ocgRefs.push(context.register(ocgDict));
   }
 
-  const dDict = context.obj({}) as PDFDict;
+  const dDict = context.obj({});
   if (options.baseState) {
     dDict.set(PDFName.of('BaseState'), PDFName.of(options.baseState));
   }
 
   if (!options.omitOnOff) {
-    const onArray = context.obj([]) as PDFArray;
-    const offArray = context.obj([]) as PDFArray;
+    const onArray = context.obj([]);
+    const offArray = context.obj([]);
     layers.forEach((layer, idx) => {
       const visible = layer.visible ?? true;
       if (visible) onArray.push(ocgRefs[idx]);
@@ -41,7 +39,7 @@ const installOptionalContent = (
     dDict.set(PDFName.of('OFF'), offArray);
   }
 
-  const ocgs = context.obj([]) as PDFArray;
+  const ocgs = context.obj([]);
   ocgRefs.forEach((ref) => ocgs.push(ref));
 
   const ocProperties = context.obj({

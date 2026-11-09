@@ -127,7 +127,7 @@ class PDFStreamWriter extends PDFWriter {
         object instanceof PDFPageLeaf ||
         ref.generationNumber !== 0 ||
         (object instanceof PDFDict &&
-          (object as PDFDict).lookup(PDFName.of('Type')) === PDFName.of('Sig'));
+          object.lookup(PDFName.of('Type')) === PDFName.of('Sig'));
 
       if (shouldNotCompress) {
         uncompressedObjects.push(indirectObject);

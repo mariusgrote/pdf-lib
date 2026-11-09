@@ -94,7 +94,7 @@ export const walkXfaTree = (
 
   for (const child of node.childNodes) {
     if (child.nodeType === NodeType.ELEMENT_NODE) {
-      walkXfaTree(child as HTMLElement, visit, fieldCtx);
+      walkXfaTree(child, visit, fieldCtx);
     }
   }
 };
@@ -120,7 +120,7 @@ export const collectXfaScripts = (root: HTMLElement): XfaScriptEntry[] => {
 
     for (const child of node.childNodes) {
       if (child.nodeType === NodeType.ELEMENT_NODE) {
-        walk(child as HTMLElement, fieldCtx, eventCtx);
+        walk(child, fieldCtx, eventCtx);
       }
     }
   };
@@ -133,7 +133,7 @@ const collectXfaRefs = (node: HTMLElement): string[] => {
   const refs: string[] = [];
   for (const child of node.childNodes) {
     if (child.nodeType !== NodeType.ELEMENT_NODE) continue;
-    const el = child as HTMLElement;
+    const el = child;
     if (el.tagName?.toLowerCase() !== 'ref') continue;
     const text = el.text?.trim();
     if (text) refs.push(text);
@@ -166,7 +166,7 @@ export const collectXfaSignatures = (
     const inlineRefs: string[] = [];
     for (const child of node.childNodes) {
       if (child.nodeType !== NodeType.ELEMENT_NODE) continue;
-      const el = child as HTMLElement;
+      const el = child;
       if (el.tagName?.toLowerCase() !== 'manifest') continue;
       const use = el.getAttribute('use');
       if (use) manifestUse = use.replace(/^#/, '');

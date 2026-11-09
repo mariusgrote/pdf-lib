@@ -312,13 +312,12 @@ describe('PDFSecurity', () => {
         expect(security.encryption.R).toBe(6);
         expect(context.header.getVersionString()).toBe('1.7');
         expect(
-          (
-            context
-              .lookup(context.trailerInfo.Root, PDFDict)
-              .lookup(PDFName.of('Extensions'), PDFDict)
-              .lookup(PDFName.of('ADBE'), PDFDict)
-              .lookup(PDFName.of('ExtensionLevel'), PDFNumber) as PDFNumber
-          ).asNumber(),
+          context
+            .lookup(context.trailerInfo.Root, PDFDict)
+            .lookup(PDFName.of('Extensions'), PDFDict)
+            .lookup(PDFName.of('ADBE'), PDFDict)
+            .lookup(PDFName.of('ExtensionLevel'), PDFNumber)
+            .asNumber(),
         ).toBe(8);
 
         const factory = new CipherTransformFactory(

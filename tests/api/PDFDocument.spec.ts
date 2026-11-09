@@ -1411,7 +1411,7 @@ describe('PDFDocument', () => {
         PDFArray,
       );
       expect(reloadedAnnots).toBeDefined();
-      expect(reloadedAnnots!.size()).toBe(1);
+      expect(reloadedAnnots.size()).toBe(1);
     });
 
     it('tracks PDFArray.push() for existing arrays', async () => {
@@ -1442,7 +1442,7 @@ describe('PDFDocument', () => {
 
       const existingAnnots = pageDict.lookup(PDFName.of('Annots'), PDFArray);
       expect(existingAnnots).toBeDefined();
-      expect(existingAnnots!.size()).toBe(1);
+      expect(existingAnnots.size()).toBe(1);
 
       const newAnnot = context.obj({
         Type: 'Annot',
@@ -1451,7 +1451,7 @@ describe('PDFDocument', () => {
         Contents: 'New annotation',
       });
       const newRef = context.register(newAnnot);
-      existingAnnots!.push(newRef);
+      existingAnnots.push(newRef);
 
       const committed = await pdfDoc.commit();
 
@@ -1460,7 +1460,7 @@ describe('PDFDocument', () => {
         .getPage(0)
         .node.lookup(PDFName.of('Annots'), PDFArray);
       expect(reloadedAnnots).toBeDefined();
-      expect(reloadedAnnots!.size()).toBe(2);
+      expect(reloadedAnnots.size()).toBe(2);
     });
 
     it('tracks PDFStream content updates for incremental saves', async () => {
@@ -1504,12 +1504,12 @@ describe('PDFDocument', () => {
       expect(mediaBox).toBeDefined();
 
       // Verify it's NOT registered (inline)
-      const ref = pdfDoc.context.getRef(mediaBox!);
+      const ref = pdfDoc.context.getRef(mediaBox);
       expect(ref).toBeUndefined();
 
       // Modify it directly
-      mediaBox!.set(2, PDFNumber.of(300)); // Change width
-      mediaBox!.set(3, PDFNumber.of(400)); // Change height
+      mediaBox.set(2, PDFNumber.of(300)); // Change width
+      mediaBox.set(3, PDFNumber.of(400)); // Change height
 
       // Commit
       const committed = await pdfDoc.commit();
@@ -1519,8 +1519,8 @@ describe('PDFDocument', () => {
       const reloadedMediaBox = reloaded
         .getPage(0)
         .node.lookup(PDFName.MediaBox, PDFArray);
-      expect(reloadedMediaBox!.lookup(2, PDFNumber).asNumber()).toBe(300);
-      expect(reloadedMediaBox!.lookup(3, PDFNumber).asNumber()).toBe(400);
+      expect(reloadedMediaBox.lookup(2, PDFNumber).asNumber()).toBe(300);
+      expect(reloadedMediaBox.lookup(3, PDFNumber).asNumber()).toBe(400);
     });
   });
 

@@ -71,7 +71,7 @@ export const colorString = (color: string): { rgb: Color; alpha?: number } => {
     throw new Error(`Unable to parse color from string: ${color}`);
   }
   return {
-    rgb: rgb(parsed.r!, parsed.g!, parsed.b!),
+    rgb: rgb(parsed.r, parsed.g, parsed.b),
     alpha: parsed.alpha,
   };
 };

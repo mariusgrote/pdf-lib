@@ -12,7 +12,6 @@ import {
   PDFName,
   PDFForm,
   PDFAcroForm,
-  PDFRef,
 } from '../../../src/index';
 
 const getWidgets = (pdfDoc: PDFDocument) =>
@@ -28,7 +27,7 @@ const getWidgets = (pdfDoc: PDFDocument) =>
     .map((obj) => obj as PDFDict);
 
 const getRefs = (pdfDoc: PDFDocument) =>
-  pdfDoc.context.enumerateIndirectObjects().map(([ref]) => ref as PDFRef);
+  pdfDoc.context.enumerateIndirectObjects().map(([ref]) => ref);
 
 const getApRefs = (widget: PDFWidgetAnnotation) => {
   const onValue = widget.getOnValue() ?? PDFName.of('Yes');

@@ -156,7 +156,7 @@ export const toUint8Array = (input: BinaryData): Uint8Array => {
     // Node Buffer is a Uint8Array subclass; keep the zero-copy path for views
     // that are already Uint8Array, and normalize other TypedArrays/DataViews.
     if (input instanceof Uint8Array) {
-      return input as Uint8Array;
+      return input;
     }
     return new Uint8Array(input.buffer, input.byteOffset, input.byteLength);
   } else {

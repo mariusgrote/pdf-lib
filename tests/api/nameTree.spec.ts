@@ -1,7 +1,6 @@
 import {
   PDFArray,
   PDFContext,
-  PDFDict,
   PDFHexString,
   PDFName,
   PDFString,
@@ -77,7 +76,7 @@ describe('nameTree helpers', () => {
         context.register(context.obj({})),
         PDFHexString.fromText('1.jpg'),
         context.register(context.obj({})),
-      ]) as PDFArray;
+      ]);
 
       sortNameTreeNames(names);
 
@@ -87,7 +86,7 @@ describe('nameTree helpers', () => {
 
   describe('addNameTreeEntry()', () => {
     it('creates Names, appends, and keeps entries sorted', () => {
-      const node = context.obj({}) as PDFDict;
+      const node = context.obj({});
       const refA = context.register(context.obj({}));
       const refB = context.register(context.obj({}));
       const refC = context.register(context.obj({}));
@@ -116,7 +115,7 @@ describe('nameTree helpers', () => {
           PDFHexString.fromText('alpha'),
           refA,
         ],
-      }) as PDFDict;
+      });
 
       const refM = context.register(context.obj({}));
       expect(
@@ -133,7 +132,7 @@ describe('nameTree helpers', () => {
       const node = context.obj({
         Names: [PDFHexString.fromText('b'), refA],
         Limits: [PDFHexString.fromText('b'), PDFHexString.fromText('b')],
-      }) as PDFDict;
+      });
 
       addNameTreeEntry(
         node,
@@ -159,7 +158,7 @@ describe('nameTree helpers', () => {
         ],
       });
       const leafRef = context.register(leaf);
-      const node = context.obj({ Kids: [leafRef] }) as PDFDict;
+      const node = context.obj({ Kids: [leafRef] });
 
       expect(
         addNameTreeEntry(

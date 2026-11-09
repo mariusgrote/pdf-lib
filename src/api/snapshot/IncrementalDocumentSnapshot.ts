@@ -49,7 +49,7 @@ export class IncrementalDocumentSnapshot implements DocumentSnapshot {
     this.markRefsForSave(
       objs
         .map((obj) => this.context.getRef(obj))
-        .filter((ref) => ref !== undefined) as PDFRef[],
+        .filter((ref) => ref !== undefined),
     );
   }
 

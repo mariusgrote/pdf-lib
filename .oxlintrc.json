@@ -1,6 +1,10 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "vitest", "import"],
+  "plugins": [
+    "typescript",
+    "vitest",
+    "import"
+  ],
   "categories": {
     "correctness": "off"
   },
@@ -60,7 +64,7 @@
     "no-nonoctal-decimal-escape": "error",
     "no-obj-calls": "error",
     "no-prototype-builtins": "error",
-    "no-redeclare": "error",
+    "no-redeclare": "off",
     "no-regex-spaces": "error",
     "no-self-assign": "error",
     "no-setter-return": "error",
@@ -91,10 +95,16 @@
     "use-isnan": "error",
     "valid-typeof": "error",
     "no-console": "off",
-    "curly": ["error", "multi-line"],
+    "curly": [
+      "error",
+      "multi-line"
+    ],
     "prefer-const": "error",
     "no-var": "error",
-    "eqeqeq": ["error", "always"],
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
     "typescript/explicit-function-return-type": "off",
     "typescript/no-explicit-any": "warn",
     "typescript/no-empty-interface": "off",
@@ -124,7 +134,10 @@
     "vitest/no-standalone-expect": [
       "error",
       {
-        "additionalTestBlockFunctions": ["it.skipIf", "it.runIf"]
+        "additionalTestBlockFunctions": [
+          "it.skipIf",
+          "it.runIf"
+        ]
       }
     ],
     "vitest/no-conditional-expect": "error",
@@ -141,7 +154,11 @@
   },
   "overrides": [
     {
-      "files": ["**/tests/**", "**/*.spec.*", "**/*.test.*"],
+      "files": [
+        "**/tests/**",
+        "**/*.spec.*",
+        "**/*.test.*"
+      ],
       "rules": {
         "typescript/no-explicit-any": "off"
       }

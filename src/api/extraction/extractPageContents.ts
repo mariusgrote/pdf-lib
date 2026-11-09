@@ -212,7 +212,7 @@ const walkOperations = (
   };
 
   const num = (args: ContentStreamOperand[], i: number): number =>
-    typeof args[i] === 'number' ? (args[i] as number) : 0;
+    typeof args[i] === 'number' ? args[i] : 0;
 
   for (const op of operations) {
     switch (op.name) {

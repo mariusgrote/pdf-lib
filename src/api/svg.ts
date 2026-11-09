@@ -368,7 +368,7 @@ const runnersToPage = (
   image(element) {
     const { src } = element.svgAttributes;
     if (!(src && options.images?.[src])) return;
-    const img = options.images?.[src]!;
+    const img = options.images?.[src];
 
     const { x, y, width, height } = getFittingRectangle(
       img.width,
