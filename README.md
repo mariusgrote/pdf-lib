@@ -13,7 +13,7 @@ This fork is not published to npm. See [Installation](#installation) for how to 
 - CI loads the built package in Node through its `exports` (`import` and `require()`), plus the browser bundles.
 - Uses pnpm instead of Yarn.
 
-See [CHANGELOG](CHANGELOG.md), [CONTRIBUTING](docs/CONTRIBUTING.md) and [SECURITY](SECURITY.md).
+See the [release notes](https://github.com/mariusgrote/pdf-lib/releases), [CONTRIBUTING](docs/CONTRIBUTING.md) and [SECURITY](SECURITY.md). Changes up to 2.11.0 are in [Cantoo's changelog](https://github.com/cantoo-scribe/pdf-lib/blob/master/CHANGELOG.md).
 
 ### Benefits vs original `pdf-lib` (mostly from Cantoo's fork)
 
@@ -412,7 +412,7 @@ const bytes = await doc.save();
 
 ## Documentation
 
-The original API reference at [pdf-lib.js.org/docs/api](https://pdf-lib.js.org/docs/api/) covers everything that came from `pdf-lib`. Features added in the forks are documented in the TypeScript doc comments in [`src/`](src/) and listed in the [CHANGELOG](CHANGELOG.md).
+The original API reference at [pdf-lib.js.org/docs/api](https://pdf-lib.js.org/docs/api/) covers everything that came from `pdf-lib`. Features added in the forks are documented in the TypeScript doc comments in [`src/`](src/) and listed in the [release notes](https://github.com/mariusgrote/pdf-lib/releases) (up to 2.11.0, in [Cantoo's changelog](https://github.com/cantoo-scribe/pdf-lib/blob/master/CHANGELOG.md)).
 
 ## Contributing
 
