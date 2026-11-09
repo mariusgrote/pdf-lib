@@ -24,8 +24,13 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
 - Replace ESLint 9 and Prettier with oxlint and oxfmt (`pnpm lint`,
   `pnpm fmt`, `pnpm fmt:check`).
 - Replace Jest with Vitest. Tests run against the TypeScript sources, so
-  `pnpm test` no longer builds the vendored packages first, and
-  `pnpm typecheck` now also checks the tests.
+  `pnpm test` no longer builds the vendored packages first.
+- Upgrade to TypeScript 7 and type-check with oxlint (`pnpm lint`) instead of
+  a separate `tsc --noEmit`. This also enables type-aware lint rules such as
+  `no-floating-promises`, and covers `tests/` and `apps/`.
+- The Node integration apps import `@mariusgrote/pdf-lib` by name. A
+  `@mariusgrote/source` export condition points type-checking at `src/`, so
+  linting them needs no build; Node and bundlers ignore the condition.
 - Add a CI workflow for pull requests; remove the old CircleCI config and the
   sponsor-label and stale-issue workflows.
 - Not published to npm: the package is marked `private` and there is no

@@ -163,15 +163,9 @@ Not all lint errors can be fixed automatically. You will have to manually fix th
 
 ## Running the Type Checker
 
-`pdf-lib` is written in TypeScript. This means that the project's source code is contained in `.ts` files. All source code must be correctly typed in order for the tests to run, and for the project to compile.
+`pdf-lib` is written in TypeScript. All source code must be correctly typed for the project to compile.
 
-To run the type checker, execute the following:
-
-```
-pnpm typecheck
-```
-
-This runs `tsc --noEmit` over `src/` and `tests/`. Vitest strips types without checking them, so run this before you push. If it prints no errors, your code is correctly typed. If the command fails, your code has incorrect or missing types somewhere.
+`pnpm lint` also type-checks `src/`, `tests/` and `apps/` (oxlint's `typeCheck` option, which uses TypeScript 7). Vitest strips types without checking them, so run `pnpm lint` before you push. No build is needed: the apps import `@mariusgrote/pdf-lib`, which `apps/node/tsconfig.json` resolves to `src/` through the `@mariusgrote/source` export condition. At runtime, and in `pnpm apps:build`, the same import resolves to the built package.
 
 ## Debugging Tips
 

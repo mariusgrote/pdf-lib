@@ -16,7 +16,6 @@
     "tsBuildInfoFile": "./tsBuildInfo.json",
     "removeComments": false,
     "importHelpers": true,
-    "downlevelIteration": false,
     "isolatedModules": false,
     "newLine": "LF",
     "resolveJsonModule": true,
@@ -28,14 +27,13 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     /* Module Resolution Options */
-    "baseUrl": "./src",
     "paths": {
-      "src/*": ["./*"]
+      "src/*": ["./src/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "preserveSymlinks": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "types": ["node"],
     "jsx": "react"
   },
   "include": ["src/**/*", "tests/**/*"],

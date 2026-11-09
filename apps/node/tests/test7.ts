@@ -1,5 +1,10 @@
 import { Assets } from '..';
-import { degrees, ParseSpeeds, PDFDocument, StandardFonts } from '../../..';
+import {
+  degrees,
+  ParseSpeeds,
+  PDFDocument,
+  StandardFonts,
+} from '@mariusgrote/pdf-lib';
 
 const createDonorPdf = async () => {
   const pdfDoc = await PDFDocument.create();

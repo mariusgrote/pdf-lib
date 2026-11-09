@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     /* Basic Options */
-    "target": "es5",
+    "target": "es2020",
     "module": "commonjs",
     "composite": false,
+    "rootDir": "../..",
     "incremental": true,
     "tsBuildInfoFile": "./tsBuildInfo.json",
     "outDir": "../node-build",
@@ -20,9 +21,12 @@
     /* Module Resolution Options */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "preserveSymlinks": true,
-    "moduleResolution": "node"
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    // Resolve @mariusgrote/pdf-lib to src/ so type-checking needs no build.
+    // tsconfig.build.json drops this and compiles against the built package.
+    "customConditions": ["@mariusgrote/source"]
   },
   "include": ["./**/*"],
-  "exclude": ["tests", "node_modules"]
+  "exclude": ["node_modules"]
 }

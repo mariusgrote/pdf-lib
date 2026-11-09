@@ -21,7 +21,7 @@ import {
   StandardFonts,
   typedArrayFor,
   AFRelationship,
-} from '../../..';
+} from '@mariusgrote/pdf-lib';
 
 const ipsumLines = [
   'Eligendi est pariatur quidem in non excepturi et.',

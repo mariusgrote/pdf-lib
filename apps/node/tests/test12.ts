@@ -8,7 +8,7 @@ import {
   degrees,
   rgb,
   values,
-} from '../../..';
+} from '@mariusgrote/pdf-lib';
 
 const inchToPt = (inches: number) => Math.round(inches * 72);
 

@@ -3,11 +3,10 @@
   "include": ["./**/*"],
   "exclude": [],
   "compilerOptions": {
-    "rootDir": null,
+    "rootDir": "..",
     "rootDirs": ["../src", "../tests"],
     "incremental": false,
     "tsBuildInfoFile": null,
-    "preserveSymlinks": false,
     "types": ["node", "vitest/globals"]
   }
 }

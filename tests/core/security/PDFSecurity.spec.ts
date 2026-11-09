@@ -151,6 +151,7 @@ let seed = 0;
 const resetRandom = () => {
   seed = 0x2545f491;
 };
+// oxlint-disable-next-line typescript/unbound-method -- only stored to be restored in afterAll.
 const realGetRandomValues = globalThis.crypto.getRandomValues;
 
 beforeAll(() => {

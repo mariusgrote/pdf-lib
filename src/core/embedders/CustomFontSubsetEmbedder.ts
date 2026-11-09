@@ -105,7 +105,7 @@ class CustomFontSubsetEmbedder extends CustomFontEmbedder {
         .encodeStream()
         .on('data', (bytes) => parts.push(bytes))
         .on('end', () => resolve(mergeUint8Arrays(parts)))
-        .on('error' as any, (err) => reject(err));
+        .on('error' as any, reject);
     });
   }
 }

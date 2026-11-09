@@ -1,5 +1,5 @@
 import { Assets } from '..';
-import { PDFDocument } from '../../..';
+import { PDFDocument } from '@mariusgrote/pdf-lib';
 
 import fontkit from '@cantoo/fontkit';
 
