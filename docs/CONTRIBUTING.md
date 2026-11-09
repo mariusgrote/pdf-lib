@@ -28,6 +28,7 @@ All PRs must:
 - Be fully unit tested.
 - Be fully integration tested.
 - Have doc comments for new public APIs.
+- Have a title that reads well as a line in the release notes. Release notes are generated from pull request titles (see [RELEASING](RELEASING.md#release-notes)).
 
 It is recommended to read the PR template before you get underway with your changes.
 
