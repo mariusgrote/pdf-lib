@@ -6,7 +6,7 @@ import {
   rgb,
   StandardFonts,
   LineCapStyle,
-} from '../../..';
+} from '@mariusgrote/pdf-lib';
 
 export default async (assets: Assets) => {
   const { pdfs, images } = assets;

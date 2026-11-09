@@ -1,5 +1,5 @@
 import { Assets } from '..';
-import { PDFDocument, StandardFonts } from '../../..';
+import { PDFDocument, StandardFonts } from '@mariusgrote/pdf-lib';
 
 export default async (assets: Assets) => {
   const pdfDoc = await PDFDocument.load(assets.pdfs.simple);

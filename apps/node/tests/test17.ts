@@ -9,7 +9,7 @@ import {
   PDFFont,
   drawEllipse,
   PDFWidgetAnnotation,
-} from '../../..';
+} from '@mariusgrote/pdf-lib';
 
 import fontkit from '@cantoo/fontkit';
 

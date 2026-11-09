@@ -1,5 +1,10 @@
 import { Assets } from '..';
-import { ParseSpeeds, PDFDocument, rgb, StandardFonts } from '../../..';
+import {
+  ParseSpeeds,
+  PDFDocument,
+  rgb,
+  StandardFonts,
+} from '@mariusgrote/pdf-lib';
 
 export default async (assets: Assets) => {
   const { pdfs } = assets;

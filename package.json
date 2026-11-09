@@ -5,6 +5,7 @@
   "author": "Marius Grote (https://github.com/mariusgrote)",
   "exports": {
     ".": {
+      "@mariusgrote/source": "./src/index.ts",
       "types": "./cjs/index.d.ts",
       "require": "./cjs/index.js",
       "import": "./es/index.js"
@@ -58,7 +59,7 @@
     "Eran Ohayon (https://github.com/erano067)"
   ],
   "scripts": {
-    "release:check": "pnpm fmt:check && pnpm lint && pnpm clean && pnpm test && pnpm build && pnpm apps:build && pnpm test:smoke",
+    "release:check": "pnpm fmt:check && pnpm lint && pnpm clean && pnpm test && pnpm build && pnpm test:smoke",
     "get:version": "node --eval 'console.log(require(`./package.json`).version)'",
     "clean": "rimraf build cjs dist es coverage tsBuildInfo.json apps/node-build apps/node/tsBuildInfo.json out.pdf src/packages/upng/dist src/packages/standard-fonts/dist",
     "test": "vitest run",
@@ -81,7 +82,7 @@
     "build:umd": "rollup --config rollup.config.mjs --file dist/pdf-lib.js --environment MODULE_TYPE:umd",
     "build:umd:min": "rollup --config rollup.config.mjs --file dist/pdf-lib.min.js --environment MINIFY,MODULE_TYPE:umd",
     "build:test": "pnpm build:packages && pnpm build:es && pnpm build:umd",
-    "apps:build": "tsc --build apps/node/tsconfig.json",
+    "apps:build": "tsc --build apps/node/tsconfig.build.json",
     "apps:node": "pnpm apps:build && node apps/node-build/index.js",
     "apps:web": "http-server -c-1 -o apps/web/test1.html",
     "apps:web:mac": "bash -c 'sleep 1 && open http://localhost:8080/apps/web/test1.html' & pnpm apps:web",

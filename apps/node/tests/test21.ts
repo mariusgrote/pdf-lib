@@ -1,6 +1,6 @@
 import fontkit from '@cantoo/fontkit';
 import { Assets } from '..';
-import { PDFDocument, rgb, StandardFonts } from '../../..';
+import { PDFDocument, rgb, StandardFonts } from '@mariusgrote/pdf-lib';
 
 // This test verifies the commit() method for chained incremental updates.
 // It creates a PDF, performs multiple incremental saves with commits,

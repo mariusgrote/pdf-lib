@@ -9,7 +9,7 @@ import {
   PDFString,
   rgb,
   StandardFonts,
-} from '../../..';
+} from '@mariusgrote/pdf-lib';
 
 /**
  * This test modifies the pdf adding a page and a placeholder for an electronic signature.

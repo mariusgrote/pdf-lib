@@ -1,5 +1,5 @@
 import { Assets } from '..';
-import { PDFDocument } from '../../..';
+import { PDFDocument } from '@mariusgrote/pdf-lib';
 
 const fieldNames = {
   // Page 1
