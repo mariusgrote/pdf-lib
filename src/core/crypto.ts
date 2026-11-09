@@ -135,7 +135,7 @@ const calculateMD5 = (function calculateMD5Closure() {
     padded[i++] = 0;
     padded[i++] = 0;
     const w = new Int32Array(16);
-    for (i = 0; i < paddedLength; ) {
+    for (i = 0; i < paddedLength;) {
       for (j = 0; j < 16; ++j, i += 4) {
         w[j] =
           padded[i] |
@@ -353,7 +353,7 @@ const calculateSHA256 = (function calculateSHA256Closure() {
     padded[i++] = (length << 3) & 0xff;
     const w = new Uint32Array(64);
     // for each 512 bit block
-    for (i = 0; i < paddedLength; ) {
+    for (i = 0; i < paddedLength;) {
       for (j = 0; j < 16; ++j) {
         w[j] =
           (padded[i] << 24) |
@@ -604,7 +604,7 @@ const calculateSHA512 = (function calculateSHA512Closure() {
     let tmp3;
 
     // for each 1024 bit block
-    for (i = 0; i < paddedLength; ) {
+    for (i = 0; i < paddedLength;) {
       for (j = 0; j < 16; ++j) {
         w[j].high =
           (padded[i] << 24) |
