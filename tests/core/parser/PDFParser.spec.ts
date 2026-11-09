@@ -5,9 +5,13 @@ import { asUint8Array } from '../../asUint8Array';
 import {
   CharCodes,
   mergeIntoTypedArray,
+  PDFArray,
+  PDFBool,
   PDFDict,
   PDFHeader,
+  PDFHexString,
   PDFInvalidObject,
+  PDFNull,
   PDFPageLeaf,
   PDFParser,
   PDFRef,
@@ -15,6 +19,46 @@ import {
   ReparseError,
   typedArrayFor,
 } from '../../../src/index';
+
+/**
+ * Builds a PDF 1.4 document containing very large arrays made up mostly of
+ * `null` values, plus booleans and hex strings. Arrays like these used to make
+ * the parser take minutes to finish (upstream pdf-lib issue #95).
+ */
+const buildPdfWithLargeNullArrays = (
+  arrayCount: number,
+  arrayLength: number,
+) => {
+  const objects = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] >>',
+  ];
+  for (let i = 0; i < arrayCount; i++) {
+    const items = Array.from({ length: arrayLength }, (_, idx) => {
+      if (idx % 100 === 0) return 'true';
+      if (idx % 100 === 50) return '<FEFF>';
+      return 'null';
+    });
+    objects.push(`[${items.join(' ')}]`);
+  }
+
+  let pdf = '%PDF-1.4\n%\xE2\xE3\xCF\xD3\n';
+  const offsets: number[] = [];
+  objects.forEach((body, idx) => {
+    offsets.push(pdf.length);
+    pdf += `${idx + 1} 0 obj\n${body}\nendobj\n`;
+  });
+  const xrefOffset = pdf.length;
+  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+  for (const offset of offsets) {
+    pdf += `${String(offset).padStart(10, '0')} 00000 n \n`;
+  }
+  pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\n`;
+  pdf += `startxref\n${xrefOffset}\n%%EOF\n`;
+
+  return typedArrayFor(pdf);
+};
 
 describe('PDFParser', () => {
   const origConsoleWarn = console.warn;
@@ -361,9 +405,7 @@ describe('PDFParser', () => {
   });
 
   it("can parse files with containing large arrays with most 'null' values", async () => {
-    const pdfBytes = asUint8Array(
-      fs.readFileSync('./assets/pdfs/bixby_guide.pdf'),
-    );
+    const pdfBytes = buildPdfWithLargeNullArrays(20, 50_000);
 
     const parser = PDFParser.forBytesWithOptions(pdfBytes);
     const context = await parser.parseDocument();
@@ -372,11 +414,16 @@ describe('PDFParser', () => {
     expect(context.header.toString()).toEqual('%PDF-1.4\n%');
 
     const objects = context.enumerateIndirectObjects();
-    // 1 less than Size
-    expect(objects.length).toBe(26237);
+    expect(objects.length).toBe(23);
     expect(
       objects.filter(([_ref, obj]) => obj instanceof PDFPageLeaf).length,
-    ).toBe(176);
+    ).toBe(1);
+
+    const largeArray = context.lookup(PDFRef.of(4), PDFArray);
+    expect(largeArray.size()).toBe(50_000);
+    expect(largeArray.get(0)).toBe(PDFBool.True);
+    expect(largeArray.get(1)).toBe(PDFNull);
+    expect(largeArray.get(50)).toBeInstanceOf(PDFHexString);
   });
 
   it('can parse files with invalid stream EOLs: "stream \\r\\n"', async () => {
@@ -492,7 +539,7 @@ describe('PDFParser', () => {
 
   it('preserves pdfBytes when created for incremental update', async () => {
     const pdfBytes = asUint8Array(
-      fs.readFileSync('./assets/pdfs/bixby_guide.pdf'),
+      fs.readFileSync('./assets/pdfs/with_cropbox.pdf'),
     );
 
     const parser = PDFParser.forBytesWithOptions(
