@@ -1,23 +1,20 @@
-import PDFDocument from '../PDFDocument';
+import type PDFDocument from '../PDFDocument';
 import PDFPage from '../PDFPage';
-import PDFField, {
-  FieldAppearanceOptions,
-  assertFieldAppearanceOptions,
-} from './PDFField';
+import type { FieldAppearanceOptions } from './PDFField';
+import PDFField, { assertFieldAppearanceOptions } from './PDFField';
+import type { AppearanceProviderFor } from './appearances';
 import {
-  AppearanceProviderFor,
   normalizeAppearance,
   defaultRadioGroupAppearanceProvider,
 } from './appearances';
 import { rgb } from '../colors';
 import { degrees } from '../rotations';
 
+import type { PDFRef, PDFWidgetAnnotation } from '../../core';
 import {
   PDFName,
-  PDFRef,
   PDFHexString,
   PDFDict,
-  PDFWidgetAnnotation,
   PDFAcroRadioButton,
   AcroButtonFlags,
 } from '../../core';

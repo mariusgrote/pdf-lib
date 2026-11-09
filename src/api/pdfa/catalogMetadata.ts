@@ -1,8 +1,8 @@
-import PDFCatalog from '../../core/structures/PDFCatalog';
+import type PDFCatalog from '../../core/structures/PDFCatalog';
 import PDFName from '../../core/objects/PDFName';
 import PDFRawStream from '../../core/objects/PDFRawStream';
 import { decodePDFRawStream } from '../../core/streams/decode';
-import { ParsedConformance } from './PDFAConformance';
+import type { ParsedConformance } from './PDFAConformance';
 import { parsePDFAConformanceFromXmp } from './xmp';
 
 /**

@@ -1,9 +1,10 @@
 import PDFArray from '../objects/PDFArray';
-import PDFDict, { DictMap } from '../objects/PDFDict';
+import type { DictMap } from '../objects/PDFDict';
+import PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
 import PDFNumber from '../objects/PDFNumber';
-import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
+import type PDFRef from '../objects/PDFRef';
+import type PDFContext from '../PDFContext';
 import PDFPageLeaf from './PDFPageLeaf';
 import { InvalidTargetIndexError, CorruptPageTreeError } from '../errors';
 
@@ -149,14 +150,14 @@ class PDFPageTree extends PDFDict {
     throw new CorruptPageTreeError(targetIndex, 'removeLeafNode');
   }
 
-  ascend(visitor: (node: PDFPageTree) => any): void {
+  ascend(visitor: (node: PDFPageTree) => unknown): void {
     visitor(this);
     const Parent = this.Parent();
     if (Parent) Parent.ascend(visitor);
   }
 
   /** Performs a Post-Order traversal of this page tree */
-  traverse(visitor: (node: TreeNode, ref: PDFRef) => any): void {
+  traverse(visitor: (node: TreeNode, ref: PDFRef) => unknown): void {
     const Kids = this.Kids();
     for (let idx = 0, len = Kids.size(); idx < len; idx++) {
       const kidRef = Kids.get(idx) as PDFRef;

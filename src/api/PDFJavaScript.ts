@@ -1,7 +1,8 @@
-import Embeddable from './Embeddable';
-import PDFDocument from './PDFDocument';
-import JavaScriptEmbedder from '../core/embedders/JavaScriptEmbedder';
-import { PDFName, PDFDict, PDFHexString, PDFRef } from '../core';
+import type Embeddable from './Embeddable';
+import type PDFDocument from './PDFDocument';
+import type JavaScriptEmbedder from '../core/embedders/JavaScriptEmbedder';
+import type { PDFRef } from '../core';
+import { PDFName, PDFDict, PDFHexString } from '../core';
 import { addNameTreeEntry } from './nameTree';
 
 /**

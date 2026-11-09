@@ -1,4 +1,4 @@
-import PDFDocument from './PDFDocument';
+import type PDFDocument from './PDFDocument';
 import {
   PDFDict,
   PDFName,

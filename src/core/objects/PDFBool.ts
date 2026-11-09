@@ -10,7 +10,7 @@ class PDFBool extends PDFObject {
 
   private readonly value: boolean;
 
-  private constructor(enforcer: any, value: boolean) {
+  private constructor(enforcer: unknown, value: boolean) {
     if (enforcer !== ENFORCER) throw new PrivateConstructorError('PDFBool');
     super();
     this.value = value;

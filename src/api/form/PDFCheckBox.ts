@@ -1,24 +1,17 @@
-import PDFDocument from '../PDFDocument';
+import type PDFDocument from '../PDFDocument';
 import PDFPage from '../PDFPage';
+import type { AppearanceProviderFor } from './appearances';
 import {
-  AppearanceProviderFor,
   normalizeAppearance,
   defaultCheckBoxAppearanceProvider,
 } from './appearances';
 import { rgb } from '../colors';
 import { degrees } from '../rotations';
-import PDFField, {
-  FieldAppearanceOptions,
-  assertFieldAppearanceOptions,
-} from './PDFField';
+import type { FieldAppearanceOptions } from './PDFField';
+import PDFField, { assertFieldAppearanceOptions } from './PDFField';
 
-import {
-  PDFName,
-  PDFRef,
-  PDFDict,
-  PDFAcroCheckBox,
-  PDFWidgetAnnotation,
-} from '../../core';
+import type { PDFRef, PDFWidgetAnnotation } from '../../core';
+import { PDFName, PDFDict, PDFAcroCheckBox } from '../../core';
 import { assertIs, assertOrUndefined } from '../../utils';
 
 /**

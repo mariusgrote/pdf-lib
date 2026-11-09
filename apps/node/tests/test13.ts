@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { Assets } from '..';
+import type { Assets } from '..';
 import { PDFDocument, rgb } from '@mariusgrote/pdf-lib';
 
 // prettier-ignore

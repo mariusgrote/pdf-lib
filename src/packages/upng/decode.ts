@@ -135,7 +135,7 @@ export function decode(buff: ArrayBuffer): Image {
         const bfr = inflateZlib(data.subarray(nz + 2, offset + len));
         text = readUTF8(bfr, 0, bfr.length);
       }
-      out.tabs[textTab]![keyw] = text;
+      out.tabs[textTab][keyw] = text;
     } else if (type === 'iTXt') {
       if (out.tabs.iTXt === undefined) out.tabs.iTXt = {};
       let off = offset;

@@ -1,9 +1,9 @@
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import PDFDict from '../objects/PDFDict';
 import PDFArray from '../objects/PDFArray';
 import PDFName from '../objects/PDFName';
-import PDFRef from '../objects/PDFRef';
-import PDFAcroField from './PDFAcroField';
+import type PDFRef from '../objects/PDFRef';
+import type PDFAcroField from './PDFAcroField';
 import PDFAcroNonTerminal from './PDFAcroNonTerminal';
 import { createPDFAcroField, createPDFAcroFields } from './utils';
 
@@ -30,7 +30,7 @@ class PDFAcroForm {
   getFields(): [PDFAcroField, PDFRef][] {
     const { Fields } = this.normalizedEntries();
 
-    const fields = new Array(Fields.size());
+    const fields = new Array<[PDFAcroField, PDFRef]>(Fields.size());
     for (let idx = 0, len = Fields.size(); idx < len; idx++) {
       const ref = Fields.get(idx) as PDFRef;
       const dict = Fields.lookup(idx, PDFDict);

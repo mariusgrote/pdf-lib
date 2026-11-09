@@ -18,7 +18,7 @@ import {
   StandardFonts,
   AFRelationship,
 } from '../../src/index';
-import { PDFAttachment } from '../../src/api/PDFDocument';
+import type { PDFAttachment } from '../../src/api/PDFDocument';
 import { PDFHeader } from '../../src/core';
 
 const examplePngImageBase64 =
@@ -32,7 +32,6 @@ const oldEncryptedPdfBytes1 = fs.readFileSync('assets/pdfs/encrypted_old.pdf');
 // along with the 2 tests that depend on it. Would be nice to find a new file
 // that we could drop in here, but the tests are for non-critical functionality,
 // so this solution is okay for now.
-// const oldEncryptedPdfBytes2 = fs.readFileSync('pdf_specification.pdf');
 
 const newEncryptedPdfBytes = fs.readFileSync('assets/pdfs/encrypted_new.pdf');
 const encryptedLiteralStringsPdfBytes = fs.readFileSync(
@@ -96,14 +95,6 @@ describe('PDFDocument', () => {
       ).rejects.toThrow(new EncryptedPDFError());
     });
 
-    // it(`throws an error for old encrypted PDFs (2)`, async () => {
-    //   await expect(
-    //     PDFDocument.load(oldEncryptedPdfBytes2, {
-    //       parseSpeed: ParseSpeeds.Fastest,
-    //     }),
-    //   ).rejects.toThrow(new EncryptedPDFError());
-    // });
-
     it('throws an error for new encrypted PDFs', async () => {
       await expect(
         PDFDocument.load(newEncryptedPdfBytes, {
@@ -120,15 +111,6 @@ describe('PDFDocument', () => {
       expect(pdfDoc).toBeInstanceOf(PDFDocument);
       expect(pdfDoc.isEncrypted).toBe(true);
     });
-
-    // it(`does not throw an error for old encrypted PDFs when ignoreEncryption=true (2)`, async () => {
-    //   const pdfDoc = await PDFDocument.load(oldEncryptedPdfBytes2, {
-    //     ignoreEncryption: true,
-    //     parseSpeed: ParseSpeeds.Fastest,
-    //   });
-    //   expect(pdfDoc).toBeInstanceOf(PDFDocument);
-    //   expect(pdfDoc.isEncrypted).toBe(true);
-    // });
 
     it('does not throw an error for new encrypted PDFs when ignoreEncryption=true', async () => {
       const pdfDoc = await PDFDocument.load(newEncryptedPdfBytes, {
@@ -1411,7 +1393,7 @@ describe('PDFDocument', () => {
         PDFArray,
       );
       expect(reloadedAnnots).toBeDefined();
-      expect(reloadedAnnots!.size()).toBe(1);
+      expect(reloadedAnnots.size()).toBe(1);
     });
 
     it('tracks PDFArray.push() for existing arrays', async () => {
@@ -1442,7 +1424,7 @@ describe('PDFDocument', () => {
 
       const existingAnnots = pageDict.lookup(PDFName.of('Annots'), PDFArray);
       expect(existingAnnots).toBeDefined();
-      expect(existingAnnots!.size()).toBe(1);
+      expect(existingAnnots.size()).toBe(1);
 
       const newAnnot = context.obj({
         Type: 'Annot',
@@ -1451,7 +1433,7 @@ describe('PDFDocument', () => {
         Contents: 'New annotation',
       });
       const newRef = context.register(newAnnot);
-      existingAnnots!.push(newRef);
+      existingAnnots.push(newRef);
 
       const committed = await pdfDoc.commit();
 
@@ -1460,7 +1442,7 @@ describe('PDFDocument', () => {
         .getPage(0)
         .node.lookup(PDFName.of('Annots'), PDFArray);
       expect(reloadedAnnots).toBeDefined();
-      expect(reloadedAnnots!.size()).toBe(2);
+      expect(reloadedAnnots.size()).toBe(2);
     });
 
     it('tracks PDFStream content updates for incremental saves', async () => {
@@ -1504,12 +1486,12 @@ describe('PDFDocument', () => {
       expect(mediaBox).toBeDefined();
 
       // Verify it's NOT registered (inline)
-      const ref = pdfDoc.context.getRef(mediaBox!);
+      const ref = pdfDoc.context.getRef(mediaBox);
       expect(ref).toBeUndefined();
 
       // Modify it directly
-      mediaBox!.set(2, PDFNumber.of(300)); // Change width
-      mediaBox!.set(3, PDFNumber.of(400)); // Change height
+      mediaBox.set(2, PDFNumber.of(300)); // Change width
+      mediaBox.set(3, PDFNumber.of(400)); // Change height
 
       // Commit
       const committed = await pdfDoc.commit();
@@ -1519,8 +1501,8 @@ describe('PDFDocument', () => {
       const reloadedMediaBox = reloaded
         .getPage(0)
         .node.lookup(PDFName.MediaBox, PDFArray);
-      expect(reloadedMediaBox!.lookup(2, PDFNumber).asNumber()).toBe(300);
-      expect(reloadedMediaBox!.lookup(3, PDFNumber).asNumber()).toBe(400);
+      expect(reloadedMediaBox.lookup(2, PDFNumber).asNumber()).toBe(300);
+      expect(reloadedMediaBox.lookup(3, PDFNumber).asNumber()).toBe(400);
     });
   });
 

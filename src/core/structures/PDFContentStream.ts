@@ -1,6 +1,6 @@
-import PDFDict from '../objects/PDFDict';
-import PDFOperator from '../operators/PDFOperator';
-import PDFContext from '../PDFContext';
+import type PDFDict from '../objects/PDFDict';
+import type PDFOperator from '../operators/PDFOperator';
+import type PDFContext from '../PDFContext';
 import PDFFlateStream from './PDFFlateStream';
 import CharCodes from '../syntax/CharCodes';
 
@@ -20,7 +20,7 @@ class PDFContentStream extends PDFFlateStream {
   }
 
   clone(context?: PDFContext): PDFContentStream {
-    const operators = new Array(this.operators.length);
+    const operators = new Array<PDFOperator>(this.operators.length);
     for (let idx = 0, len = this.operators.length; idx < len; idx++) {
       operators[idx] = this.operators[idx].clone(context);
     }

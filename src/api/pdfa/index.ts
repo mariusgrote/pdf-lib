@@ -1,4 +1,4 @@
-import { PDFAConformanceLevel } from './PDFAConformance';
+import type { PDFAConformanceLevel } from './PDFAConformance';
 
 export * from './PDFAConformance';
 export * from './srgbProfile';

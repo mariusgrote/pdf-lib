@@ -11,11 +11,11 @@ interface UnicodeMappings {
   [unicodeCodePoint: number]: [EncodingCharCode, EncodingCharName];
 }
 
-const allUnicodeMappings: {
+const allUnicodeMappings = JSON.parse(decompressedEncodings) as {
   symbol: UnicodeMappings;
   zapfdingbats: UnicodeMappings;
   win1252: UnicodeMappings;
-} = JSON.parse(decompressedEncodings);
+};
 
 type EncodingNames = 'Symbol' | 'ZapfDingbats' | 'WinAnsi';
 

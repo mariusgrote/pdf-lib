@@ -44,9 +44,11 @@ export class NoSuchFieldError extends Error {
 }
 
 export class UnexpectedFieldTypeError extends Error {
-  constructor(name: string, expected: any, actual: any) {
-    const expectedType = expected?.name;
-    const actualType = actual?.constructor?.name ?? actual;
+  constructor(name: string, expected: unknown, actual: unknown) {
+    const expectedType = (expected as { name?: string } | null)?.name;
+    const actualType =
+      (actual as { constructor?: { name?: string } } | null)?.constructor
+        ?.name ?? actual;
     const msg =
       `Expected field "${name}" to be of type ${expectedType}, ` +
       `but it is actually of type ${actualType}`;
@@ -55,7 +57,7 @@ export class UnexpectedFieldTypeError extends Error {
 }
 
 export class MissingOnValueCheckError extends Error {
-  constructor(onValue: any) {
+  constructor(onValue: unknown) {
     const msg = `Failed to select check box due to missing onValue: "${onValue}"`;
     super(msg);
   }

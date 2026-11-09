@@ -1,12 +1,13 @@
 import PDFArray from '../objects/PDFArray';
-import PDFDict, { DictMap } from '../objects/PDFDict';
+import type { DictMap } from '../objects/PDFDict';
+import PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
 import PDFNumber from '../objects/PDFNumber';
-import PDFObject from '../objects/PDFObject';
-import PDFRef from '../objects/PDFRef';
+import type PDFObject from '../objects/PDFObject';
+import type PDFRef from '../objects/PDFRef';
 import PDFStream from '../objects/PDFStream';
-import PDFContext from '../PDFContext';
-import PDFPageTree from './PDFPageTree';
+import type PDFContext from '../PDFContext';
+import type PDFPageTree from './PDFPageTree';
 
 class PDFPageLeaf extends PDFDict {
   static readonly InheritableEntries = [
@@ -195,7 +196,7 @@ class PDFPageLeaf extends PDFDict {
     return key;
   }
 
-  ascend(visitor: (node: PDFPageTree | PDFPageLeaf) => any): void {
+  ascend(visitor: (node: PDFPageTree | PDFPageLeaf) => unknown): void {
     visitor(this);
     const Parent = this.Parent();
     if (Parent) Parent.ascend(visitor);

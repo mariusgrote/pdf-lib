@@ -1,10 +1,10 @@
 import { zlibSync } from 'fflate';
 
+import type { PDFObject } from '../../../src/index';
 import {
   mergeIntoTypedArray,
   PDFContext,
   PDFHexString,
-  PDFObject,
   PDFObjectStream,
   PDFRef,
   PDFString,

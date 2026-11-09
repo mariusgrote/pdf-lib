@@ -1,5 +1,5 @@
 import fontkit from '@cantoo/fontkit';
-import { Assets } from '..';
+import type { Assets } from '..';
 import {
   clip,
   clipEvenOdd,

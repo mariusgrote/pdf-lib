@@ -1,8 +1,8 @@
-import { Assets } from '..';
+import type { Assets } from '..';
+import type { PDFPage } from '@mariusgrote/pdf-lib';
 import {
   ParseSpeeds,
   PDFDocument,
-  PDFPage,
   radians,
   StandardFonts,
   rgb,
@@ -40,8 +40,8 @@ export default async (assets: Assets) => {
 
     // prettier-ignore
     const text = (
-        fontName === StandardFonts.Symbol ? `${idx + 1}. Τηεσε αρε τηε 14 Στανδαρδ Φοντσ.`
-      : fontName === StandardFonts.ZapfDingbats ? '✑✔✎ ✴❈❅▲❅ ❁❒❅ ▼❈❅ ✑✔ ✳▼❁■❄❁❒❄ ✦❏■▼▲✎'
+        fontObj === StandardFonts.Symbol ? `${idx + 1}. Τηεσε αρε τηε 14 Στανδαρδ Φοντσ.`
+      : fontObj === StandardFonts.ZapfDingbats ? '✑✔✎ ✴❈❅▲❅ ❁❒❅ ▼❈❅ ✑✔ ✳▼❁■❄❁❒❄ ✦❏■▼▲✎'
       : `${idx + 1}. These are the 14 Standard Fonts.`
     );
 

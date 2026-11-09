@@ -1,8 +1,8 @@
 import PDFName from '../objects/PDFName';
 import PDFNumber from '../objects/PDFNumber';
-import PDFObject from '../objects/PDFObject';
-import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
+import type PDFObject from '../objects/PDFObject';
+import type PDFRef from '../objects/PDFRef';
+import type PDFContext from '../PDFContext';
 import PDFFlateStream from './PDFFlateStream';
 import CharCodes from '../syntax/CharCodes';
 import { copyStringIntoBuffer, last } from '../../utils';
@@ -88,7 +88,7 @@ class PDFObjectStream extends PDFFlateStream {
 
   private computeObjectOffsets(): [number, number][] {
     let offset = 0;
-    const offsets = new Array(this.objects.length);
+    const offsets = new Array<[number, number]>(this.objects.length);
     for (let idx = 0, len = this.objects.length; idx < len; idx++) {
       const [ref, object] = this.objects[idx];
       offsets[idx] = [ref.objectNumber, offset];

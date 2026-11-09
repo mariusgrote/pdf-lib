@@ -1,7 +1,7 @@
-import PDFDict from '../objects/PDFDict';
+import type PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
 import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import PDFFlateStream from './PDFFlateStream';
 import { bytesFor, Cache, reverseArray, sizeInBytes, sum } from '../../utils';
 
@@ -209,7 +209,9 @@ class PDFCrossRefStream extends PDFFlateStream {
   };
 
   private computeEntryTuples = (): EntryTuple[] => {
-    const entryTuples: EntryTuple[] = new Array(this.entries.length);
+    const entryTuples: EntryTuple[] = new Array<EntryTuple>(
+      this.entries.length,
+    );
 
     for (let idx = 0, len = this.entries.length; idx < len; idx++) {
       const entry = this.entries[idx];

@@ -1,7 +1,7 @@
-import PDFDict from '../objects/PDFDict';
+import type PDFDict from '../objects/PDFDict';
 import PDFAcroButton from './PDFAcroButton';
-import PDFContext from '../PDFContext';
-import PDFRef from '../objects/PDFRef';
+import type PDFContext from '../PDFContext';
+import type PDFRef from '../objects/PDFRef';
 import { AcroButtonFlags } from './flags';
 
 class PDFAcroPushButton extends PDFAcroButton {

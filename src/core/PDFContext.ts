@@ -18,11 +18,20 @@ import PDFString from './objects/PDFString';
 import PDFOperator from './operators/PDFOperator';
 import Ops from './operators/PDFOperatorNames';
 import PDFContentStream from './structures/PDFContentStream';
-import PDFSecurity from './security/PDFSecurity';
+import type PDFSecurity from './security/PDFSecurity';
 import { typedArrayFor } from '../utils';
 import { SimpleRNG } from '../utils/rng';
 
 type LookupKey = PDFRef | PDFObject | undefined;
+
+/**
+ * The implementation signature behind the `lookup` / `lookupMaybe` overloads,
+ * for classes that forward their arguments (`PDFArray`, `PDFDict`).
+ */
+export type UntypedLookup = (
+  ref: LookupKey,
+  ...types: unknown[]
+) => PDFObject | undefined;
 
 interface LiteralObject {
   [name: string]: Literal | PDFObject;
@@ -140,7 +149,7 @@ class PDFContext {
     type2: typeof PDFHexString,
   ): PDFString | PDFHexString | undefined;
 
-  lookupMaybe(ref: LookupKey, ...types: any[]) {
+  lookupMaybe(ref: LookupKey, ...types: unknown[]) {
     // TODO: `preservePDFNull` is for backwards compatibility. Should be
     // removed in next breaking API change.
     const preservePDFNull = types.includes(PDFNull);
@@ -154,7 +163,7 @@ class PDFContext {
       if (type === PDFNull) {
         if (result === PDFNull) return result;
       } else {
-        if (result instanceof type) return result;
+        if (result instanceof (type as Function)) return result;
       }
     }
     throw new UnexpectedObjectTypeError(types, result);
@@ -177,7 +186,7 @@ class PDFContext {
     type2: typeof PDFHexString,
   ): PDFString | PDFHexString;
 
-  lookup(ref: LookupKey, ...types: any[]) {
+  lookup(ref: LookupKey, ...types: unknown[]) {
     const result = ref instanceof PDFRef ? this.indirectObjects.get(ref) : ref;
 
     if (types.length === 0) return result;
@@ -187,7 +196,7 @@ class PDFContext {
       if (type === PDFNull) {
         if (result === PDFNull) return result;
       } else {
-        if (result instanceof type) return result;
+        if (result instanceof (type as Function)) return result;
       }
     }
 
@@ -223,8 +232,9 @@ class PDFContext {
   obj(literal: boolean): PDFBool;
   obj(literal: LiteralObject): PDFDict;
   obj(literal: LiteralArray): PDFArray;
+  obj(literal: Literal | PDFObject): PDFObject;
 
-  obj(literal: Literal) {
+  obj(literal: Literal | PDFObject) {
     if (literal instanceof PDFObject) {
       return literal;
     } else if (literal === null || literal === undefined) {
@@ -240,7 +250,7 @@ class PDFContext {
     } else if (Array.isArray(literal)) {
       const array = PDFArray.withContext(this);
       for (let idx = 0, len = literal.length; idx < len; idx++) {
-        array.push(this.obj(literal[idx]));
+        array.push(this.obj(literal[idx] as Literal | PDFObject));
       }
       return array;
     } else {
@@ -248,7 +258,7 @@ class PDFContext {
       const keys = Object.keys(literal);
       for (let idx = 0, len = keys.length; idx < len; idx++) {
         const key = keys[idx];
-        const value = (literal as LiteralObject)[key] as any;
+        const value = (literal as LiteralObject)[key];
         if (value !== undefined) dict.set(PDFName.of(key), this.obj(value));
       }
       return dict;

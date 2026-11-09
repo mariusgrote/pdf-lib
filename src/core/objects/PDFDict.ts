@@ -1,14 +1,15 @@
-import PDFArray from './PDFArray';
-import PDFBool from './PDFBool';
-import PDFHexString from './PDFHexString';
+import type PDFArray from './PDFArray';
+import type PDFBool from './PDFBool';
+import type PDFHexString from './PDFHexString';
 import PDFName from './PDFName';
 import PDFNull from './PDFNull';
-import PDFNumber from './PDFNumber';
+import type PDFNumber from './PDFNumber';
 import PDFObject from './PDFObject';
-import PDFRef from './PDFRef';
-import PDFStream from './PDFStream';
-import PDFString from './PDFString';
-import PDFContext from '../PDFContext';
+import type PDFRef from './PDFRef';
+import type PDFStream from './PDFStream';
+import type PDFString from './PDFString';
+import type PDFContext from '../PDFContext';
+import { type UntypedLookup } from '../PDFContext';
 import CharCodes from '../syntax/CharCodes';
 
 export type DictMap = Map<PDFName, PDFObject>;
@@ -94,16 +95,16 @@ class PDFDict extends PDFObject {
     type3: typeof PDFArray,
   ): PDFString | PDFHexString | PDFArray | undefined;
 
-  lookupMaybe(key: PDFName, ...types: any[]) {
+  lookupMaybe(key: PDFName, ...types: unknown[]) {
     // TODO: `preservePDFNull` is for backwards compatibility. Should be
     // removed in next breaking API change.
     const preservePDFNull = types.includes(PDFNull);
 
-    const value = this.context.lookupMaybe(
+    const value = (this.context.lookupMaybe as UntypedLookup).call(
+      this.context,
       this.get(key, preservePDFNull),
-      // @ts-ignore
       ...types,
-    ) as any;
+    );
 
     if (value === PDFNull && !preservePDFNull) return undefined;
 
@@ -138,16 +139,16 @@ class PDFDict extends PDFObject {
     type3: typeof PDFArray,
   ): PDFString | PDFHexString | PDFArray;
 
-  lookup(key: PDFName, ...types: any[]) {
+  lookup(key: PDFName, ...types: unknown[]) {
     // TODO: `preservePDFNull` is for backwards compatibility. Should be
     // removed in next breaking API change.
     const preservePDFNull = types.includes(PDFNull);
 
-    const value = this.context.lookup(
+    const value = (this.context.lookup as UntypedLookup).call(
+      this.context,
       this.get(key, preservePDFNull),
-      // @ts-ignore
       ...types,
-    ) as any;
+    );
 
     if (value === PDFNull && !preservePDFNull) return undefined;
 

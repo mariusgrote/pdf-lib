@@ -26,13 +26,14 @@ export interface GlyphRun {
 }
 
 export interface SubsetStream {
-  on: (
-    eventType: 'data' | 'end',
-    callback: (data: Uint8Array) => any,
-  ) => SubsetStream;
+  on(eventType: 'data', callback: (data: Uint8Array) => unknown): SubsetStream;
+  on(eventType: 'end', callback: () => unknown): SubsetStream;
+  on(eventType: 'error', callback: (error: unknown) => unknown): SubsetStream;
 }
 
 export interface Subset {
+  /** Present on subsets of CFF/OTF fonts. */
+  cff?: unknown;
   /**
    * `@cantoo/fontkit` / upstream fontkit return a subset glyph id (`number`).
    * Older typings / engines may report `boolean`; callers must still treat a
@@ -59,7 +60,7 @@ export interface Font {
   bbox: BoundingBox;
   characterSet: number[];
   /** Present on CFF/OTF fonts; often absent on TrueType. */
-  cff?: any;
+  cff?: unknown;
   'OS/2'?: { sFamilyClass: number };
   head?: { macStyle?: { italic?: boolean } };
   post?: { isFixedPitch?: boolean | number };

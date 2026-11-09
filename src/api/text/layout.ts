@@ -1,8 +1,8 @@
-import PDFFont from '../PDFFont';
+import type PDFFont from '../PDFFont';
 import { CombedTextLayoutError } from '../errors';
 import { TextAlignment } from './alignment';
 
-import { PDFHexString } from '../../core';
+import type { PDFHexString } from '../../core';
 import {
   cleanText,
   lineSplit,

@@ -1,5 +1,6 @@
 import fontkit from '@cantoo/fontkit';
-import { Font, Glyph, asFont } from '../../../src/types/fontkit';
+import type { Font, Glyph } from '../../../src/types/fontkit';
+import { asFont } from '../../../src/types/fontkit';
 import fs from 'fs';
 
 import { createCmap } from '../../../src/core/embedders/CMap';

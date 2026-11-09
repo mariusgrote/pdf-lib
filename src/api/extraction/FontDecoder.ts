@@ -1,14 +1,14 @@
 import { Encodings } from '../../packages/standard-fonts/index';
 
-import PDFDict from '../../core/objects/PDFDict';
+import type PDFDict from '../../core/objects/PDFDict';
 import PDFName from '../../core/objects/PDFName';
 import PDFRawStream from '../../core/objects/PDFRawStream';
 import PDFStream from '../../core/objects/PDFStream';
-import PDFContext from '../../core/PDFContext';
+import type PDFContext from '../../core/PDFContext';
 import { decodePDFRawStream } from '../../core/streams/decode';
 import PDFContentStream from '../../core/structures/PDFContentStream';
 import { arrayAsString } from '../../utils';
-import { HexStringOperand, LiteralStringOperand } from './types';
+import type { HexStringOperand, LiteralStringOperand } from './types';
 import { inferCodeByteLength, parseToUnicode } from './ToUnicode';
 
 type StringOperand = HexStringOperand | LiteralStringOperand;

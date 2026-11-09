@@ -1,4 +1,4 @@
-import { Assets } from '..';
+import type { Assets } from '..';
 import { PDFDocument, StandardFonts } from '@mariusgrote/pdf-lib';
 
 export default async (assets: Assets) => {

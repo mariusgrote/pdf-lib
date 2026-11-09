@@ -462,5 +462,5 @@ export function quantize(
     remap(inds, tb32, cl32);
   }
 
-  return { abuf: tb.buffer as ArrayBuffer, inds, plte: leafs };
+  return { abuf: tb.buffer, inds, plte: leafs };
 }

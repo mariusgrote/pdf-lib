@@ -2,14 +2,14 @@ import PDFTrailer from '../document/PDFTrailer';
 import PDFInvalidObject from '../objects/PDFInvalidObject';
 import PDFName from '../objects/PDFName';
 import PDFNumber from '../objects/PDFNumber';
-import PDFObject from '../objects/PDFObject';
+import type PDFObject from '../objects/PDFObject';
 import PDFRawStream from '../objects/PDFRawStream';
 import PDFRef from '../objects/PDFRef';
 import PDFStream from '../objects/PDFStream';
 import PDFCatalog from '../structures/PDFCatalog';
 import PDFPageTree from '../structures/PDFPageTree';
 import PDFPageLeaf from '../structures/PDFPageLeaf';
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import PDFCrossRefStream from '../structures/PDFCrossRefStream';
 import PDFObjectStream from '../structures/PDFObjectStream';
 import PDFWriter from './PDFWriter';
@@ -127,7 +127,7 @@ class PDFStreamWriter extends PDFWriter {
         object instanceof PDFPageLeaf ||
         ref.generationNumber !== 0 ||
         (object instanceof PDFDict &&
-          (object as PDFDict).lookup(PDFName.of('Type')) === PDFName.of('Sig'));
+          object.lookup(PDFName.of('Type')) === PDFName.of('Sig'));
 
       if (shouldNotCompress) {
         uncompressedObjects.push(indirectObject);

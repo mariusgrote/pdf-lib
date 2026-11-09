@@ -1,13 +1,9 @@
-import {
-  Encodings,
-  Font,
-  FontNames,
-  EncodingType,
-} from '../../packages/standard-fonts';
+import type { EncodingType } from '../../packages/standard-fonts';
+import { Encodings, Font, FontNames } from '../../packages/standard-fonts';
 
 import PDFHexString from '../objects/PDFHexString';
-import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
+import type PDFRef from '../objects/PDFRef';
+import type PDFContext from '../PDFContext';
 import { toCodePoint, toHexString } from '../../utils';
 
 export interface Glyph {
@@ -122,7 +118,7 @@ class StandardFontEmbedder {
 
   private encodeTextAsGlyphs(text: string): Glyph[] {
     const codePoints = Array.from(text);
-    const glyphs: Glyph[] = new Array(codePoints.length);
+    const glyphs: Glyph[] = new Array<Glyph>(codePoints.length);
     for (let idx = 0, len = codePoints.length; idx < len; idx++) {
       const codePoint = toCodePoint(codePoints[idx])!;
       try {

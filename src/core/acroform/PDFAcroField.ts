@@ -2,7 +2,7 @@ import PDFDict from '../objects/PDFDict';
 import PDFString from '../objects/PDFString';
 import PDFHexString from '../objects/PDFHexString';
 import PDFName from '../objects/PDFName';
-import PDFObject from '../objects/PDFObject';
+import type PDFObject from '../objects/PDFObject';
 import PDFNumber from '../objects/PDFNumber';
 import PDFArray from '../objects/PDFArray';
 import PDFRef from '../objects/PDFRef';
@@ -157,7 +157,7 @@ class PDFAcroField {
     return attribute;
   }
 
-  ascend(visitor: (node: PDFAcroField) => any): void {
+  ascend(visitor: (node: PDFAcroField) => unknown): void {
     visitor(this);
     const parent = this.getParent();
     if (parent) parent.ascend(visitor);

@@ -1,17 +1,18 @@
-import PDFBool from './PDFBool';
-import PDFDict from './PDFDict';
-import PDFHexString from './PDFHexString';
-import PDFName from './PDFName';
-import PDFNull from './PDFNull';
+import type PDFBool from './PDFBool';
+import type PDFDict from './PDFDict';
+import type PDFHexString from './PDFHexString';
+import type PDFName from './PDFName';
+import type PDFNull from './PDFNull';
 import PDFNumber from './PDFNumber';
 import PDFObject from './PDFObject';
-import PDFRef from './PDFRef';
-import PDFStream from './PDFStream';
-import PDFString from './PDFString';
-import PDFContext from '../PDFContext';
+import type PDFRef from './PDFRef';
+import type PDFStream from './PDFStream';
+import type PDFString from './PDFString';
+import type PDFContext from '../PDFContext';
+import { type UntypedLookup } from '../PDFContext';
 import CharCodes from '../syntax/CharCodes';
 import { PDFArrayIsNotRectangleError } from '../errors';
-import PDFRawStream from './PDFRawStream';
+import type PDFRawStream from './PDFRawStream';
 
 class PDFArray extends PDFObject {
   static withContext = (context: PDFContext) => new PDFArray(context);
@@ -81,12 +82,12 @@ class PDFArray extends PDFObject {
     type2: typeof PDFHexString,
   ): PDFString | PDFHexString | undefined;
 
-  lookupMaybe(index: number, ...types: any[]) {
-    return this.context.lookupMaybe(
+  lookupMaybe(index: number, ...types: unknown[]) {
+    return (this.context.lookupMaybe as UntypedLookup).call(
+      this.context,
       this.get(index),
-      // @ts-ignore
       ...types,
-    ) as any;
+    );
   }
 
   lookup(index: number): PDFObject | undefined;
@@ -107,12 +108,12 @@ class PDFArray extends PDFObject {
     type2: typeof PDFHexString,
   ): PDFString | PDFHexString;
 
-  lookup(index: number, ...types: any[]) {
-    return this.context.lookup(
+  lookup(index: number, ...types: unknown[]) {
+    return (this.context.lookup as UntypedLookup).call(
+      this.context,
       this.get(index),
-      // @ts-ignore
       ...types,
-    ) as any;
+    );
   }
 
   asRectangle(): { x: number; y: number; width: number; height: number } {

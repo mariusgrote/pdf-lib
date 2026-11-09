@@ -5,18 +5,19 @@ import PDFNumber from '../../core/objects/PDFNumber';
 import PDFRawStream from '../../core/objects/PDFRawStream';
 import PDFRef from '../../core/objects/PDFRef';
 import PDFStream from '../../core/objects/PDFStream';
-import PDFContext from '../../core/PDFContext';
+import type PDFContext from '../../core/PDFContext';
 import { decodePDFRawStream } from '../../core/streams/decode';
 import PDFContentStream from '../../core/structures/PDFContentStream';
-import PDFPageLeaf from '../../core/structures/PDFPageLeaf';
+import type PDFPageLeaf from '../../core/structures/PDFPageLeaf';
 import CharCodes from '../../core/syntax/CharCodes';
-import { TransformationMatrix, identityMatrix } from '../../types/matrix';
+import type { TransformationMatrix } from '../../types/matrix';
+import { identityMatrix } from '../../types/matrix';
 import { mergeIntoTypedArray } from '../../utils';
 import { parseContentStream } from './ContentStreamParser';
 import { FontDecoder, isStringOperand } from './FontDecoder';
 import { PdfPathBuilder, cmykCss, grayCss, rgbCss } from './graphicsSvg';
 import { extractImageBytes } from './imageBytes';
-import {
+import type {
   ContentStreamOperand,
   ContentStreamOperation,
   NameOperand,
@@ -212,7 +213,7 @@ const walkOperations = (
   };
 
   const num = (args: ContentStreamOperand[], i: number): number =>
-    typeof args[i] === 'number' ? (args[i] as number) : 0;
+    typeof args[i] === 'number' ? args[i] : 0;
 
   for (const op of operations) {
     switch (op.name) {

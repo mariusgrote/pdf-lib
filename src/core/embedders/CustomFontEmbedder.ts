@@ -1,17 +1,12 @@
-import {
-  Font,
-  Fontkit,
-  Glyph,
-  TypeFeatures,
-  asFont,
-} from '../../types/fontkit';
+import type { Font, Fontkit, Glyph, TypeFeatures } from '../../types/fontkit';
+import { asFont } from '../../types/fontkit';
 
 import { createCmap } from './CMap';
 import { deriveFontFlags } from './FontFlags';
 import PDFHexString from '../objects/PDFHexString';
-import PDFRef from '../objects/PDFRef';
+import type PDFRef from '../objects/PDFRef';
 import PDFString from '../objects/PDFString';
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import {
   byAscendingId,
   Cache,
@@ -147,7 +142,7 @@ class CustomFontEmbedder {
   }
 
   protected isCFF(): boolean {
-    return this.font.cff;
+    return !!this.font.cff;
   }
 
   protected async embedCIDFontDict(context: PDFContext): Promise<PDFRef> {

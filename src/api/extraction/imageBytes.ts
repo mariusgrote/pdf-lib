@@ -1,7 +1,7 @@
 import { zlibSync } from 'fflate';
 
 import PDFArray from '../../core/objects/PDFArray';
-import PDFDict from '../../core/objects/PDFDict';
+import type PDFDict from '../../core/objects/PDFDict';
 import PDFName from '../../core/objects/PDFName';
 import PDFNumber from '../../core/objects/PDFNumber';
 import PDFRawStream from '../../core/objects/PDFRawStream';

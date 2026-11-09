@@ -1,8 +1,9 @@
-import PDFDict, { DictMap } from '../objects/PDFDict';
+import type { DictMap } from '../objects/PDFDict';
+import PDFDict from '../objects/PDFDict';
 import PDFName from '../objects/PDFName';
-import PDFRef from '../objects/PDFRef';
-import PDFContext from '../PDFContext';
-import PDFPageTree from './PDFPageTree';
+import type PDFRef from '../objects/PDFRef';
+import type PDFContext from '../PDFContext';
+import type PDFPageTree from './PDFPageTree';
 import { PDFAcroForm } from '../acroform';
 import ViewerPreferences from '../interactive/ViewerPreferences';
 import OptionalContentProperties from '../interactive/OptionalContent';

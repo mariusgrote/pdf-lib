@@ -60,7 +60,7 @@
     "no-nonoctal-decimal-escape": "error",
     "no-obj-calls": "error",
     "no-prototype-builtins": "error",
-    "no-redeclare": "error",
+    "no-redeclare": "off",
     "no-regex-spaces": "error",
     "no-self-assign": "error",
     "no-setter-return": "error",
@@ -96,7 +96,7 @@
     "no-var": "error",
     "eqeqeq": ["error", "always"],
     "typescript/explicit-function-return-type": "off",
-    "typescript/no-explicit-any": "warn",
+    "typescript/no-explicit-any": "error",
     "typescript/no-empty-interface": "off",
     "typescript/await-thenable": "error",
     "typescript/no-array-delete": "error",
@@ -137,13 +137,43 @@
     "import/no-empty-named-blocks": "error",
     "import/no-named-as-default": "error",
     "import/no-duplicates": "error",
-    "import/no-webpack-loader-syntax": "error"
+    "import/no-webpack-loader-syntax": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-unsafe-enum-comparison": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "vitest/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": ["expect", "expectParse", "expectParseStr"]
+      }
+    ],
+    "vitest/no-commented-out-tests": "error",
+    "typescript/consistent-type-imports": "error"
   },
   "overrides": [
     {
       "files": ["**/tests/**", "**/*.spec.*", "**/*.test.*"],
       "rules": {
-        "typescript/no-explicit-any": "off"
+        "typescript/no-explicit-any": "off",
+        "typescript/no-unsafe-argument": "off",
+        "typescript/no-unsafe-assignment": "off",
+        "typescript/no-unsafe-call": "off",
+        "typescript/no-unsafe-member-access": "off",
+        "typescript/no-unsafe-return": "off"
+      }
+    },
+    {
+      "files": ["**/*.js", "**/*.mjs", "**/*.cjs"],
+      "rules": {
+        "typescript/no-unsafe-argument": "off",
+        "typescript/no-unsafe-assignment": "off",
+        "typescript/no-unsafe-call": "off",
+        "typescript/no-unsafe-member-access": "off",
+        "typescript/no-unsafe-return": "off"
       }
     }
   ]

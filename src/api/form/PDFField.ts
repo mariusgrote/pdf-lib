@@ -1,9 +1,10 @@
 import PDFDocument from '../PDFDocument';
-import PDFFont from '../PDFFont';
-import { AppearanceMapping } from './appearances';
-import { Color, colorToComponents, setFillingColor } from '../colors';
+import type PDFFont from '../PDFFont';
+import type { AppearanceMapping } from './appearances';
+import type { Color } from '../colors';
+import { colorToComponents, setFillingColor } from '../colors';
+import type { Rotation } from '../rotations';
 import {
-  Rotation,
   toDegrees,
   rotateRectangle,
   reduceRotation,
@@ -11,10 +12,10 @@ import {
   degrees,
 } from '../rotations';
 
+import type { PDFOperator } from '../../core';
 import {
   PDFRef,
   PDFWidgetAnnotation,
-  PDFOperator,
   PDFName,
   PDFDict,
   MethodNotImplementedError,
@@ -24,10 +25,10 @@ import {
 } from '../../core';
 import { assertIs, assertMultiple, assertOrUndefined } from '../../utils';
 import { ImageAlignment } from '../image';
-import PDFImage from '../PDFImage';
+import type PDFImage from '../PDFImage';
 import { drawImage, rotateInPlace } from '../operations';
+import type { JavaScriptActionMap } from '../PDFJavaScriptAction';
 import PDFJavaScriptAction, {
-  JavaScriptActionMap,
   extractAdditionalActions,
 } from '../PDFJavaScriptAction';
 

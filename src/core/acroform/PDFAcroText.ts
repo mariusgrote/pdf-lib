@@ -1,10 +1,10 @@
-import PDFContext from '../PDFContext';
-import PDFDict from '../objects/PDFDict';
+import type PDFContext from '../PDFContext';
+import type PDFDict from '../objects/PDFDict';
 import PDFNumber from '../objects/PDFNumber';
 import PDFString from '../objects/PDFString';
 import PDFHexString from '../objects/PDFHexString';
 import PDFName from '../objects/PDFName';
-import PDFRef from '../objects/PDFRef';
+import type PDFRef from '../objects/PDFRef';
 import PDFAcroTerminal from './PDFAcroTerminal';
 
 class PDFAcroText extends PDFAcroTerminal {

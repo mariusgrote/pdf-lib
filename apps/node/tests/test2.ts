@@ -1,5 +1,5 @@
 import fontkit from '@cantoo/fontkit';
-import { Assets } from '..';
+import type { Assets } from '..';
 import { ParseSpeeds, PDFDocument, rgb } from '@mariusgrote/pdf-lib';
 
 // This test loads an existing PDF document with many pages.

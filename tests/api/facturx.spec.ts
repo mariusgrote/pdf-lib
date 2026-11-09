@@ -1,5 +1,6 @@
 import fontkit from '@cantoo/fontkit';
 import fs from 'fs';
+import type { PDFRawStream } from '../../src/index';
 import {
   AFRelationship,
   buildFacturXDescription,
@@ -7,7 +8,6 @@ import {
   FACTUR_X_EXTENSION_SCHEMA,
   PDFDocument,
   PDFName,
-  PDFRawStream,
   rgb,
 } from '../../src/index';
 import { readCatalogPDFAConformance } from '../../src/api/pdfa/catalogMetadata';

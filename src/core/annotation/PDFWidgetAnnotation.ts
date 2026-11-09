@@ -3,7 +3,7 @@ import PDFName from '../objects/PDFName';
 import PDFRef from '../objects/PDFRef';
 import PDFString from '../objects/PDFString';
 import PDFHexString from '../objects/PDFHexString';
-import PDFContext from '../PDFContext';
+import type PDFContext from '../PDFContext';
 import BorderStyle from './BorderStyle';
 import PDFAnnotation from './PDFAnnotation';
 import AppearanceCharacteristics from './AppearanceCharacteristics';

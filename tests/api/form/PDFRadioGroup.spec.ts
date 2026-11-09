@@ -1,9 +1,9 @@
 import fs from 'fs';
+import type { PDFHexString } from '../../../src/index';
 import {
   PDFDocument,
   PDFName,
   PDFArray,
-  PDFHexString,
   AnnotationFlags,
 } from '../../../src/index';
 

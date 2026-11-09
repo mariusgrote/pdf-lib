@@ -11,10 +11,14 @@ import {
 
 /** Decodes hex escapes in a name token read from PDF syntax (case-insensitive). */
 export const decodePdfNameEscapes = (name: string) =>
-  name.replace(/#([0-9A-Fa-f]{2})/g, (_, hex) => charFromHexCode(hex));
+  name.replace(/#([0-9A-Fa-f]{2})/g, (_: string, hex: string) =>
+    charFromHexCode(hex),
+  );
 
 const decodeName = (name: string) =>
-  name.replace(/#([\dABCDEF]{2})/g, (_, hex) => charFromHexCode(hex));
+  name.replace(/#([\dABCDEF]{2})/g, (_: string, hex: string) =>
+    charFromHexCode(hex),
+  );
 
 const isRegularChar = (charCode: number) =>
   charCode >= CharCodes.ExclamationPoint &&
@@ -67,7 +71,7 @@ class PDFName extends PDFObject {
 
   private readonly encodedName: string;
 
-  private constructor(enforcer: any, name: string) {
+  private constructor(enforcer: unknown, name: string) {
     if (enforcer !== ENFORCER) throw new PrivateConstructorError('PDFName');
     super();
 

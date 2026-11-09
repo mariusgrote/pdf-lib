@@ -1,5 +1,6 @@
 import { zlibSync } from 'fflate';
 
+import type { PDFObject } from '../../src/core';
 import {
   PDFArray,
   PDFBool,
@@ -10,7 +11,6 @@ import {
   PDFName,
   PDFNull,
   PDFNumber,
-  PDFObject,
   PDFRef,
   PDFString,
 } from '../../src/core';

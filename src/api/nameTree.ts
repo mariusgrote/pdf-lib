@@ -1,11 +1,5 @@
-import {
-  PDFArray,
-  PDFDict,
-  PDFHexString,
-  PDFName,
-  PDFObject,
-  PDFString,
-} from '../core';
+import type { PDFDict, PDFObject } from '../core';
+import { PDFArray, PDFHexString, PDFName, PDFString } from '../core';
 
 const compareBytes = (left: Uint8Array, right: Uint8Array): number => {
   const length = Math.min(left.length, right.length);

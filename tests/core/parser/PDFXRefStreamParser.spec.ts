@@ -136,35 +136,6 @@ describe('PDFXRefStreamParser', () => {
     expect(inObjectStream.length).toBe(115);
   });
 
-  // it(`removes objects from the PDFContext that are marked as deleted`, () => {
-  //   const context = PDFContext.create();
-  //   const dict = context.obj({
-  //     DecodeParms: { Columns: 4, Predictor: 12 },
-  //     Filter: 'FlateDecode',
-  //     Length: 373,
-  //     Size: 319,
-  //     W: [1, 2, 1],
-  //   });
-  //   const contents = readData('xref-stream1');
-  //   const stream = PDFRawStream.of(dict, contents);
-
-  //   const fooStr = PDFString.of('foo');
-  //   const fooRef = PDFRef.of(1, 1);
-  //   context.assign(fooRef, fooStr);
-
-  //   const barStr = PDFString.of('bar');
-  //   const barRef = PDFRef.of(2, 2);
-  //   context.assign(barRef, barStr);
-
-  //   expect(context.lookup(fooRef)).not.toBeUndefined();
-  //   expect(context.lookup(barRef)).not.toBeUndefined();
-
-  //   PDFXRefStreamParser.forStream(stream).parseIntoContext();
-
-  //   expect(context.lookup(fooRef)).toBeUndefined();
-  //   expect(context.lookup(barRef)).not.toBeUndefined();
-  // });
-
   it('prevents reparsing', () => {
     const context = PDFContext.create();
     const dict = context.obj({

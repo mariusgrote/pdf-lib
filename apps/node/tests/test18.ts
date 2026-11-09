@@ -1,4 +1,4 @@
-import { Assets } from '..';
+import type { Assets } from '..';
 import { PDFDocument } from '@mariusgrote/pdf-lib';
 
 import fontkit from '@cantoo/fontkit';

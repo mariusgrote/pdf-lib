@@ -1,11 +1,12 @@
 import { FontNames } from '../packages/standard-fonts/index';
 
-export const values = (obj: any) => Object.keys(obj).map((k) => obj[k]);
+export const values = <T>(obj: Record<string, T>) =>
+  Object.keys(obj).map((k) => obj[k]);
 
 export const StandardFontValues = values(FontNames);
 
-export const isStandardFont = (input: any): input is FontNames =>
-  StandardFontValues.includes(input);
+export const isStandardFont = (input: unknown): input is FontNames =>
+  StandardFontValues.includes(input as FontNames);
 
 export const rectanglesAreEqual = (
   a: { x: number; y: number; width: number; height: number },

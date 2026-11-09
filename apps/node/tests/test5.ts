@@ -1,4 +1,4 @@
-import { Assets } from '..';
+import type { Assets } from '..';
 import {
   ParseSpeeds,
   PDFDocument,
