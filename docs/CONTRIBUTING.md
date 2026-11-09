@@ -165,7 +165,7 @@ Not all lint errors can be fixed automatically. You will have to manually fix th
 
 `pdf-lib` is written in TypeScript. All source code must be correctly typed for the project to compile.
 
-`pnpm lint` also type-checks `src/`, `tests/` and `apps/` (oxlint's `typeCheck` option, which uses TypeScript 7). Vitest strips types without checking them, so run `pnpm lint` before you push.
+`pnpm lint` also type-checks `src/` and `tests/` (oxlint's `typeCheck` option, which uses TypeScript 7). Vitest strips types without checking them, so run `pnpm lint` before you push. The integration apps in `apps/` use the built package, so they are type-checked by `pnpm apps:build` after `pnpm build`.
 
 ## Debugging Tips
 

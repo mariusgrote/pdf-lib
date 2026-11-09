@@ -52,5 +52,8 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Typecheck the integration apps against the build
+        run: pnpm apps:build
+
       - name: Load the built package in Node
         run: pnpm test:smoke

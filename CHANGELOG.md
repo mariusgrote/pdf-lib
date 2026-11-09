@@ -27,7 +27,8 @@ First release of `@mariusgrote/pdf-lib`, based on `@cantoo/pdf-lib` 2.11.0.
   `pnpm test` no longer builds the vendored packages first.
 - Upgrade to TypeScript 7 and type-check with oxlint (`pnpm lint`) instead of
   a separate `tsc --noEmit`. This also enables type-aware lint rules such as
-  `no-floating-promises`, and covers `tests/` and `apps/`.
+  `no-floating-promises`. CI also type-checks `apps/node` against the
+  build (`pnpm apps:build`).
 - Add a CI workflow for pull requests; remove the old CircleCI config and the
   sponsor-label and stale-issue workflows.
 - Not published to npm: the package is marked `private` and there is no

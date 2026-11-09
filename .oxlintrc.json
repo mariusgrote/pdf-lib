@@ -21,7 +21,7 @@
     "es/**",
     "coverage/**",
     "build/**",
-    "apps/node-build/**",
+    "apps/**",
     "src/packages/*/dist/**",
     "src/packages/standard-fonts/scripts/**",
     "**/*.min.js",
