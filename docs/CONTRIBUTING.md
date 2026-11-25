@@ -128,6 +128,24 @@ There are integration tests for Node and the browser:
   # Vite serves the repo and opens apps/web/test1.html in your browser
   ```
 
+### Visual regression tests for the browser pages
+
+You don't have to inspect the browser test pages by hand. `pnpm apps:web:visual` runs every `apps/web/testN.html` in headless Chromium and renders the resulting PDF with [pdf.js](https://mozilla.github.io/pdf.js/). It then compares each page against the reviewed baselines in [`apps/web/visual/__snapshots__`](../apps/web/visual/__snapshots__). For documents with many pages it compares the first 10 pages and the total page count. CI runs the same check.
+
+Text anti-aliasing differs between operating systems, so the baselines are rendered on Linux. The scripts run everything in the [Playwright Docker image](https://playwright.dev/docs/docker), so you only need Docker. They install and build inside the container, so you don't need to run `pnpm build` first.
+
+```
+pnpm apps:web:visual
+```
+
+On failure, `playwright-report/index.html` shows the expected image, the actual image and a diff for each changed page, with the generated PDF attached. Open it with `pnpm exec playwright show-report`. In CI the report is uploaded as the `visual-report` artifact.
+
+If the change is intended, or you added a new test page, update the baselines and review the changed PNGs in your diff before committing:
+
+```
+pnpm apps:web:visual:update
+```
+
 ## Compiling the Project
 
 For most development, manual compilation isn't necessary. The unit tests are usually all you need to test your code changes. But manual compilation _is_ necessary prior to running the integration tests or cutting a release.
